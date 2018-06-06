@@ -1,7 +1,7 @@
 <?php
 ob_start(); //Turns on output buffering
 session_start();
-require 'config/keys.php';
+// require 'config/keys.php';
 
 $timezone = date_default_timezone_set("America/Denver");
 
