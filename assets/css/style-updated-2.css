@@ -865,6 +865,10 @@ nav img {
   top: -13px;
 }
 
+.mobilewidth {
+  display:  none;
+}
+
 @media(max-width:1200px) {
   .loggedin-user {
     color: #030370;
