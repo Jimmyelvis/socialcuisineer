@@ -167,7 +167,7 @@ if (isset($_SESSION['username'])) {
                                 }
                             ?>
     					</a>
-    					<a href="Settings.php">
+    					<a href="settings.php">
     						<img src="assets/images/icons/gear.png" alt="">
     					</a>
     					<a href="includes/handlers/logout.php">
@@ -222,7 +222,7 @@ if (isset($_SESSION['username'])) {
                           </a>
                       </li>
                       <li>
-                          <a href="Settings.php">
+                          <a href="settings.php">
                             <img src="assets/images/icons/gear.png" alt="">
                           </a>
                       </li>
@@ -264,7 +264,7 @@ if (isset($_SESSION['username'])) {
 
 
                         <li><a href="requests.php">FRIEND REQUESTS</a></li>
-                        <li><a href="Settings.php">SETTINGS</a></li>
+                        <li><a href="settings.php">SETTINGS</a></li>
                         <li><a href="includes/handlers/logout.php">LOG OUT</a></li>
                       </ul>
 
