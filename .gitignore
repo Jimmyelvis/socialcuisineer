@@ -1,1 +1,5 @@
 vendor
+PSD/
+config/keys.php
+swirl-2.sql
+swirl.sql
