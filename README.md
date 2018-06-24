@@ -1,4 +1,4 @@
-# ![socialcuisineer](assets/images/login.jpg){:height="50%" width="50%"}
+# ![socialcuisineer](assets/images/login.jpg)
 
 # Social Cuisiener
 
