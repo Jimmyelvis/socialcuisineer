@@ -1,4 +1,4 @@
-# ![socialcuisineer](images/login.jpg)
+# ![socialcuisineer](assets/images/login.jpg)
 
 # Social Cuisiener
 
