@@ -6,7 +6,7 @@ session_start();
 $timezone = date_default_timezone_set("America/Denver");
 
 // $con = mysqli_connect("localhost", "root", "", "swirl"); //Connection variable
-$con = mysqli_connect("sql9.freemysqlhosting.net", "sql9241732", "aZRMPi3MXU", "sql9241732");
+$con = mysqli_connect("db4free.net", "jinjoe", "panther69", "social");
 
 if(mysqli_connect_errno())
 {
