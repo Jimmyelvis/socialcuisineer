@@ -1,0 +1,41 @@
+.modalOverlay {
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 5000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, .98);
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(1.09);
+  transition: opacity .3s, transform .3s, visibility .3s;
+  box-sizing: border-box;
+  // display: none;
+
+ 
+
+  .closeOverlay {
+    position: absolute;
+    top: 5rem;
+    width: 4rem;
+    right: 10rem;
+    cursor: pointer;
+  }
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    //  display: block;
+  }
+
+
+}
+
+
+.body-no-scroll {
+  overflow: hidden;
+}

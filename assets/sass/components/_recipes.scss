@@ -1,0 +1,254 @@
+.recipes {
+  display: grid;
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
+  grid-gap: 2rem;
+
+  @include respond(bp-largest) {
+    grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
+    margin: 10rem 0;
+  }
+
+  @include respond(bp-largest) {
+    grid-template-columns: repeat(auto-fit, minmax(27.8rem, 1fr));
+  }
+
+  @include respond(bp-medium) {
+    grid-template-columns: repeat(auto-fit, minmax(34rem, 1fr));
+  }
+
+  @include respond(bp-small) {
+    margin: 5rem 0 10rem 0;
+  }
+
+  
+}
+
+.recipe-card {
+  height: 52rem;
+  position: relative;
+  padding-top: 32rem;
+
+  @include respond(bp-largest) {
+    height: 46rem;
+    padding-top: 26rem;
+  }
+
+  @include respond(bp-large) {
+    height: 35rem;
+    padding-top: 18rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .card-userImage {
+    position: absolute;
+    z-index: 200;
+    top: 2rem;
+    left: 3rem;
+    width: 7.8rem;
+    height: 7.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+
+     img {
+       height: 100%;
+       object-fit: cover;
+     }
+
+    @include respond(bp-large) {
+      top: 1.6rem;
+      left: 1.3rem;
+      width: 6.4rem;
+      height: 6.4rem;
+      border: 2px solid rgba(255, 255, 255, 0.47);
+    }
+  }
+
+  .card-closeBtn {
+    position: absolute;
+    z-index: 200;
+    top: 2rem;
+    right: 4rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    @include respond(bp-large) {
+      top: 2rem;
+      right: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+
+  .card-info {
+    display: flex;
+    position: relative;
+    z-index: 100;
+    height: 11.3rem;
+
+    @include respond(bp-largest) {
+      height: auto;
+      flex-wrap: wrap;
+    }
+
+    .card-desc {
+      flex: 0 0 60%;
+      align-items: center;
+      height: 100%;
+      display: flex;
+
+      @include respond(bp-largest) {
+        flex: 0 0 100%;
+        height: 11.3rem;
+        flex-wrap: wrap;
+      }
+
+      @include respond(bp-largest) {
+        flex: 0 0 100%;
+        height: 9.9rem;
+        flex-wrap: wrap;
+      }
+
+
+      .block {
+        width: 1.2rem;
+        background-color: #64b7ff;
+        height: 100%;
+        margin-right: 2.2rem;
+
+        @include respond(bp-largest) {
+          margin-right: 1.2rem;
+        }
+      }
+
+      .card-headings {
+
+        .heading-2 {
+          font-size: 3.7rem;
+          color: $color-offwhite;
+
+          @include respond(bp-largest) {
+            font-size: 3.3rem;
+          }
+
+          @include respond(bp-large) {
+            font-size: 2.7rem;
+            margin-bottom: 0.5rem;
+          }
+
+        }
+
+        .heading-3 {
+          font-size: 2.6rem;
+          color: lighten($color: $color-primary, $amount: 5%);
+
+          @include respond(bp-largest) {
+            font-size: 2.4rem;
+          }
+
+          @include respond(bp-large) {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        .heading-4 {
+          font-size: 2rem;
+          color: $color-third;
+          font-family: $font-primary;
+
+          @include respond(bp-largest) {
+            font-size: 1.7rem;
+          }
+
+          @include respond(bp-large) {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+
+    .card-stats {
+      flex: 0 0 40%;
+      display: flex;
+      padding-left: 1rem;
+
+      @include respond(bp-largest) {
+        flex: 0 0 100%;
+        padding-left: 57%;
+        padding-top: 2rem;
+      }
+
+      .likes,
+      .comments {
+        flex: 0 0 40%;
+        display: flex;
+        align-items: flex-end;
+
+        @include respond(bp-largest) {
+          flex: 0 0 50%;
+          align-items: flex-end;
+        }
+
+        .heading-4 {
+          font-size: 2.6rem;
+          margin-right: 1rem;
+          line-height: 1;
+          color: $color-third;
+
+          @include respond(bp-largest) {
+            font-size: 2.2rem;
+          }
+
+          @include respond(bp-largest) {
+            font-size: 1.8rem;
+          }
+        }
+
+        img {
+          height: 2.6rem;
+          width: 2.6rem;
+
+          @include respond(bp-largest) {
+            height: 2.2rem;
+            width: 2.2rem;
+          }
+
+          @include respond(bp-large) {
+            height: 1.8rem;
+            width: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0, 31, 154, 0.46) 0%, rgba(54, 0, 57, 0.5) 100%);
+    top: 0;
+    border-radius: 0.8rem;
+  }
+
+  .card-bg {
+    position: absolute;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    height: 100%;
+    object-position: center;
+    border-radius: 0.8rem;
+  }
+}

@@ -1,0 +1,267 @@
+.profileHeader {
+  // height: 70rem;
+  position: relative;
+  grid-column: full-start / full-end;
+
+  &-imgBg {
+    height: 63rem;
+    position: relative;
+
+    @include respond(bp-largest) {
+      height: 55rem;
+    }
+
+    @include respond(bp-large) {
+      height: 49rem;
+    }
+    
+
+    .profileNametag {
+      position: absolute;
+      z-index: 120;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 50%;
+      height: 30rem;
+      display: flex;
+      flex-direction: column;
+
+      @include respond(bp-large) {
+        transform: translate(-50%, -37%);
+      }
+
+      @include respond(bp-medium) {
+        transform: translate(-50%, -43%);
+        width: 100%;
+      }
+
+      .heading-2 {
+        font-size: 8.6rem;
+        text-align: center;
+        padding: 3rem 0;
+        color: $color-offwhite;
+
+        @include respond(bp-largest) {
+          font-size: 6.6rem;
+        }
+
+        @include respond(bp-large) {
+          font-size: 5.8rem;
+        }
+
+         @include respond(bp-medium) {
+           padding: 1rem 0;
+         }
+      }
+
+      .posts-likes {
+        display: flex;
+        justify-content: space-evenly;
+
+        .posts,
+        .likes {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          @include respond(bp-medium) {
+            flex-direction: row;
+          }
+
+          img {
+            width: 6.4rem;
+            padding: 2rem 0;
+
+            @include respond(bp-largest) {
+              width: 5.4rem;
+            }
+
+            @include respond(bp-large) {
+              width: 4.8rem;
+            }
+
+             @include respond(bp-medium) {
+               order: 1;
+             }
+          }
+
+          .heading-3 {
+            font-size: 3.6rem;
+            color: $color-offwhite;
+
+            @include respond(bp-largest) {
+              font-size: 3rem;
+            }
+
+            @include respond(bp-largest) {
+              font-size: 2.6rem;
+            }
+
+            @include respond(bp-medium) {
+              order: 0;
+              padding-right: 2rem;
+            }
+          }
+        }
+
+      }
+    }
+
+    .imagebg {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+
+      img {
+         position: absolute;
+         object-fit: cover;
+         top: 0;
+         height: 100%;
+         object-position: center;
+      }
+    }
+
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(30, 28, 74, 0.81) 100%);
+    }
+
+    .avatar {
+      position: absolute;
+      z-index: 1000;
+      bottom: -5rem;
+      left: 7rem;
+      width: 21rem;
+      height: 21rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 7px solid #fff;
+
+      img {
+        height: 100%;
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+      }
+
+      @include respond(bp-largest) {
+        bottom: -4rem;
+        width: 15rem;
+        height: 15rem;
+      }
+
+      @include respond(bp-medium) {
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+  }
+
+  &-nav {
+    background: $color-offwhite;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0px 0px 13px 0px rgba(212, 210, 237, 0.71);
+
+    ul {
+      display: flex;
+      justify-content: center;
+      height: 12.5rem;
+      align-items: center;
+
+      @include respond(bp-largest) {
+        height: 10.5rem;
+      }
+
+      @include respond(bp-medium) {
+        justify-content: space-evenly;
+      }
+
+      @include respond(bp-small) {
+        height: auto;
+        padding: 3rem 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      li {
+        list-style: none;
+        font-size: 2.3rem;
+        margin: 0 5rem;
+        font-weight: bold;
+        color: $color-secondary;
+        cursor: pointer;
+        transition: opacity 0.4s ease;
+
+
+        @include respond(bp-largest) {
+          font-size: 1.9rem;
+          margin: 0 3rem;
+        }
+
+        @include respond(bp-medium) {
+          font-size: 1.6rem;
+          margin: 0 1.5rem;
+        }
+
+        .btnText-orange, .btnText-purple {
+          font-size: inherit;
+        }
+
+        a{
+          font-size: inherit;
+          color: inherit;
+          font-weight: inherit;
+        }
+      }
+
+      .linkTab.active{
+        color: $color-third;
+        transition: opacity 0.4s ease;
+
+      }
+
+      .currentProfile {
+        color: $color-primary;
+        margin-top: -3rem;
+        font-size: 3rem;
+      }
+    }
+
+    .firstOptions {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .secondOptions {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .firstOptions.active {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .secondOptions.active {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+  }
+}

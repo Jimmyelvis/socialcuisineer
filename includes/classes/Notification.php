@@ -23,7 +23,7 @@ class Notification {
 
 		public function getNotifications($data, $limit) {
 
-			$page = $data['page'];
+			$page = $data['page']; // Comes from ajax:data
 			$userLoggedIn = $this->user_obj->getUsername();
 			$return_string = "";
 
@@ -31,10 +31,31 @@ class Notification {
 				$start = 0;
 			else
 				$start = ($page - 1) * $limit;
+				// echo 'Start  ' . $start . '<br>';
+				// echo 'Page   ' . $page . '<br>';
+
 
 			$set_viewed_query = mysqli_query($this->con, "UPDATE notifications SET viewed='yes' WHERE user_to='$userLoggedIn'");
 
-			$query = mysqli_query($this->con, "SELECT * FROM notifications WHERE user_to='$userLoggedIn' ORDER BY id DESC");
+		// $query = mysqli_query($this->con, "SELECT * FROM notifications WHERE user_to='$userLoggedIn' ORDER BY id DESC");
+
+		// $query = mysqli_query($this->con, "SELECT notifications.user_to, notifications.user_from, message, link, datetime, 
+		// post_ID, heading, opened, CONCAT(SUBSTRING(posts.body, 1, 40), '...') AS 'Post Body'
+		// 		FROM notifications, posts
+		// 		WHERE notifications.post_ID = posts.id
+		// 		AND notifications.user_to = '$userLoggedIn'
+		// 		ORDER BY datetime DESC
+		// ");
+
+
+		$query = mysqli_query($this->con, "SELECT notifications.user_to, notifications.user_from, message, link, datetime, 
+		post_ID, heading, opened, CONCAT(SUBSTRING(posts.body, 1, 40), '...') AS 'Post Body'
+				FROM notifications, posts
+				WHERE notifications.post_ID = posts.id 
+				AND notifications.user_to = '$userLoggedIn' 
+				ORDER BY datetime DESC
+		");
+
 
 			if(mysqli_num_rows($query) == 0) {
 				echo "You have no notifications!";
@@ -67,7 +88,7 @@ class Notification {
 				$end_date = new DateTime($date_time_now); //Current time
 				$interval = $start_date->diff($end_date); //Difference between dates
 				if($interval->y >= 1) {
-					if($interval == 1)
+					if($interval->y == 1)
 						$time_message = $interval->y . " year ago"; //1 year ago
 					else
 						$time_message = $interval->y . " years ago"; //1+ year ago
@@ -85,10 +106,10 @@ class Notification {
 
 
 					if($interval->m == 1) {
-						$time_message = $interval->m . " month". $days;
+						$time_message = $interval->m . " month ". $days;
 					}
 					else {
-						$time_message = $interval->m . " months". $days;
+						$time_message = $interval->m . " months ". $days;
 					}
 
 				}
@@ -128,22 +149,27 @@ class Notification {
 				$opened = $row['opened'];
 				$style = ($opened == 'no') ? "background-color: #DDEDFF;" : "";
 
-				$return_string .= "<a href='" . $row['link'] . "'>
-										<div class='resultDisplay resultDisplayNotification' style='" . $style . "'>
+				$return_string .= "<a class='entry' href='" . $row['link'] . "'>
+										<div class='resultDisplay resultDisplayNotification'>
 											<div class='notificationsProfilePic'>
 												<img src='" . $user_data['profile_pic'] . "'>
 											</div>
-											<p class='timestamp_smaller' id='grey'>" . $time_message . "</p>" . $row['message'] . "
+											<h4 class='heading-4'>$time_message</h4>
+											<h3 class='heading-3'>" . $row['message'] . " :</h3>
+											<h3 class='heading-3 postHeader'>" . $row['heading'] . " </h3>
 										</div>
 									</a>";
 			}
+
+			// echo 'Count  ' . $count . '<br>';
+			// echo 'Limit  ' . $limit . '<br>';
 
 
 			//If posts were loaded
 			if($count > $limit)
 				$return_string .= "<input type='hidden' class='nextPageDropdownData' value='" . ($page + 1) . "'><input type='hidden' class='noMoreDropdownData' value='false'>";
 			else
-				$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true'> <p style='text-align: center;'>No more notifications to load!</p>";
+				$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true'> <p style='text-align: center; width: 100%;'>No more notifications to load!</p>";
 
 			return $return_string;
 		}
@@ -178,7 +204,7 @@ class Notification {
 
       $link = "post.php?id=" . $post_id;
 
-    	$insert_query = mysqli_query($this->con, "INSERT INTO notifications VALUES('', '$user_to', '$userLoggedIn', '$message', '$link', '$date_time', 'no', 'no')");
+    	$insert_query = mysqli_query($this->con, "INSERT INTO notifications VALUES('', '$user_to', '$userLoggedIn', '$message', '$link', '$date_time', 'no', 'no', '$post_id')");
 
 
     }

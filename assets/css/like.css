@@ -1,130 +1,118 @@
-@font-face {
-  font-family: 'Calibri';
-  src: url('../fonts/calibri.ttf');
-}
-
-@font-face {
-  font-family: 'Arimo';
-  src: url('../fonts/Arimo-Regular.ttf');
-}
-
-body {}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Arimo-bold';
-  color: #030370;
-}
-
-p {
-  font-family: 'Calibri';
-  color: #8989a3;
-}
-
-iframe {
-  border-width: 0px!important;
+.likes iframe {
+  width: 100%;
+  width: 100%;
+  border-width: 0;
   border-style: none;
-  border-color: #fff;
+  border-color: transparent;
   border-image: none;
 }
 
-input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
-  align-items: flex-start;
-  text-align: center;
-  cursor: default;
-  color: buttontext;
-  background-color: rgba(255, 255, 255.0.00);
-  box-sizing: border-box;
-  padding: 0px;
-  border-width: 0px;
+.likes iframe input.comment_like {
+  background-color: #6a66d9;
+  border-width: 0;
   border-style: none;
-  border-color: buttonface;
+  border-color: snow;
   border-image: none;
+  padding: 0.6rem 2rem;
+  color: #fff;
+  font-weight: bold;
 }
 
-.get-like-by {
+.likes iframe .likedby {
   display: flex;
-  margin-left: 25%;
-  margin-top: -58px;
+  grid-column: 1 / -1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: wheat;
+  padding: 0;
 }
 
-.get-like-by li {
-  font-family: 'Calibri';
-  list-style: none;
-  margin-right: 3%;
-  color: #38a9ff;
-  font-weight: bold;
-  font-size: 13px;
+.likes iframe .likedby .likedForm {
+  background-color: yellowgreen;
+  flex: 0 0 25rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
 }
 
-.likedby .row {
-  margin-left: 5%;
+.likes iframe .likedby .likedForm .likeholder {
+  position: relative;
+  background-color: blueviolet;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
 }
 
-.and-more {
-  margin-left: 25%;
-  margin-top: 4px;
-  font-weight: bold;
+.likes iframe .likedby .likedForm .likeholder .btnUnlike {
+  padding: 2rem;
+  background: url(../img/btn-liked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 0;
+  border-style: outset;
+  border-color: transparent;
+  border-image: none;
+  cursor: pointer;
+  position: absolute;
 }
 
-.likedby {
-  margin-left: 14%;
-  margin-top: 14px;
+.likes iframe .likedby .likedForm .likeholder .btnlike {
+  padding: 2rem;
+  background: url(../img/btn-notLiked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 0;
+  border-style: outset;
+  border-color: transparent;
+  border-image: none;
+  cursor: pointer;
+  position: absolute;
 }
 
-.and-more p {}
-
-.like_value {
-  font-family: 'Calibri';
-  color: #030370;
-  font-weight: bold;
+.likes iframe .likedby .likedForm .heading-3 {
+  font-size: 2.8rem;
 }
 
-.liked-count {
-  color: #38a9ff;
-  font-size: 16px;
+.likes iframe .likedby .avatars {
+  display: flex;
 }
 
-.like_value h3 {
-    font-size: 15px;
-    font-family: 'Calibri';
-    font-weight: bold;
-    margin-top: 8px;
+.likes iframe .likedby .avatars .avatar {
+  overflow: hidden;
+  border-radius: 50%;
+  width: 7.8rem;
+  height: 7.8rem;
+  border: 3px solid #fff;
+  margin-left: -3rem;
+  position: relative;
 }
 
-@media(max-width:767px){
-
-  .likedby {
-      margin-left: 4%;
-      margin-top: 14px;
-  }
-
+.likes iframe .likedby .avatars .avatar img {
+  height: 100%;
+  object-fit: cover;
 }
 
-@media(max-width:610px){
-
-  .get-like-by {
-      display: flex;
-      margin-left: 21%;
-      margin-top: -58px;
-  }
-
-  .and-more {
-      margin-left: 21%;
-      margin-top: 4px;
-      font-weight: bold;
-  }
-
+.likes iframe .likedby .avatars .likeId-1 {
+  z-index: 60;
 }
 
-@media(max-width:500px){
-
-  .likedby {
-      margin-left: 0%;
-      margin-top: 14px;
-  }
-
-  .likedby .row {
-    margin-left: -6%;
+.likes iframe .likedby .avatars .likeId-2 {
+  z-index: 59;
 }
 
+.likes iframe .likedby .avatars .likeId-3 {
+  z-index: 58;
+}
+
+.likes iframe .likedby .avatars .likeId-4 {
+  z-index: 57;
+}
+
+.likes iframe .likedby .avatars .likeId-5 {
+  z-index: 56;
 }

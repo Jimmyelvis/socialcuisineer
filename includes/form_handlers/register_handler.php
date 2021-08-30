@@ -1,4 +1,6 @@
 <?php
+include("../../config/config.php");
+
 
 //Declaring variables to prevent errors
 $fname = ""; //First name
@@ -16,25 +18,21 @@ if(isset($_POST['register_button'])){
   $fname = strip_tags($_POST['reg_fname']); //Remove html tags
 	$fname = str_replace(' ', '', $fname); //remove spaces
 	$fname = ucfirst(strtolower($fname)); //Uppercase first letter
-	$_SESSION['reg_fname'] = $fname; //Stores first name into session variable
 
   //Last name
 	$lname = strip_tags($_POST['reg_lname']); //Remove html tags
 	$lname = str_replace(' ', '', $lname); //remove spaces
 	$lname = ucfirst(strtolower($lname)); //Uppercase first letter
-	$_SESSION['reg_lname'] = $lname; //Stores last name into session variable
 
   //email
 	$em = strip_tags($_POST['reg_email']); //Remove html tags
 	$em = str_replace(' ', '', $em); //remove spaces
 	$em = ucfirst(strtolower($em)); //Uppercase first letter
-	$_SESSION['reg_email'] = $em; //Stores email into session variable
 
 	//email 2
 	$em2 = strip_tags($_POST['reg_email2']); //Remove html tags
 	$em2 = str_replace(' ', '', $em2); //remove spaces
 	$em2 = ucfirst(strtolower($em2)); //Uppercase first letter
-	$_SESSION['reg_email2'] = $em2; //Stores email2 into session variable
 
 	//Password
 	$password = strip_tags($_POST['reg_password']); //Remove html tags
@@ -57,38 +55,44 @@ if(isset($_POST['register_button'])){
 			$num_rows = mysqli_num_rows($e_check);
 
       if($num_rows > 0) {
-				array_push($error_array, "Email already in use<br>");
+				array_push($error_array, "Email already in use");
 			}
 
     } else{
-      array_push($error_array, "Invalid email format<br>");
+      array_push($error_array, "Invalid email format");
 
     }
 
   }else{
-    array_push($error_array, "Emails don't match<br>");
+    array_push($error_array, "Emails don't match");
   }
 
   if(strlen($fname) > 25 || strlen($fname) < 2) {
-		array_push($error_array, "Your first name must be between 2 and 25 characters<br>");
+		array_push($error_array, "Your first name must be between 2 and 25 characters");
 	}
 
   if(strlen($lname) > 25 || strlen($lname) < 2) {
-		array_push($error_array,  "Your last name must be between 2 and 25 characters<br>");
+		array_push($error_array,  "Your last name must be between 2 and 25 characters");
 	}
 
   if($password != $password2) {
-		array_push($error_array,  "Your passwords do not match<br>");
+		array_push($error_array,  "Your passwords do not match");
 	}	else {
 		if(preg_match('/[^A-Za-z0-9]/', $password)) {
-			array_push($error_array, "Your password can only contain english characters or numbers<br>");
+			array_push($error_array, "Your password can only contain english characters or numbers");
 
 		}
 	}
 
   if(strlen($password > 30 || strlen($password) < 5)) {
-		array_push($error_array, "Your password must be betwen 5 and 30 characters<br>");
+		array_push($error_array, "Your password must be betwen 5 and 30 characters");
 	}
+
+  if(!empty($error_array)) {
+    $result_array = array('errors' => $error_array);
+    echo json_encode($result_array);
+    exit;
+  }
 
   if(empty($error_array)) {
     $password = md5($password); //Encrypt password before sending to database
@@ -108,76 +112,76 @@ if(isset($_POST['register_button'])){
     $rand = rand(1, 12); //Random number between 1 and 12
 
     // if($rand == 1)
-		// 	$profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+		// 	$profile_pic = "assets/img/profile_pics/defaults/head_deep_blue.png";
 		// else if($rand == 2)
-		// 	$profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+		// 	$profile_pic = "assets/img/profile_pics/defaults/head_emerald.png";
 
     switch ($rand) {
       case '1':
-        $profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_deep_blue.png";
         break;
 
       case '2':
-        $profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_emerald.png";
         break;
 
       case '3':
-        $profile_pic = "assets/images/profile_pics/defaults/head_carrot.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_carrot.png";
         break;
 
       case '4':
-        $profile_pic = "assets/images/profile_pics/defaults/head_nephritis.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_nephritis.png";
         break;
 
       case '5':
-        $profile_pic = "assets/images/profile_pics/defaults/head_pete_river.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_pete_river.png";
         break;
 
       case '6':
-        $profile_pic = "assets/images/profile_pics/defaults/head_pumpkin.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_pumpkin.png";
         break;
 
       case '7':
-        $profile_pic = "assets/images/profile_pics/defaults/head_nephritis.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_nephritis.png";
         break;
 
       case '8':
-        $profile_pic = "assets/images/profile_pics/defaults/head_sun_flower.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_sun_flower.png";
         break;
 
       case '9':
-        $profile_pic = "assets/images/profile_pics/defaults/head_turqoise.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_turqoise.png";
         break;
 
       case '10':
-        $profile_pic = "assets/images/profile_pics/defaults/head_wet_asphalt.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_wet_asphalt.png";
         break;
 
       case '11':
-        $profile_pic = "assets/images/profile_pics/defaults/head_belize_hole.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_belize_hole.png";
         break;
 
       case '12':
-        $profile_pic = "assets/images/profile_pics/defaults/head_green_sea.png";
+        $profile_pic = "assets/img/profile_pics/defaults/head_green_sea.png";
         break;
 
       default:
-          $profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+          $profile_pic = "assets/img/profile_pics/defaults/head_deep_blue.png";
         break;
     }
 
 
-    $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', ' ', '$date', '$profile_pic', '0', '0', 'no', ',' , ' ', ' ')");
+    // $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', ' ', '$date', '$profile_pic', '', '0', '0', 'no', ',' , ' ', ' ',' ')");
 
-    array_push($error_array, "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br>");
+    $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', ' ', '$date', '$profile_pic', '', '0', '0', 'no', ',' , ' ', ' ',' ')");
 
-    //Clear session variables
-		$_SESSION['reg_fname'] = "";
-		$_SESSION['reg_lname'] = "";
-		$_SESSION['reg_email'] = "";
-		$_SESSION['reg_email2'] = "";
+    // array_push($error_array, "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br>");
+
+    echo "'You're all set! Go ahead and login!'";
 
   }
+
+
 
 
 }

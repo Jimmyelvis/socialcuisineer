@@ -25,6 +25,52 @@
           return mysqli_num_rows($query);
       }
 
+      public function getFriendsRequests() {
+        $username = $this->user['username'];
+        $theReqs = array();
+        $return_string = "";
+
+        $query = mysqli_query($this->con, "SELECT * FROM friend_requests WHERE user_to='$username'");
+
+
+        if (mysqli_num_rows($query) == 0) {
+            echo "You have no friend requests at this time!";
+        } else {
+
+            while($row = mysqli_fetch_array($query)) {
+                $user_from = $row['user_from'];
+
+                $user_from_fullname = $this->getFullnameForReqs($user_from);
+
+                if(!in_array($user_from, $theReqs)) {
+                    array_push($theReqs, $user_from);
+                }
+
+            }
+
+            foreach($theReqs as $req) {
+                
+                $user_pic = $this->getProfilePicForReqs($req);
+                $user_from_fullname = $this->getFullnameForReqs($req);
+                
+                
+                $return_string .="
+                <div class='entry'>
+                    <img src='" . $user_pic . "' '>
+                    <h4 class='heading-4'>$user_from_fullname  </h4>
+                </div>
+                ";
+
+            }
+        }
+
+        return $return_string . " <a href='requests.php' class='heading-4 seeAll'>
+            See All Your Friend Requests
+        </a>
+        ";
+
+      }
+
 
 
       public function getNumPosts()
@@ -44,6 +90,13 @@
           return $row['first_name'] . " " . $row['last_name'];
       }
 
+        public function getFullnameForReqs($userSentReq)
+        {
+            $query = mysqli_query($this->con, "SELECT first_name, last_name FROM users WHERE username='$userSentReq'");
+            $row = mysqli_fetch_array($query);
+            return $row['first_name'] . " " . $row['last_name'];
+        }
+
 
       public function getProfilePic()
       {
@@ -53,10 +106,17 @@
           return $row['profile_pic'];
       }
 
+        public function getProfilePicForReqs($userSentReq)
+        {
+            $query = mysqli_query($this->con, "SELECT profile_pic FROM users WHERE username='$userSentReq'");
+            $row = mysqli_fetch_array($query);
+            return $row['profile_pic'];
+        }
+        
       public function getFriendArray()
       {
           $username = $this->user['username'];
-          $query = mysqli_query($this->con, "SELECT friend_array FROM users WHERE username='$username'");
+          $query = mysqli_query($this->con, "SELECT friend_array, profile_pic FROM users WHERE username='$username'");
           $row = mysqli_fetch_array($query);
           return $row['friend_array'];
       }

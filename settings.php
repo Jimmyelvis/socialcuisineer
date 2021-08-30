@@ -1,115 +1,198 @@
 <?php
 include("includes/header.php");
-include("includes/form_handlers/settings_handler.php");
+
+$user_data_query = mysqli_query($con, "SELECT first_name, last_name, email, city, state,
+                fav_food, profile_header  FROM users WHERE username='$userLoggedIn'");
+$row = mysqli_fetch_array($user_data_query);
+
+$first_name = $row['first_name'];
+$last_name = $row['last_name'];
+$email = $row['email'];
+$city = $row['city'];
+$state = $row['state'];
+$favfood = $row['fav_food'];
+$profile_header = $row['profile_header'];
+
+
 ?>
 
+<div class="container">
+
+  <div class="settingsContain">
+
+    <h2 class="heading-2">Account Settings</h2>
+
+    <!-- 
+      Paste the code for JCrop Here from upload.php
+      file
+    -->
 
 
-<div class="settings container">
+    <div class="fileUploadAvatar">
 
-      <div class="user_details">
+      <input class="fileUploadInputAvatar" type="file" name="image" id="myAvatarFile">
 
-          <?php
-          include("includes/user-header.php");
-          ?>
+      <button class="avatar" type="button">
+        <?php
+        echo "<img id='avatarImage' src='" . $user['profile_pic'] . "' class='avatarPreview'>";
+        ?>
+      </button>
+
+      <span class="fileUploadAvatarLabel"></span>
+
+    </div>
+
+
+
+
+
+    <h4 class="heading-4">Upload A New Avatar Photo</h4>
+
+    <h3 class="heading-3 uploadRes"></h3>
+
+
+    <form action="settings.php" method="POST">
+
+      <div class="inputBox imgPreview" id="imgPreview">
+        <?php
+        echo "<img class='img-preview-image' src='$profile_header'>";
+        ?>
+
+        <span class="imgPreview-DefaultTxt">
+          Upload A Image For Your Profile Header.
+        </span>
 
       </div>
 
-      <div class="user_details_left_right column col-md-3">
-      
-          <?php
-          include("includes/sidebar-left.php");
-          ?>
-
-      </div>
-
-      <div class="index_column column">
-
-   		 	<div class="container">
-
-          <h2>Account Settings</h2>
-
-          <?php
-              echo "<img src='" . $user['profile_pic'] ."' class='small_profile_pic'>";
-           ?>
-
-           <br>
-           <a href="upload.php">Upload new profile picture</a> <br><br><br>
-
-
-           <?php
-               $user_data_query = mysqli_query($con, "SELECT first_name, last_name, email, city, state,
-                fav_food  FROM users WHERE username='$userLoggedIn'");
-               $row = mysqli_fetch_array($user_data_query);
-
-               $first_name = $row['first_name'];
-               $last_name = $row['last_name'];
-               $email = $row['email'];
-               $city = $row['city'];
-               $state = $row['state'];
-               $favfood = $row['fav_food'];
-           ?>
-
-           <div class="col-md-6">
-
-             <form action="settings.php" method="POST">
-
-               <h4>First Name: </h4>
-               <input type="text" name="first_name" value="<?php echo $first_name; ?>" id="settings_input"><br>
-               <h4>Last Name: </h4>
-               <input type="text" name="last_name" value="<?php echo $last_name; ?>" id="settings_input"><br>
-               <h4>Email: </h4>
-               <input type="text" name="email" value="<?php echo $email; ?>" id="settings_input"><br>
-               <h4>City: </h4>
-               <input type="text" name="city" value="<?php echo $city; ?>" id="settings_input"><br>
-               <h4>State: </h4>
-               <input type="text" name="state" value="<?php echo $state; ?>" id="settings_input"><br>
-               <h4>Favorite Food: </h4>
-               <input type="text" name="fav_food" value="<?php echo $favfood; ?>" id="settings_input"><br>
-
-               <?php echo $message; ?>
-
-               <input type="submit" name="update_details" id="save_details" value="Update Details" class="btn-primary btn-save_details"><br>
-             </form>
-
-
-           </div>
-
-           <div class="col-md-6">
-
-               <form action="settings.php" method="POST">
-
-                 <h4>Old Password: </h4><input type="password" name="old_password" id="settings_input"><br>
-                 <h4>New Password: </h4><input type="password" name="new_password_1" id="settings_input"><br>
-                 <h4>New Password Again: </h4><input type="password" name="new_password_2" id="settings_input"><br>
-
-                   <?php echo $password_message; ?>
-
-                 <input type="submit" name="update_password" id="save_details" value="Update Password" class="btn-primary btn-save_details"><br>
-
-               </form>
-
-               <h3>Close Account</h3>
-             <form action="settings.php" method="POST">
-               <input type="submit" name="close_account" id="close_account" value="Close Account" class="btn-danger btn-settings_close">
-             </form>
-
-
-           </div>
-
-
-
-
-
-
-
-
-
-   		 	</div>
-
+      <div class="file-upload-flexed">
+        <input type="file" name="inpFile" id="inpFile" class="inpFile">
+        <button class="file-upload-button btn btn-puprle" type="button">Choose File</button>
+        <span class="file-upload-label"></span>
       </div>
 
 
 
+      <div class="inputItems">
+
+        <h2 class="heading-2 response"></h2>
+
+        <input type="text" placeholder="First Name" class="inputBox inputHeadline" name="first_name" value="<?php echo $first_name; ?>" id="settings_input_firstname">
+
+        <input type=" text" placeholder="Last Name" class="inputBox inputHeadline" name="last_name" value="<?php echo $last_name; ?>" id="settings_input_lastname">
+
+        <input type=" text" placeholder="Email" class="inputBox inputHeadline" name="email" value="<?php echo $email; ?>" id="settings_input_email">
+
+        <input type="text" placeholder="Fav Food" class="inputBox inputHeadline" name="fav_food" id="settings_input_food" <?php if ($favfood !== ' ') { ?> value="<?php echo $favfood ?>" <?php } else { ?> value="" <?php } ?>>
+
+        <input type="text" placeholder="City" class="inputBox inputHeadline" name="city" id="settings_input_city" <?php if ($city !== ' ') { ?> value="<?php echo $city ?>" <?php } else { ?> value="" <?php } ?>>
+
+        <input type="text" placeholder="State" class="inputBox inputHeadline" name="state" id="settings_input_state" <?php if ($state !== ' ') { ?> value="<?php echo $state ?>" <?php } else { ?> value="" <?php } ?>>
+
+      </div>
+
+      <input type="submit" name="update_details" id="save_details" value="Update Details" class="btn btn-puprle btn-modalSubmit">
+
+    </form>
+
+    <form action="settings.php" method="POST">
+
+      <div id="changePassword" class="inputItems">
+        <input type="password" placeholder="Old Password" name="old_password" class="inputBox inputHeadline" id="settings_input_old_password">
+        <input type="password" placeholder="New Password" name="new_password_1" class="inputBox inputHeadline" id="settings_input_new_password">
+        <input type="password" placeholder="New Password Again" name="new_password_2" class="inputBox inputHeadline" id="settings_input_new_password_again">
+      </div>
+
+
+      <input type="submit" name="update_password" id="savePassword" value="Update Password" class="btn btn-puprle btn-modalSubmit">
+
+
+    </form>
+
+    <div class="closeAccount">
+      <div class="h3 heading-3">
+        Close Account
+      </div>
+
+      <form action="settings.php" method="POST">
+        <input type="submit" name="close_account" id="close_account" value="Close Account" class="btn btn-orange btn-modalSubmit">
+      </form>
+    </div>
+
+
+  </div>
 
 </div>
+
+<div class="modal cropperJsModal">
+
+
+  <div class="modalContent">
+    <img src="./assets/img/close-btn-3.svg" class="closeBtn" alt="">
+
+    <div class="modalHeader">
+      <h3 class="heading-3">
+        Crop Your Avatar Image
+      </h3>
+    </div>
+
+    <div class="modalBody cropperJsModal-body">
+
+      <div class="imgContainer">
+        <img id='croppedAvatarImage' src="" alt="">
+      </div>
+
+      <div class="preview"></div>
+
+    </div>
+
+    <div class="modalFooter">
+      <button id="avatarCancelcrop" class="btn btn-orange">Cancel</button>
+      <button id="avatarCrop" class="btn btn-puprle">Crop</button>
+    </div>
+
+  </div>
+
+  <div class="overlay"></div>
+</div>
+
+<div class="modal cropperJsProfileHeaderModal">
+
+
+  <div class="modalContent">
+
+    <div class="modalHeader">
+      <h3 class="heading-3">
+        Crop Your Profile Header Image
+      </h3>
+    </div>
+
+    <div class="modalBody cropperJsProfileHeaderModal-body">
+
+      <div class="imgContainer">
+        <img id='croppedProfileImage' src="" alt="">
+      </div>
+
+      <div class="preview"></div>
+
+    </div>
+
+    <div class="modalFooter">
+      <button id="profileHeaderCancelcrop" class="btn btn-orange">Cancel</button>
+      <button id="profileHeaderCrop" class="btn btn-puprle">Crop</button>
+    </div>
+
+  </div>
+
+  <div class="overlay"></div>
+</div>
+
+<script>
+  var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+  var prevPhoto = '<?php echo $user['profile_pic'] ?>'
+</script>
+
+<?php
+
+include("includes/footer.php");
+
+?>

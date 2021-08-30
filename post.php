@@ -4,50 +4,42 @@ include("includes/header.php");
 
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+  $id = $_GET['id'];
 } else {
-    $id = 0;
+  $id = 0;
 }
 
- ?>
+?>
 
- <div class="container">
-
-   <div class="user_details">
-
-       <?php
-       include("includes/user-header.php");
-       ?>
-
-   </div>
-
-   <div class="user_details_left_right column col-md-3">
-
-     <?php
-     include("includes/sidebar-left.php");
-     ?>
-
-   </div>
-
-
-  <div class="index_column">
-
-    <div class="container">
-
-        <div class="posts_area">
-
-          <?php
-                     $post = new Post($con, $userLoggedIn);
-                     $post->getSinglePost($id);
-                 ?>
-
-        </div>
-
-    </div>
-
-  </div>
+<div class="container">
 
 
 
 
- </div>
+  <?php
+  $post = new Post($con, $userLoggedIn);
+  $post->getSinglePost($id);
+  ?>
+
+
+</div>
+
+<script>
+  var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+  var post_id = '<?php echo $id ?>';
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Handler when the DOM is fully loaded
+    moreLikesContentScroller = new SimpleBar(document.getElementById('moreLikesContent'), {
+      autoHide: false,
+      forceVisible: true
+    })
+  });
+
+</script>
+
+<?php
+
+include("includes/footer.php");
+
+?>

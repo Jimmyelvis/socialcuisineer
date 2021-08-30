@@ -1,0 +1,58 @@
+.btn {
+  padding: 1rem 2rem;
+  border: 0;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-puprle {
+   border-radius: 8px;
+   background: linear-gradient(to right, rgba(118, 114, 242, 1) 0%, rgba(181, 179, 242, 1) 100%);
+  box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0.62);
+  color: #fff;
+}
+
+.btn-orange {
+  border-radius: 8px;
+  background: linear-gradient(to right, rgb(243, 162, 56) 0%, rgb(242, 213, 179) 100%);
+  box-shadow: 1px 4px 12px 3px rgba(217, 173, 102, 0.62);
+  color: #fff;
+}
+
+
+.btn-modalSubmit {
+  padding: 1.3rem 2.6rem;
+  font-size: 2rem;
+}
+
+.btnText {
+  background-color: transparent;
+  border: 0;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btnText-purple {
+  color: $color-primary;
+}
+
+.btnText-orange {
+  color: $color-danger;
+}
+
+.btn-ghost {
+  border: 3px solid white;
+  box-shadow: none;
+  border-radius: 4.8rem;
+  width: 35%;
+  margin: 3rem auto 0 auto;
+  padding: 1rem 0;
+  font-size: 1.8rem;
+  background: transparent;
+  color: white;
+}

@@ -1,0 +1,40 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 3rem;
+
+  @include respond(bp-small) {
+    padding: 0;
+  }
+
+  .inputBox,.textArea {
+    border-width: 0;
+    border-style: inset;
+    border-image: none;
+    width: 100%;
+    padding: 2rem 2rem;
+    border-radius: 0.8rem;
+    border: 2px solid rgba(106, 102, 217, 0.26);
+    transition: all 300ms linear;
+
+    &::-webkit-input-placeholder {
+      color: rgba($color-primary, .7);
+    }
+
+    &:focus {
+      outline: none;
+      border: 2px solid rgba(106, 102, 217, 0.57);
+    }
+
+
+  }
+
+  .inputHeadline {
+    height: 3rem;
+  }
+
+  .textArea {
+    color: $color-primary;
+  }
+}
