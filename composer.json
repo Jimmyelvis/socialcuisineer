@@ -1,6 +1,0 @@
-{
-    "require": {
-        "aws/aws-sdk-php": "^3.61",
-        "aws/aws-sdk-php-resources": "^0.3.0"
-    }
-}
