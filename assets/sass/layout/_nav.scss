@@ -457,6 +457,12 @@ header {
       letter-spacing: 0.05rem;
       position: relative;
 
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       @include respond(bp-tiny) {
         font-size: 2.3rem;
       }

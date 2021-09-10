@@ -262,15 +262,17 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
     <ul class="sidenav">
 
       <li>
-        <img src="./assets/img/home icon.svg" alt="" class="links">
-
-        Home
+        <a href="index.php">
+          <img src="./assets/img/home icon.svg" alt="" class="links">
+          Home
+        </a>
       </li>
 
       <li>
-        <img src="./assets/img/gears icon.svg" alt="" class="links">
-
-        Settings
+        <a href="settings.php">
+          <img src="./assets/img/gears icon.svg" alt="" class="links">
+          Settings
+        </a>
       </li>
 
       <li id="requests" onclick="getDropdownDataMobile('<?php echo $userLoggedIn; ?>', 'friendReqs')">
