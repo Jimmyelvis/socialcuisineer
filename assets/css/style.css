@@ -838,7 +838,7 @@ input.comment_like {
           height: 9.9rem;
           flex-wrap: wrap; } }
       .recipe-card .card-info .card-desc .block {
-        width: 1.2rem;
+        width: 1.3rem;
         background-color: #64b7ff;
         height: 100%;
         margin-right: 2.2rem; }
@@ -967,7 +967,7 @@ input.comment_like {
     opacity: 1;
     visibility: visible;
     left: 0;
-    position: absolute; }
+    position: relative; }
   .tabContent .tab-timeline .posts_area {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));

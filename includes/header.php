@@ -318,9 +318,10 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
       </li>
 
       <li>
-        <img src="./assets/img/log-out-v2.svg" alt="" class="links">
-
-        Log Out
+        <a href=" includes/handlers/logout.php">
+          <img src="./assets/img/log-out-v2.svg" alt="" class="links">
+          Log Out
+        </a>
       </li>
 
     </ul>

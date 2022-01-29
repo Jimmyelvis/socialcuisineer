@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "watch:sass": "node-sass assets/sass/main.scss assets/css/style.css -w",
-    "start": "npm-run-all --parallel watch:sass",
+    "start": "npm-run-all --parallel watch:sass sync",
     "compile:sass": "node-sass assets/sass/main.scss assets/css/style.comp.css",
     "prefix:css": "postcss --use autoprefixer -b \"last 10 versions\" css/style.comp.css -o css/style.prefix.css",
     "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
     "build:css": "npm-run-all compile:sass prefix:css compress:css",
-    "build": "webpack --mode production --progress"
+    "build": "webpack --mode production --progress",
+    "sync" : "browser-sync start -p 'http://localhost/Social-Cuisiener-2021/' --files '**/*.php' '**/*.js' '**/*.css'"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "browser-sync": "^2.27.7",
     "node-sass": "^5.0.0"
   }
 }
