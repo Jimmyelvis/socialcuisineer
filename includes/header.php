@@ -65,10 +65,7 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
 
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <style>
-
-  </style>
-
+  <meta name="theme-color" content="#6A66D9">
 
 </head>
 
