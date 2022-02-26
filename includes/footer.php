@@ -7,11 +7,6 @@
 
     <div class="likes">
 
-      <!-- <div class="like">
-        <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" class="avatar">
-
-        <h3 class="heading-3">Ana Hammel</h3>
-      </div> -->
 
     </div>
   </div>
@@ -24,6 +19,7 @@
 <script src="assets/js/cropper.min.js"></script>
 <script src="./assets/js/main.js"></script>
 <script type="module" src="./assets/js/scripts.js"></script>
+<script src="./assets/js/bundle.js"></script>
 
 
 </body>

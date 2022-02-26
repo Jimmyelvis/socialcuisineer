@@ -234,51 +234,17 @@ function getLiveSearchUsersMobile(value, user) {
 
 }
 
-function sendComment(id) {
- 
-	const commentText = $("#comment" + id).val();
-	
-	if(commentText === "") {
- 
-		alert("Please enter some text first");
-		return;
-	}
- 
-	const sendComment = $.post("includes/handlers/send_comment.php", 
-		{userLoggedIn:userLoggedIn, commentText:commentText, id:id}, 
-		function(response){
- 
-		if(response !== "No text") {
- 
-			const loadComment = $.post("includes/handlers/load_comment.php", 
-				{id:id, userLoggedIn:userLoggedIn}, 
-				function(newComment) {
- 
-				$("#comment" + id).val("");
-				const noComment = $("#toggleComment" + id).find("#noComment" + id);
-				
-				if(noComment.length !== 0) {
-					noComment.remove();
-				}
- 
-				$(".comments").append(newComment);
- 
-			});
-		}
- 
-		else {
- 
-			alert("Something went wrong. Please try again");
-		} 
- 
-	});
-}
+
 
 function updateLike(post_id, value) {
 
 
   const sendLike = $.post("includes/handlers/ajax_update_likes.php", 
-		{userLoggedIn:userLoggedIn, post_id:post_id, like_value:value}, 
+		{
+      userLoggedIn:userLoggedIn, 
+      post_id:post_id, 
+      like_value:value
+    }, 
 		function(response) {
 
 
@@ -286,3 +252,4 @@ function updateLike(post_id, value) {
   })
   
 }
+

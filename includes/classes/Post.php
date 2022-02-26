@@ -299,7 +299,7 @@ class Post
 
 					$link = "post.php?id=" . $id;
 
-					$str .= "<div class='card recipe-card' onClick='javascript:toggle$id()'>
+					$str .= "<div class='card recipe-card'>
 
 									 <div class='card-userImage'>
 											<img src='$profile_pic' alt=''>
@@ -813,7 +813,8 @@ class Post
 							</div>
 
 							<textarea class='inputBox textArea' id='comment$id' placeholder='Post a comment...'></textarea>
-							<input class='btn btn-puprle' type='button' onclick='sendComment($id)' value='Send'>
+
+							<input class='btn btn-puprle' type='button' name='$id' value='Send' id='commentBtn'>
 
 							". $this->getComments($id) ."
 						
@@ -1227,7 +1228,7 @@ class Post
                         <input 
 													type='submit' 
 													class='btnUnlike' 
-													name='unlike_button' 
+													name='unlike_button-$post_id-$unLike' 
 													value=''
 													onclick='updateLike($post_id, $unLike)'
 												>
@@ -1249,7 +1250,7 @@ class Post
                         <input 
 													type='submit' 
 													class='btnlike' 
-													name='like_button' 
+													name='like_button-$post_id-$like' 
 													value=''
 													onclick='updateLike($post_id, $like)'
 												>
@@ -1348,14 +1349,14 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
 		return $liked;
 	}
 
-	public function updateLikes ($post_id, $value) {
+	public function updateLikes($post_id, $value)
+	{
 
 		/*
 			Add all the variables from getLikes function however instead of
 			using if (isset($_POST['like_button'])) to determine what get displayed
 			use the if statement below. What we return from this function will be
 			used by the ajax function to dynamically update the dom
-
 		*/
 
 		$likes_for_post = "";
@@ -1364,7 +1365,7 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
 		$like = 1;
 		$unLike = 2;
 
-		
+
 		$userLoggedIn = $this->user_obj->getUsername();
 
 		$get_likes = mysqli_query($this->con, "SELECT likes, added_by FROM posts WHERE id='$post_id'");
@@ -1373,6 +1374,7 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
 		$total_likes = $row['likes'];
 		$user_liked = $row['added_by'];
 
+		// get all the info for the current user who liked the post aka $user_liked 
 		$user_details_query = mysqli_query($this->con, "SELECT * FROM users WHERE username='$user_liked'");
 		$row = mysqli_fetch_array($user_details_query);
 		$total_user_likes = $row['num_likes'];
@@ -1398,8 +1400,6 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
 
 			$notification = new Notification($this->con, $userLoggedIn);
 			$notification->insertNotification($post_id, $postAuthor, "like");
-			
-
 		} else {
 			$total_likes--;
 			$query = mysqli_query($this->con, "UPDATE posts SET likes='$total_likes' WHERE id='$post_id'");
@@ -1414,7 +1414,6 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
           AND likes.post_id = '$post_id'
           ORDER BY likes.id DESC
         ");
-
 		}
 
 
@@ -1426,138 +1425,121 @@ while ($likesrow = mysqli_fetch_array($get_liked_by)) {
 
 		if ($value == 1) {
 
-					$like_unlike_form .= "
+			$like_unlike_form .= "
 												<div class='likedForm'>
-
 												<div class='likeHolder'>
 														<input 
 															type='submit' 
 															class='btnUnlike' 
-															name='unlike_button' 
+															name='btnUnlike-$post_id-$unLike' 
 															value=''
 															onclick='updateLike($post_id, $unLike)'
 														>
 												</div>
-
 												<h3 class='heading-3'>
 												Liked By: 
 												</h3>
-
 											
-
 												</div>
 						";
 
-						$count = 0;
-						$str = "";
+			$count = 0;
+			$str = "";
 
-						while (($likesrow = mysqli_fetch_array($get_liked_by)) && $count < 3) {
+			while (($likesrow = mysqli_fetch_array($get_liked_by)) && $count < 3) {
 
-							$count++;
+				$count++;
 
-							$profilepic = $likesrow['profile_pic'];
-							$likedId = $likesrow['id'];
+				$profilepic = $likesrow['profile_pic'];
+				$likedId = $likesrow['id'];
 
-							$str = "
+				$str = "
 								'<div class='avatar likeId-$count'>
 											<img src=' $profilepic '>
 										</div>
 							";
 
-							$avatars .= $str;
-						}
+				$avatars .= $str;
+			}
 
-						if ($total_likes > 3) {
-							$likes_for_post = "
+			if ($total_likes > 3) {
+				$likes_for_post = "
 								$like_unlike_form
 								<div class='avatars'>
 									$avatars
 								</div>
 								<h3 class='heading-3 likeByNumber'>& $sub_total More</h3>
 							";
-
-						} else {
-						$likes_for_post = "
+			} else {
+				$likes_for_post = "
 								$like_unlike_form
 								<div class='avatars'>
 									$avatars
 								</div>
 						";
-						}
-						
-
-				
-
+			}
 		} else {
-					$like_unlike_form .= "
+			$like_unlike_form .= "
 									<div class='likedForm'>
-
 									<div class='likeHolder'>
 										<input 
 											type='submit' 
 											class='btnlike' 
-											name='like_button' 
-											value=''
+												name='btnlike-$post_id-$like' 
+												value=''
 											onclick='updateLike($post_id, $like)'
 										>
 									</div>
-
 									<h3 class='heading-3'>
 									Liked By:
 									</h3>
-
 								
-
 								</div>
 						";
 
-						$count = 0;
-						$str = "";
+			$count = 0;
+			$str = "";
 
-						while (($likesrow = mysqli_fetch_array($get_liked_by)) && $count < 3) {
+			while (($likesrow = mysqli_fetch_array($get_liked_by)) && $count < 3) {
 
-							$count++;
+				$count++;
 
-							
-							
-							$profilepic = $likesrow['profile_pic'];
-							$likedId = $likesrow['id'];
 
-							$str = "
+
+				$profilepic = $likesrow['profile_pic'];
+				$likedId = $likesrow['id'];
+
+				$str = "
 								'<div class='avatar likeId-$count'>
 											<img src=' $profilepic '>
 										</div>
 							";
 
-							$avatars .= $str;
-						}
+				$avatars .= $str;
+			}
 
-						if ($total_likes > 3) {
-							$likes_for_post = "
+			if ($total_likes > 3) {
+				$likes_for_post = "
 								$like_unlike_form
 								<div class='avatars'>
 									$avatars
 								</div>
 								<h3 class='heading-3 likeByNumber'>& $sub_total More</h3>
 							";
-
-						} else {
-							$likes_for_post = "
+			} else {
+				$likes_for_post = "
 								$like_unlike_form
 								<div class='avatars'>
 									$avatars
 								</div>
 							";
-						}
-
+			}
 		}
 
-	
+
 
 		return $likes_for_post;
-
 	}
-
 
 
 

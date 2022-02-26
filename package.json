@@ -5,31 +5,35 @@
   "main": "index.js",
   "scripts": {
     "watch:sass": "node-sass assets/sass/main.scss assets/css/style.css -w",
-    "start": "npm-run-all --parallel watch:sass sync",
+    "start": "npm-run-all --parallel watch:sass dev sync",
     "compile:sass": "node-sass assets/sass/main.scss assets/css/style.comp.css",
     "prefix:css": "postcss --use autoprefixer -b \"last 10 versions\" css/style.comp.css -o css/style.prefix.css",
     "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
     "build:css": "npm-run-all compile:sass prefix:css compress:css",
     "build": "webpack --mode production --progress",
-    "sync" : "browser-sync start -p 'http://localhost/Social-Cuisiener-2021/' --files '**/*.php' '**/*.js' '**/*.css'"
+    "sync": "browser-sync start -p 'http://localhost/Social-Cuisiener-2021/' --files '**/*.php' '**/*.js' '**/*.css'",
+    "dev": "webpack -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
     "autoprefixer": "^7.1.4",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.5",
+    "babel-loader": "^8.2.3",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/preset-env": "^7.16.4",
     "babel-preset-stage-0": "^6.24.1",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "browser-sync": "^2.27.7",
     "concat": "^1.0.3",
     "npm-run-all": "^4.1.1",
     "postcss-cli": "^4.1.1",
-    "webpack": "^4.16.1",
-    "webpack-cli": "^3.0.8"
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0"
   },
   "dependencies": {
-    "browser-sync": "^2.27.7",
-    "node-sass": "^5.0.0"
+    "axios": "^0.25.0",
+    "node-sass": "^6.0.0"
   }
 }
