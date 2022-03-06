@@ -35,8 +35,9 @@ if (isset($_GET['id'])) {
       forceVisible: true
     })
   });
-
 </script>
+
+<script src="./assets/js/dist/postdetail.js" defer></script>
 
 <?php
 

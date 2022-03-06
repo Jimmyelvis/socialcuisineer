@@ -14,12 +14,11 @@
   <div class="overlay likesModalOverlay"></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"></script>
+<script src="assets/js/ajaxcalls.js"></script>
 <script src="assets/js/cropper.min.js"></script>
 <script src="./assets/js/main.js"></script>
 <script type="module" src="./assets/js/scripts.js"></script>
-<script src="./assets/js/bundle.js"></script>
 
 
 </body>

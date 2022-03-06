@@ -113,7 +113,10 @@ if (isset($_POST['post'])) {
 
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js" ></script>
+<script src="./assets/js/dist/home.js"></script>
 
 
 <?php

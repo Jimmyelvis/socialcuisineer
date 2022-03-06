@@ -359,26 +359,6 @@ class Post
 
 ?>
 
-				<script type="text/javascript">
-					$(document).ready(function() {
-
-						$('#post<?php echo $id; ?>').on('click', function() {
-							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
-
-								$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>", {
-									result: result
-								});
-
-								if (result)
-									location.reload();
-
-							});
-
-						});
-
-					});
-				</script>
-
 
 			<?php
 
@@ -540,7 +520,7 @@ class Post
 				$link = "post.php?id=" . $id;
 
 
-				$str .= "<div class='card recipe-card' onClick='javascript:toggle$id()'>
+				$str .= "<div class='card recipe-card'>
 
 									 <div class='card-userImage'>
 											<img src='$profile_pic' alt=''>
@@ -610,31 +590,6 @@ class Post
 
 				?>
 
-				<script type="text/javascript">
-					$(document).ready(function() {
-
-						/**
-						 * TODO: Have to figure out how to revamp this the es6 way
-						 * 
-						 */
-
-						$('#post<?php echo $id; ?>').on('click', function() {
-							alert("Are you sure you want to delete this post?", function(result) {
-
-
-								$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>", {
-									result: result
-								});
-
-								if (result)
-									location.reload();
-
-							});
-
-						});
-
-					});
-				</script>
 
 
 			<?php
@@ -785,7 +740,10 @@ class Post
 
 							<div class='details'>
 								<h2 class='heading-2'>$heading</h2>
-								<h3 class='heading-3'>By: $first_name $last_name 
+								<h3 class='heading-3'>By: 
+									<a href='$added_by'>
+										$first_name $last_name 
+									</a>
 									<span class='timeMsg'>$time_message</span>			
 								</h3>
 							</div>
@@ -1137,7 +1095,11 @@ class Post
 						</div>
 
 						<div class='nameTime'>
-							<li class='name'>$names</li>
+							<li class='name'>
+								<a href='$posted_by'>
+									$names
+								</a>
+							</li>
 							<li class='time'>$time_message</li>
 						</div>
 
@@ -1276,11 +1238,14 @@ class Post
 
 			$profilepic = $likesrow['profile_pic'];
 			$likedId = $likesrow['id'];
+			$likedUsername = $likesrow['username'];
 
 			$str = "
           '<div class='avatar likeId-$count'>
-                 <img src=' $profilepic '>
-               </div>
+							<a href='$likedUsername'>
+								<img src=' $profilepic '>
+							</a>
+          </div>
         ";
 
 			$avatars .= $str;

@@ -17,7 +17,7 @@
 
   // Pages
   const homepage = new Homepage();
-  const profilepage = new ProfilePage();
+  // const profilepage = new ProfilePage();
   const settingspage = new SettingsPage(); 
   const friendsreq = new FriendRequests();
   const postdetail = new PostDetail();

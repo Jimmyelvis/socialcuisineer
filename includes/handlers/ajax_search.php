@@ -37,7 +37,7 @@ if($query != ""){
 
 
       echo "
-        <a href='" . $row['username'] . "' class='entry'>
+        <a href='" . $row['username'] . "' class='users-entry'>
             <div class='avatar'>
               <img src='" . $row['profile_pic'] . "'>
             </div>

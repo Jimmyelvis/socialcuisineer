@@ -1,4 +1,4 @@
-export default class MenuBtns {
+class MenuBtns {
   
   constructor() {
     this.events()
@@ -135,3 +135,5 @@ export default class MenuBtns {
 
   }
 };
+
+export const menuBtns = new MenuBtns();

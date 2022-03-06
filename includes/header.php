@@ -46,23 +46,13 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
 
   <!-- Javascript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="assets/js/bootbox.min.js"></script>
-  <script src="assets/js/ajaxcalls.js"></script>
-  <script src="assets/js/jcrop.js"></script>
-  <script src="assets/js/jcrop_bits.js"></script>
-  <script src="assets/js/slidemenu.js"></script>
-  <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+  <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
   <!-- CSS -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
-  <link rel="stylesheet" href="assets/css/jquery.Jcrop.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/cropper.min.css" type="text/css" />
-
-
   <link rel="stylesheet" href="assets/css/style.css">
 
   <meta name="theme-color" content="#6A66D9">
@@ -89,6 +79,29 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
 
         <form action="search.php" method="GET" name="search_form">
           <input type="text" placeholder="Search..." class="searchBox" onkeyup="getLiveSearchUsers(this.value, '<?php echo $userLoggedIn; ?>')" name="q" autocomplete="off" id="search_text_input">
+
+          <div class="radio-btns">
+
+            <div class="radio-group">
+              <input type="radio" class="radio-input" name="searchoption" id="Users" value="Users" checked>
+
+              <label for="Users" class="radio-label">
+                <span class="radio-button"></span>
+                Users
+              </label>
+            </div>
+
+            <div class="radio-group">
+              <input type="radio" class="radio-input" name="searchoption" id="Recipes" value="Recipes">
+
+              <label for="Recipes" class="radio-label">
+                <span class="radio-button"></span>
+                Recipes
+              </label>
+            </div>
+
+          </div>
+
         </form>
 
         <!-- 
@@ -383,6 +396,28 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
 
       <form action="search.php" method="GET" name="search_form">
         <input type="text" placeholder="Search..." class="searchBox" onkeyup="getLiveSearchUsersMobile(this.value, '<?php echo $userLoggedIn; ?>')" name="q" autocomplete="off" id="search_text_inputMobile">
+
+        <div class="radio-btns">
+
+          <div class="radio-group">
+            <input type="radio" class="radio-input" name="searchoptionMobile" id="UsersMobile" value="Users" checked>
+
+            <label for="UsersMobile" class="radio-label">
+              <span class="radio-button"></span>
+              Users
+            </label>
+          </div>
+
+          <div class="radio-group">
+            <input type="radio" class="radio-input" name="searchoptionMobile" id="RecipesMobile" value="Recipes">
+
+            <label for="RecipesMobile" class="radio-label">
+              <span class="radio-button"></span>
+              Recipes
+            </label>
+          </div>
+
+        </div>
       </form>
 
       <div class="searchResultsbox">
@@ -570,4 +605,7 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
 
 
     })
+
   </script>
+
+  <script src="assets/js/dist/menubtns.js"></script>

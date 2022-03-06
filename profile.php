@@ -152,13 +152,15 @@ if (isset($_POST['post_message'])) {
           $friend_obj = new User($con, $friend);
           $name = $friend_obj->getFirstAndLastName();
 
-          echo "
+          if ($friend_obj->getUsername() !== null) {
+            echo "
             <div class='entry'>
                 <a href='$friend'>
                     <img src='" . $friend_obj->getProfilePic() . "'>
                     <h4 class='heading-4'> $name </h4>
                 </a>
             </div>";
+          }
         }
         ?>
 
@@ -182,9 +184,12 @@ if (isset($_POST['post_message'])) {
     const startingTab = document.querySelector('.posts_area');
     const tabContent = document.querySelector('.tabContent');
   })
-
-
 </script>
+
+<script src="./assets/js/dist/addfriend.js"></script>
+<script src="./assets/js/dist/removefriend.js"></script>
+<script src="./assets/js/dist/profilepage.js"></script>
+
 
 
 

@@ -1,4 +1,4 @@
-export default class Parallax {
+class Parallax {
   constructor() {
     this.scroll = document.querySelector(".scroll");
 
@@ -7,11 +7,8 @@ export default class Parallax {
      * a scroll event
      *  */
     document.addEventListener("scroll", (e) => {
-      setTimeout(() => {
-        if (this.scroll) {
-          this.addParallaxScrolling(e);
-        }
-      }, 0);
+      this.addParallaxScrolling(e);
+      
     });
   }
 
@@ -36,3 +33,5 @@ export default class Parallax {
     }
   }
 }
+
+export const parallax = new Parallax();

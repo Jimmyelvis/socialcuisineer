@@ -191,6 +191,8 @@ $profile_header = $row['profile_header'];
   var prevPhoto = '<?php echo $user['profile_pic'] ?>'
 </script>
 
+<script src="./assets/js/dist/settings.js"></script>
+
 <?php
 
 include("includes/footer.php");

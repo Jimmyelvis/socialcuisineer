@@ -40,7 +40,7 @@
   <div id="profileHeaderNav" class="profileHeader-nav">
     <ul class="firstOptions active">
       <li class="linkTab active">
-        Timeline
+        Posts
       </li>
       <li class="linkTab">
         About

@@ -1,3 +1,39 @@
+const Recipes = document.querySelector("#Recipes");
+const Users = document.querySelector("#Users");
+const RecipesMobile = document.querySelector("#RecipesMobile");
+const UsersMobile = document.querySelector("#UsersMobile");
+
+var searchOptionSelected;
+var allResults;
+
+if (Users.checked) {
+  searchOptionSelected = "Users";
+} else if (Recipes.checked) {
+  searchOptionSelected = "Recipes";
+} else if (UsersMobile.checked) {
+  searchOptionSelected = "Users";
+} else {
+  searchOptionSelected = "Recipes";
+}
+
+
+
+Recipes.addEventListener("click", function (e) {
+  searchOptionSelected = e.target.value
+});
+
+Users.addEventListener("click", function (e) {
+  searchOptionSelected = e.target.value;
+});
+
+RecipesMobile.addEventListener("click", function (e) {
+  searchOptionSelected = e.target.value;
+});
+
+UsersMobile.addEventListener("click", function (e) {
+  searchOptionSelected = e.target.value;
+});
+
 $(document).ready(function() {
 
 
@@ -166,8 +202,21 @@ function getLiveSearchUsers(value, user) {
       whatever is returned will be used in (data)
       q == the query string we are passing
   */
-  $.post("includes/handlers/ajax_search.php", {query:value, userLoggedIn: user}, function(data) {
 
+  if (searchOptionSelected == "Users") {
+    var option = "includes/handlers/ajax_search.php";
+    allResults = "searchallusers";
+  } else {
+    var option = "includes/handlers/ajax_search_recipes.php";
+    allResults = "searchallposts";
+  }
+
+
+  $.post(option, {query:value, userLoggedIn: user}, function(data) {
+
+    /**
+     * TODO Modify depending on searchOptionSelected
+     */
 
 
     if($(".search_results_footer_empty")[0]) {
@@ -178,7 +227,7 @@ function getLiveSearchUsers(value, user) {
     if(data != "") {
 
       $('.searchResultsbox').html(data);
-       $('.search_results_footer').html(" <a class='heading-3' href='search.php?q=" + value + "'>See All Results</a>");
+       $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
       $('.searchResultsbox').css({"paddingBottom": "20%"})
       
     }
@@ -199,6 +248,9 @@ function getLiveSearchUsers(value, user) {
 }
 
 
+
+
+
 function getLiveSearchUsersMobile(value, user) {
 
   /*
@@ -207,7 +259,18 @@ function getLiveSearchUsersMobile(value, user) {
       whatever is returned will be used in (data)
       q == the query string we are passing
   */
-  $.post("includes/handlers/ajax_search_mobile.php", {query:value, userLoggedIn: user}, function(data) {
+
+
+     if (searchOptionSelected == "Users") {
+       var option = "includes/handlers/ajax_search_mobile.php";
+       allResults = "searchallusers";
+     } else {
+       var option = "includes/handlers/ajax_search_recipes_mobile.php";
+       allResults = "searchallposts";
+     }
+
+
+  $.post(option, {query:value, userLoggedIn: user}, function(data) {
 
     if($(".search_results_footer_empty")[0]) {
 			$(".search_results_footer_empty").toggleClass("search_results_footer");
@@ -217,7 +280,7 @@ function getLiveSearchUsersMobile(value, user) {
     if(data != "") {
 
      $('.searchResultsbox').html(data);
-       $('.search_results_footer').html(" <a class='heading-3' href='search.php?q=" + value + "'>See All Results</a>");
+      $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
       $('.searchResultsbox').css({"paddingBottom": "20%"})
     }
 

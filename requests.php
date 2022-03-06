@@ -118,6 +118,7 @@ $user_from = "";
     var userLoggedIn = '<?php echo $userLoggedIn; ?>';
   </script>
 
+  <script src="./assets/js/dist/friendreq.js"></script>
 
 
 </div>
