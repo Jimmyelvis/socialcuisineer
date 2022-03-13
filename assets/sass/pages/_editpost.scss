@@ -1,0 +1,122 @@
+.editpostContain {
+  grid-column: center-start / center-end;
+  margin: 19rem 0 10rem 0;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  .heading-2 {
+    text-align: center;
+  }
+
+  .response {
+    font-size: 3.6rem;
+  }
+
+
+  .inputBox {
+    margin: 2.6rem 0;
+    font-size: 2rem;
+  }
+
+  .imgPreview {
+    display: flex;
+    width: 100%;
+    height: 46rem;
+    color: rgba($color-primary, .7);
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    padding: 0 !important;
+    margin-top: 4rem;
+    text-align: center;
+
+    .img-preview-image {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
+  .inputItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5rem;
+    width: 100%;
+
+    .inputBox {
+      margin: 2.6rem 0;
+      font-size: 1.6rem;
+      flex: 0 0 100%;
+
+      @include respond(bp-medium) {
+        flex: 0 0 100%;
+      }
+    }
+
+  }
+
+  .file-upload-flexed {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .inpFile {
+      display: none;
+    }
+
+    .file-upload-button {
+      -webkit-appearance: none;
+      font-size: 1.6rem;
+      margin-right: 4rem;
+
+      @include respond(bp-large) {
+        width: 16rem;
+      }
+    }
+
+    .file-upload-label {
+      max-width: 53rem;
+      font-size: 0.95em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $color-primary;
+    }
+  }
+
+  .btn-editpost,
+  .btn-backtopost {
+    padding: 1.3rem 3.1rem;
+    font-size: 1.9rem;
+  }
+
+  .btn-backtopost {
+    margin-right: 5rem;
+  }
+
+   .uploadRes,.response {
+       width: 80%;
+       background-color: $color-secondary;
+       color: #fff;
+       margin: 8rem auto 0rem auto;
+       padding: 1.8rem 0;
+       display: none;
+       opacity: 0;
+       visibility: hidden;
+       transition: opacity 600ms linear;
+       text-align: center;
+ }
+
+ .uploadRes {
+   font-size: 2.6rem;
+ }
+
+ .response {
+   font-size: 3.6rem;
+ }
+}

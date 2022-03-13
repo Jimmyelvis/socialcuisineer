@@ -62,6 +62,22 @@
        }
      }
 
+     .edit {
+       position: absolute;
+       z-index: 1101;
+       bottom: -2.5rem;
+       left: 80%;
+       transform: translateX(-50%);
+       width: 8.5rem;
+       height: 8.5rem;
+
+       .edit-btn {
+         height: 100%;
+         object-fit: cover;
+         object-position: top;
+       }
+     }
+
      .details {
        position: absolute;
        z-index: 1100;

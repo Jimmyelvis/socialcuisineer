@@ -9,6 +9,7 @@ module.exports = {
     login: "./assets/js/pages/Login.js",
     friendreq: "./assets/js/pages/FriendsReqPage.js",
     settings: "./assets/js/pages/SettingsPage.js",
+    editpost: "./assets/js/pages/EditPost.js",
     addfriend: "./assets/js/modules/AddFriend.js",
     menubtns: "./assets/js/modules/MenuBtns.js",
     parallax: "./assets/js/modules/Parallax.js",
@@ -53,5 +54,5 @@ module.exports = {
         ],
       },
     ],
-  }
+  },
 };

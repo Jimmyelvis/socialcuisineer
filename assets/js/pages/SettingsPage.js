@@ -284,9 +284,6 @@ class SettingPage {
                 cropperJsProfileHeaderModal.classList.remove("active");
                 prevPhoto = base64data;
 
-                console.log("==================prevPhoto-2==================");
-                console.log(prevPhoto);
-                console.log("====================================");
               })
               .catch((err) => console.error(err));
           };

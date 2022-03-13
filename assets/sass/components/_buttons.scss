@@ -9,8 +9,16 @@
 
 .btn-puprle {
    border-radius: 8px;
-   background: linear-gradient(to right, rgba(118, 114, 242, 1) 0%, rgba(181, 179, 242, 1) 100%);
+   background: linear-gradient(to right, rgba(118, 114, 242, 1) 0%, rgb(156, 153, 221) 100%);
   box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0.62);
+  color: #fff;
+}
+
+.btn-teal {
+  border-radius: 8px;
+  background: linear-gradient(to right, $color-secondary 0%, 
+  darken($color-secondary, 10%) 100%);
+  box-shadow: 1px 4px 12px 3px rgba(70, 133, 235, 0.62);
   color: #fff;
 }
 

@@ -125,8 +125,14 @@ p {
 
 .btn-puprle {
   border-radius: 8px;
-  background: linear-gradient(to right, #7672f2 0%, #b5b3f2 100%);
+  background: linear-gradient(to right, #7672f2 0%, #9c99dd 100%);
   box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0.62);
+  color: #fff; }
+
+.btn-teal {
+  border-radius: 8px;
+  background: linear-gradient(to right, #64B7FF 0%, #319fff 100%);
+  box-shadow: 1px 4px 12px 3px rgba(70, 133, 235, 0.62);
   color: #fff; }
 
 .btn-orange {
@@ -2596,6 +2602,18 @@ header {
         height: 100%;
         object-fit: cover;
         object-position: top; }
+    .detail .postHeading .edit {
+      position: absolute;
+      z-index: 1101;
+      bottom: -2.5rem;
+      left: 80%;
+      transform: translateX(-50%);
+      width: 8.5rem;
+      height: 8.5rem; }
+      .detail .postHeading .edit .edit-btn {
+        height: 100%;
+        object-fit: cover;
+        object-position: top; }
     .detail .postHeading .details {
       position: absolute;
       z-index: 1100;
@@ -2800,6 +2818,91 @@ header {
       margin: 6rem auto;
       font-weight: bold;
       color: #64B7FF; }
+
+.editpostContain {
+  grid-column: center-start / center-end;
+  margin: 19rem 0 10rem 0;
+  position: relative;
+  display: flex;
+  flex-direction: column; }
+  .editpostContain .heading-2 {
+    text-align: center; }
+  .editpostContain .response {
+    font-size: 3.6rem; }
+  .editpostContain .inputBox {
+    margin: 2.6rem 0;
+    font-size: 2rem; }
+  .editpostContain .imgPreview {
+    display: flex;
+    width: 100%;
+    height: 46rem;
+    color: rgba(106, 102, 217, 0.7);
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    padding: 0 !important;
+    margin-top: 4rem;
+    text-align: center; }
+    .editpostContain .imgPreview .img-preview-image {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top; }
+  .editpostContain .inputItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5rem;
+    width: 100%; }
+    .editpostContain .inputItems .inputBox {
+      margin: 2.6rem 0;
+      font-size: 1.6rem;
+      flex: 0 0 100%; }
+      @media only screen and (max-width: 50em) {
+        .editpostContain .inputItems .inputBox {
+          flex: 0 0 100%; } }
+  .editpostContain .file-upload-flexed {
+    display: flex;
+    align-items: center;
+    width: 100%; }
+    .editpostContain .file-upload-flexed .inpFile {
+      display: none; }
+    .editpostContain .file-upload-flexed .file-upload-button {
+      -webkit-appearance: none;
+      font-size: 1.6rem;
+      margin-right: 4rem; }
+      @media only screen and (max-width: 62.5em) {
+        .editpostContain .file-upload-flexed .file-upload-button {
+          width: 16rem; } }
+    .editpostContain .file-upload-flexed .file-upload-label {
+      max-width: 53rem;
+      font-size: 0.95em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: #6A66D9; }
+  .editpostContain .btn-editpost,
+  .editpostContain .btn-backtopost {
+    padding: 1.3rem 3.1rem;
+    font-size: 1.9rem; }
+  .editpostContain .btn-backtopost {
+    margin-right: 5rem; }
+  .editpostContain .uploadRes, .editpostContain .response {
+    width: 80%;
+    background-color: #64B7FF;
+    color: #fff;
+    margin: 8rem auto 0rem auto;
+    padding: 1.8rem 0;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 600ms linear;
+    text-align: center; }
+  .editpostContain .uploadRes {
+    font-size: 2.6rem; }
+  .editpostContain .response {
+    font-size: 3.6rem; }
 
 .friends {
   grid-column: center-start / center-end;

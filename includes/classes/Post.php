@@ -127,6 +127,43 @@ class Post
 		}
 	}
 
+	public function editPost($data, $image)
+	{
+		$heading = $data['headline'];
+		$body = $data['body'];
+		$user_to = $data['userLoggedIn'];
+		$post_id = $data['post_id'];
+		// $headerImg = $data['headerImage'];
+
+
+
+		// echo 'header image ' . " " . $image;
+
+		$body = mysqli_real_escape_string($this->con, $body);
+		$heading = strip_tags($heading); //removes html tags
+		$heading = mysqli_real_escape_string($this->con, $heading);
+
+		//Current date and time
+		$date_added = date("Y-m-d H:i:s");
+		//Get username
+		$added_by = $this->user_obj->getUsername();
+
+		//If user is on own profile, user_to is 'none'
+		if ($user_to == $added_by) {
+			$user_to = "none";
+		}
+
+		$query = mysqli_query($this->con, "UPDATE posts SET body='$body', heading='$heading', added_by='$added_by', user_to='$user_to', date_added='$date_added', image='$image'  WHERE id='$post_id'");
+
+		if (!$query) {
+			echo "There was an error updating your post";
+		} else{
+			echo "You Post Was Successfully Updated";
+		}
+
+
+	}
+
 	public function calculateTrend($term)
 	{
 
@@ -617,6 +654,7 @@ class Post
 		$str = ""; //String to return
 		$data_query = mysqli_query($this->con, "SELECT * FROM posts WHERE deleted='no' AND id='$post_id'");
 
+
 		if (mysqli_num_rows($data_query) > 0) {
 
 
@@ -726,6 +764,12 @@ class Post
 					$imageDiv = "";
 				}
 
+				if ($userLoggedIn == $added_by) {
+					$editBtn = "<img src='assets/img/edit-btn.png' class='edit-btn'>";
+				} else {
+					$editBtn = "";
+				}
+				
 
 
 				$str .= "
@@ -737,6 +781,10 @@ class Post
 									<img src='$profile_pic' class='post-profile-pic'>
 								</a>
 							</div>
+
+							<a class='edit' href='edit_post.php?id=$id'>
+									$editBtn
+							</a>
 
 							<div class='details'>
 								<h2 class='heading-2'>$heading</h2>
