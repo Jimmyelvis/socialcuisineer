@@ -6,7 +6,7 @@ include("../classes/Post.php");
 $posts = new Post($con, $_REQUEST['userLoggedIn']);
 
 
-if ( isset($_POST['update_post'])) {
+if (isset($_POST['update_post'])) {
 
   $post_id = $_POST['post_id'];
   $unchangedFileName = $_POST['headerImage'];
@@ -24,18 +24,18 @@ if ( isset($_POST['update_post'])) {
 
     if ($imagePath != "") {
 
-      $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Social-Cuisiener-2021/assets/img/posts/";
+      $targetDir = "../../assets/img/posts/";
 
       // Image Variable for moving the file to the correct folder
-      $imagePath = $targetDir . basename($imagePath); 
+      $imagePath = $targetDir . basename($imagePath);
       $imageFileType = pathinfo($imagePath, PATHINFO_EXTENSION);
 
       /**
        * (Changed)Image variable for sending filename to DB
        *  If the user changes to header image on the front end this ($imagePathForDB)
        *  will be the image variable that is sent to the backend
-       *  */ 
-      $imagePathForDB = "assets/img/posts/" . $imageName; 
+       *  */
+      $imagePathForDB = "assets/img/posts/" . $imageName;
 
       if ($_FILES['file']['size'] > 10000000) {
         $errorMessage = "Sorry your file is too large. The File Limit is 1MB";
@@ -62,17 +62,12 @@ if ( isset($_POST['update_post'])) {
     } else {
       echo "$errorMessage";
     }
-
   } else {
 
     /**
      * If no changes were made to the header image this $unchangedFileName
      * will be the image variable that will be sent to the backend
-     *  */ 
+     *  */
     $posts->editPost($_REQUEST, $unchangedFileName);
   }
-
-
-  
-
 }

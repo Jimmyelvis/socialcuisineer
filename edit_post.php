@@ -34,7 +34,7 @@ echo $imagePath;
 
 
 
-    <form action="settings.php" method="POST">
+    <form method="post" enctype="multipart/form-data">
 
       <div class="inputBox imgPreview" id="imgPreview">
 

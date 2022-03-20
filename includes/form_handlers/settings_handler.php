@@ -47,7 +47,7 @@ if(isset($_POST['changeAvatar'])) {
       $ImageType = @explode('/', $_FILES['image']['type']);
       $type = $ImageType[1]; //file type
       //Set Upload directory
-      $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/Social-Cuisiener-2021/assets/img/profile_pics';
+      $uploaddir = "../../assets/img/profile_pics/";
       //Set File name
       $file_temp_name = $profile_id . '_original.' . md5(time()) . 'n' . $type; //the temp file name
       $fullpath = $uploaddir . "/" . $file_temp_name; // the temp file path
@@ -77,7 +77,7 @@ if(isset($_POST['changeAvatar'])) {
       if (!$move) {
         die('File didnt upload');
       } else {
-        $imgSrc = "assets/images/profile_pics/" . $file_name; // the image to display in crop area
+        $imgSrc = "../../assets/img/profile_pics/" . $file_name; // the image to display in crop area
         $msg = "Upload Complete!";    //message to page
         $src = $file_name;       //the file name to post from cropping form to the resize
 
@@ -104,7 +104,7 @@ if(isset($_POST['changeProfileHeader'])) {
     $ImageType = @explode('/', $_FILES['inpFile']['type']);
     $type = $ImageType[1]; //file type
     //Set Upload directory
-    $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/Social-Cuisiener-2021/assets/img/profile_headers';
+    $uploaddir = '../../assets/img/profile_headers';
     //Set File name
     $file_temp_name = $profile_id . '_original.' . md5(time()) . 'n' . $type; //the temp file name
     $fullpath = $uploaddir . "/" . $file_temp_name; // the temp file path
@@ -133,7 +133,7 @@ if(isset($_POST['changeProfileHeader'])) {
     if (!$move) {
       die('File didnt upload');
     } else {
-      $imgSrc = "assets/images/profile_pics/" . $file_name; // the image to display in crop area
+      $imgSrc = "../../assets/img/profile_headers" . $file_name; // the image to display in crop area
       $msg = "Upload Complete For Profile Header!";    //message to page
       $src = $file_name;       //the file name to post from cropping form to the resize
 

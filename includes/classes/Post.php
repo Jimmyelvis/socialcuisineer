@@ -133,11 +133,6 @@ class Post
 		$body = $data['body'];
 		$user_to = $data['userLoggedIn'];
 		$post_id = $data['post_id'];
-		// $headerImg = $data['headerImage'];
-
-
-
-		// echo 'header image ' . " " . $image;
 
 		$body = mysqli_real_escape_string($this->con, $body);
 		$heading = strip_tags($heading); //removes html tags

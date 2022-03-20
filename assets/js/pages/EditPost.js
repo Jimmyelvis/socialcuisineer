@@ -151,7 +151,8 @@ class EditPost {
         method: "post",
         url: "includes/form_handlers/edit_post_handler.php",
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         data: bodyFormData,
       })
