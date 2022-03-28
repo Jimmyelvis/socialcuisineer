@@ -1,4 +1,5 @@
 import { parallax } from "../modules/Parallax";
+import Confirm from "../modules/Confirm"
 
 class ProfilePage {
   constructor() {
@@ -21,6 +22,8 @@ class ProfilePage {
     this.loadPosts();
     this.accessExtraMenuItems();
     this.profileTabsAccess();
+    this.deletePost();
+    // this.confirming();
   }
 
   loadPosts() {
@@ -173,6 +176,59 @@ class ProfilePage {
       tabfriends.style.display = "none";
     }
   }
+
+  deletePost() {
+    let bodyFormData = new FormData();
+
+    /**
+     * Get the parent element to add the click event on
+     * use event delegation
+     */
+    let postsArea = document.querySelector(".posts_area");
+
+    postsArea.addEventListener("click", function (e) {
+
+      if (e.target.parentElement.classList.contains("card-closeBtn")) {
+        let currentPost =
+          e.target.parentElement.parentElement.getAttribute("data-postid");
+
+        bodyFormData.append("post_id", currentPost);
+        bodyFormData.append("userLoggedIn", userLoggedIn);
+        bodyFormData.append("delete_post", "delete_post");
+
+  
+        Confirm.open({
+          title: 'Confirm Delete',
+          message: 'Are you sure you want to delete this post?',
+          okText: "Sure",
+          cancelText: "No",
+          onok: () => {
+            axios({
+              method: "post",
+              url: "includes/form_handlers/delete_post.php",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              data: bodyFormData,
+            })
+              .then((res) => {
+                console.log(res.data);
+                e.target.parentElement.parentElement.remove();
+              })
+              .catch((err) => console.error(err));
+
+          },
+          oncancel: () => console.log('You pressed cancel')
+        })
+
+      }
+    })
+
+
+
+  }
+
+
 }
 
 export const lprofile = new ProfilePage();

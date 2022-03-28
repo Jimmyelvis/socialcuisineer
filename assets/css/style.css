@@ -6,6 +6,7 @@ COLORS:
 */
 @import url("https://use.typekit.net/xeb5ajt.css");
 @import url("https://fonts.googleapis.com/css2?family=Inder&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap");
 *,
 *::after,
 *::before {
@@ -158,7 +159,7 @@ p {
   color: #6A66D9; }
 
 .btnText-orange {
-  color: #E56827; }
+  color: #ff8d50; }
 
 .btn-ghost {
   border: 3px solid white;
@@ -170,6 +171,93 @@ p {
   font-size: 1.8rem;
   background: transparent;
   color: white; }
+
+.confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 7, 35, 0.76);
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  animation-name: confirm---open;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000; }
+  .confirm .confirmWindow {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    font-size: 14px;
+    font-family: "Inder", sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.67);
+    opacity: 0;
+    transform: scale(0.75);
+    animation-name: confirmWindow---open;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.6s; }
+  .confirm .confirmTitlebar,
+  .confirm .confirmContent,
+  .confirm .confirmButtons {
+    padding: 1.25em; }
+  .confirm .confirmTitlebar {
+    background: linear-gradient(to left, #807ece 0%, #3e3aa7 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "interstate-condensed", sans-serif; }
+  .confirm .confirmTitle {
+    font-weight: bold;
+    font-size: 2.2rem; }
+  .confirm .confirmBtnClose {
+    background: none;
+    outline: none;
+    border: none;
+    transform: scale(2.5);
+    color: #ffffff;
+    transition: color 0.15s; }
+  .confirm .confirmBtnClose:hover {
+    color: #00b7ff;
+    cursor: pointer; }
+  .confirm .confirmContent {
+    line-height: 1.8em; }
+  .confirm .confirmButtons {
+    display: flex;
+    justify-content: flex-end; }
+  .confirm .btn-puprle {
+    box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0); }
+  .confirm .btn-orange {
+    box-shadow: 1px 4px 12px 3px rgba(217, 173, 102, 0);
+    margin-left: 2rem; }
+
+.confirmCloseAnimation {
+  animation-name: confirm---close !important; }
+
+@keyframes confirm---open {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes confirm---close {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@keyframes confirmWindow---open {
+  to {
+    opacity: 1;
+    transform: scale(1); } }
 
 form {
   display: flex;
@@ -2748,20 +2836,34 @@ header {
       @media only screen and (max-width: 37.5em) {
         .detail > .comments .btn-puprle {
           margin-left: 81%; } }
+    .detail > .comments .commentResponse {
+      width: 56%;
+      margin: 6rem auto 11rem auto;
+      padding: 1.2rem 0rem;
+      color: #fffefa;
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bolder;
+      background: linear-gradient(to left, #807ece 0%, #3e3aa7 100%);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 400ms linear; }
     .detail > .comments .commentEntry {
       display: grid;
-      grid-template-columns: 8rem 1fr;
-      grid-template-rows: max-content max-content;
-      width: 80%;
-      margin: 5rem auto; }
+      grid-template-columns: 12rem 1fr;
+      grid-template-rows: repeat(3, max-content);
+      width: 70%;
+      margin: 6rem auto;
+      transition: opacity 300ms linear;
+      opacity: 1; }
       .detail > .comments .commentEntry .avatar {
         grid-row: 1 / -1;
         border-radius: 50%;
-        height: 8rem;
-        width: 8rem;
+        height: 8.6rem;
+        width: 8.6rem;
         position: relative;
-        overflow: hidden;
-        align-self: center; }
+        overflow: hidden; }
         @media only screen and (max-width: 50em) {
           .detail > .comments .commentEntry .avatar {
             height: 6.5rem;
@@ -2786,7 +2888,8 @@ header {
         display: flex;
         list-style: none;
         justify-content: flex-start;
-        margin-bottom: 1rem; }
+        margin-bottom: 1rem;
+        align-items: center; }
         @media only screen and (max-width: 37.5em) {
           .detail > .comments .commentEntry .nameTime {
             grid-column: 1 / -1;
@@ -2796,20 +2899,72 @@ header {
           margin: 0 2%; }
         .detail > .comments .commentEntry .nameTime .name {
           font-weight: bold;
-          color: #6A66D9; }
+          color: #6A66D9;
+          font-size: 1.9rem; }
         .detail > .comments .commentEntry .nameTime .time {
           font-weight: bold;
           color: #64B7FF;
           font-size: 1.5rem; }
+        .detail > .comments .commentEntry .nameTime .response {
+          color: #fffefa;
+          background-color: #64B7FF;
+          padding: 0.5rem 1rem;
+          font-size: 1.4rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 500ms linear; }
       .detail > .comments .commentEntry p {
         grid-column: 2 / -1;
         margin-left: 2%;
-        font-size: 1.4rem; }
+        font-size: 1.4rem;
+        margin-top: 0.5rem;
+        background-color: rgba(181, 179, 242, 0);
+        border: 2px solid rgba(181, 179, 242, 0);
+        padding: 0;
+        transition: all 300ms linear; }
         @media only screen and (max-width: 37.5em) {
           .detail > .comments .commentEntry p {
             grid-column: 1 / -1;
             margin-left: 0;
             padding: 0 5%; } }
+      .detail > .comments .commentEntry .editState {
+        padding: 2rem;
+        background-color: rgba(181, 179, 242, 0.144);
+        border-radius: 0.8rem;
+        border: 2px solid rgba(181, 179, 242, 0.35);
+        opacity: 1;
+        visibility: visible;
+        display: block;
+        transition: all 300ms linear; }
+      .detail > .comments .commentEntry .editstatebtns {
+        justify-self: end;
+        display: flex; }
+        .detail > .comments .commentEntry .editstatebtns .commentStateBtn {
+          background-color: transparent;
+          border-width: 0;
+          border-style: none;
+          border-color: transparent;
+          border-image: none;
+          font-weight: bold;
+          letter-spacing: 1px;
+          cursor: pointer; }
+        .detail > .comments .commentEntry .editstatebtns .editCommentbtn,
+        .detail > .comments .commentEntry .editstatebtns .saveCommentbtn {
+          color: #6A66D9; }
+        .detail > .comments .commentEntry .editstatebtns .deleteCommentbtn {
+          color: #ff8d50;
+          margin-left: 5rem; }
+        .detail > .comments .commentEntry .editstatebtns .saveCommentbtn,
+        .detail > .comments .commentEntry .editstatebtns .cancelCommentbtn {
+          display: none;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 700ms linear; }
+        .detail > .comments .commentEntry .editstatebtns .cancelCommentbtn {
+          color: #FBD8A1;
+          margin-left: 5rem; }
     .detail > .comments .btn-loadMore {
       margin: 0 auto 4rem auto;
       display: block; }
@@ -2818,6 +2973,8 @@ header {
       margin: 6rem auto;
       font-weight: bold;
       color: #64B7FF; }
+  .detail [contenteditable] {
+    outline: 0px solid transparent; }
 
 .editpostContain {
   grid-column: center-start / center-end;

@@ -9,4 +9,4 @@ $id = $_POST['id'];
 $userLoggedIn = $_POST['userLoggedIn'];
 
 $post = new Post($con, $userLoggedIn);
-echo $post->getComments($id, true);
+echo $post->getComments($id, $userLoggedIn, true);

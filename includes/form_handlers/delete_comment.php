@@ -7,7 +7,11 @@ include("../classes/Post.php");
 $posts = new Post($con, $_REQUEST['userLoggedIn']);
 
 
-if (isset($_POST['delete_post'])) {
+if (isset($_POST['delete_comment'])) {
 
-  $posts->deletePost($_REQUEST);
+  $posts->deleteComment($_REQUEST);
 }
+
+
+
+ ?>

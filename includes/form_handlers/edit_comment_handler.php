@@ -1,13 +1,15 @@
 <?php
-
-require '../../config/config.php';
+include("../../config/config.php");
 include("../classes/User.php");
 include("../classes/Post.php");
 
 $posts = new Post($con, $_REQUEST['userLoggedIn']);
 
 
-if (isset($_POST['delete_post'])) {
+if (isset($_POST['edit_comment'])) {
 
-  $posts->deletePost($_REQUEST);
+
+
+
+  $posts->editComment($_REQUEST);
 }

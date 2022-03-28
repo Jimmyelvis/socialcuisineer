@@ -159,6 +159,20 @@ class Post
 
 	}
 
+	public function deletePost($data)
+	{
+		$added_by = $data['userLoggedIn'];
+		$post_id = $data['post_id'];
+
+		$query = mysqli_query($this->con, "UPDATE posts SET deleted='yes' WHERE id='$post_id'");
+
+		if (!$query) {
+			echo "There was an error deleting your post";
+		} else {
+			echo "You Comment Was Successfully Deleted";
+		}
+	}
+
 	public function calculateTrend($term)
 	{
 
@@ -267,7 +281,7 @@ class Post
 
 
 
-					$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id'");
+					$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' AND removed='no'");
 					$comments_check_num = mysqli_num_rows($comments_check);
 
 
@@ -470,7 +484,7 @@ class Post
 				}
 
 				if ($userLoggedIn == $added_by)
-					$delete_button = "<button  id='post$id'>
+					$delete_button = "<button  id='post$id' class='card-closeBtn'>
 								<img src='./assets/img/close-btn-v2.svg' alt=''>
 					</button>";
 				else
@@ -487,7 +501,7 @@ class Post
 
 				<?php
 
-				$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id'");
+				$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' AND removed='no'");
 				$comments_check_num = mysqli_num_rows($comments_check);
 
 
@@ -552,12 +566,13 @@ class Post
 				$link = "post.php?id=" . $id;
 
 
-				$str .= "<div class='card recipe-card'>
+				$str .= "<div class='card recipe-card' data-postid='$id'>
 
 									 <div class='card-userImage'>
 											<img src='$profile_pic' alt=''>
 										</div>
 
+										$delete_button
 
 										<div class='card-info'>
 
@@ -615,7 +630,7 @@ class Post
 								</div>
 
 								<div class='comment_section'>"
-									. $this->getComments($id) .
+									. $this->getComments($id, $added_by) .
 								"</div>
 
 							</div>	";
@@ -697,7 +712,7 @@ class Post
 		
 				<?php
 
-				$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id'");
+				$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' AND removed='no'");
 				$comments_check_num = mysqli_num_rows($comments_check);
 
 
@@ -805,11 +820,11 @@ class Post
 								<p> $body</p>
 						</div>
 
-						<div class='comments'>
+						<div class='comments' data='$comments_check_num'>
 						
 							<div class='heading'>
 								<h3 class='heading-3'>
-									$comments_check_num Comments
+									<span class='commentNumber'>$comments_check_num </span> Comments
 								</h3>
 							</div>
 
@@ -817,7 +832,9 @@ class Post
 
 							<input class='btn btn-puprle' type='button' name='$id' value='Send' id='commentBtn'>
 
-							". $this->getComments($id) ."
+							<div class='commentResponse'></div>
+
+							". $this->getComments($id, $added_by) ."
 						
 						</div>
 
@@ -874,7 +891,7 @@ class Post
 			$last_name = $user_row['last_name'];
 			$profile_pic = $user_row['profile_pic'];
 
-			$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id'");
+			$comments_check = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' AND removed='no'");
 			$comments_check_num = mysqli_num_rows($comments_check);
 
 
@@ -1046,7 +1063,7 @@ class Post
 		}
 	}
 
-	public function getComments($id, $get_only_last_comment = false)
+	public function getComments($id, $added_by, $get_only_last_comment = false)
 	{
 
 		if ($get_only_last_comment) {
@@ -1054,7 +1071,7 @@ class Post
 			$get_comments = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' ORDER BY id DESC LIMIT 1");
 		} else {
 
-			$get_comments = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' ORDER BY id ASC");
+			$get_comments = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$id' AND removed='no' ORDER BY id ASC");
 		}
 
 
@@ -1071,6 +1088,8 @@ class Post
 				$posted_by = $comment['posted_by'];
 				$date_added = $comment['date_added'];
 				$removed = $comment['removed'];
+				$comment_id = $comment['id'];
+
 
 				//Timeframe
 				$date_time_now = date("Y-m-d H:i:s");
@@ -1093,9 +1112,9 @@ class Post
 
 
 					if ($interval->m == 1) {
-						$time_message = $interval->m . " month" . $days;
+						$time_message = $interval->m . " month " . $days;
 					} else {
-						$time_message = $interval->m . " months" . $days;
+						$time_message = $interval->m . " months " . $days;
 					}
 				} else if ($interval->d >= 1) {
 					if ($interval->d == 1) {
@@ -1129,9 +1148,28 @@ class Post
 
 				$names = $user_obj->getFirstAndLastName();
 
+				$loggedUser = $this->user_obj->getUsername();
+
+				$showEditBtn = '';
+				$response = '';
+
+				if($loggedUser == $posted_by ) {
+					$showEditBtn = '
+					<button class="heading-3 commentStateBtn editCommentbtn">Edit</button>
+					<button class="heading-3 commentStateBtn deleteCommentbtn">Delete</button>
+					<button class="heading-3 commentStateBtn saveCommentbtn">Save</button>
+					<button class="heading-3 commentStateBtn cancelCommentbtn">Cancel</button>
+					';
+							
+					$response = '<li class="response"></li>';
+				} else {
+					$showEditBtn = '';
+				}
+
+
 
 				$commment_from_db .= "
-				  <div class='commentEntry'>
+				  <div class='commentEntry' data-req='$comment_id,$added_by'>
 
 						<div class='avatar'>
 							<img src='$prof_pic' alt='' title='$posted_by'>
@@ -1144,9 +1182,14 @@ class Post
 								</a>
 							</li>
 							<li class='time'>$time_message</li>
+							$response
 						</div>
 
-						<p>$comment_body</p>
+						<p class='commentbody'>$comment_body</p>
+
+						<div class='editstatebtns'>
+								$showEditBtn
+						</div>
 
 					</div> ";
 			}
@@ -1156,6 +1199,45 @@ class Post
 		}
 
 		return $commment_from_db;
+	}
+
+	public function editComment($data)
+	{
+		$body = $data['comment_Body'];
+		$posted_to = $data['commentToUser'];
+		$post_id = $data['post_id'];
+		$comment_id = $data['comment_id'];
+		$posted_by = $data['userLoggedIn'];
+
+
+		$body = mysqli_real_escape_string($this->con, $body);
+
+		//Current date and time
+		$date_added = date("Y-m-d H:i:s");
+
+
+		$query = mysqli_query($this->con, "UPDATE comments SET post_body='$body', posted_by='$posted_by', posted_to='$posted_to', date_added='$date_added', post_id='$post_id', removed='no' WHERE id='$comment_id'");
+
+		if (!$query) {
+			echo "There was an error updating your comment";
+		} else {
+			echo "Your Comment Was Successfully Updated";
+		}
+
+	}
+
+	public function deleteComment($data)
+	{
+		$comment_id = $data['comment_id'];
+		$posted_by = $data['userLoggedIn'];
+
+		$query = mysqli_query($this->con, "UPDATE comments SET removed='yes' WHERE id='$comment_id'");
+
+		if (!$query) {
+			echo "There was an error deleting your comment";
+		} else {
+			echo "You Comment Was Successfully Deleted";
+		}
 	}
 
 	public function getLikes($post_id)
@@ -1316,6 +1398,8 @@ class Post
 
 		return $likes_for_post;
 	}
+
+
 
 	public function getAllLikes($post_id) {
 
