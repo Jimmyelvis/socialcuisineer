@@ -103,3 +103,9 @@ echo $imagePath;
 </script>
 
 <script src="./assets/js/dist/editpost.js"></script>
+
+<?php
+
+include("includes/footer.php");
+
+?>

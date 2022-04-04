@@ -22,9 +22,6 @@ html {
   @media only screen and (max-width: 62.5em) {
     html {
       font-size: 50%; } }
-  @media only screen and (max-width: 50em) {
-    html {
-      font-size: 46%; } }
 
 body {
   box-sizing: border-box;
@@ -347,7 +344,7 @@ input.comment_like {
       justify-content: center;
       margin-right: 3rem; }
       .likedby .likedForm .likeHolder .btnUnlike {
-        padding: 2rem;
+        padding: 3rem;
         background: url(../img/btn-liked.svg);
         background-position: center;
         background-repeat: no-repeat;
@@ -358,7 +355,7 @@ input.comment_like {
         cursor: pointer;
         position: absolute; }
       .likedby .likedForm .likeHolder .btnlike {
-        padding: 2rem;
+        padding: 3rem;
         background: url(../img/btn-notLiked.svg);
         background-position: center;
         background-repeat: no-repeat;
@@ -2698,6 +2695,16 @@ header {
       transform: translateX(-50%);
       width: 8.5rem;
       height: 8.5rem; }
+      @media only screen and (max-width: 37.5em) {
+        .detail .postHeading .edit {
+          left: 90%;
+          width: 7.4rem;
+          height: 7.4rem; } }
+      @media only screen and (max-width: 31.25em) {
+        .detail .postHeading .edit {
+          width: 6rem;
+          height: 6rem;
+          bottom: -1rem; } }
       .detail .postHeading .edit .edit-btn {
         height: 100%;
         object-fit: cover;
@@ -2857,6 +2864,9 @@ header {
       margin: 6rem auto;
       transition: opacity 300ms linear;
       opacity: 1; }
+      @media only screen and (max-width: 31.25em) {
+        .detail > .comments .commentEntry {
+          width: 85%; } }
       .detail > .comments .commentEntry .avatar {
         grid-row: 1 / -1;
         border-radius: 50%;
@@ -2941,6 +2951,9 @@ header {
       .detail > .comments .commentEntry .editstatebtns {
         justify-self: end;
         display: flex; }
+        @media only screen and (max-width: 37.5em) {
+          .detail > .comments .commentEntry .editstatebtns {
+            grid-column: 1 / -1; } }
         .detail > .comments .commentEntry .editstatebtns .commentStateBtn {
           background-color: transparent;
           border-width: 0;

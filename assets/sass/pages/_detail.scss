@@ -71,6 +71,18 @@
       width: 8.5rem;
       height: 8.5rem;
 
+      @include respond(bp-small) {
+        left: 90%;
+        width: 7.4rem;
+        height: 7.4rem;
+      }
+
+      @include respond(bp-smallest) {
+        width: 6rem;
+        height: 6rem;
+        bottom: -1rem;
+      }
+
       .edit-btn {
         height: 100%;
         object-fit: cover;
@@ -309,6 +321,10 @@
       transition: opacity 300ms linear;
       opacity: 1;
 
+      @include respond(bp-smallest) {
+        width: 85%;
+      }
+
       .avatar {
         grid-row: 1 / -1;
         border-radius: 50%;
@@ -417,6 +433,10 @@
       .editstatebtns {
         justify-self: end;
         display: flex;
+
+        @include respond(bp-small) {
+          grid-column: 1 / -1;
+        }
 
         .commentStateBtn {
           background-color: transparent;
