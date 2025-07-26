@@ -1,0 +1,160 @@
+<?php
+class Post {
+    private $user_obj;
+    private $con;
+
+    public function __construct($con, $user) {
+        $this->con = $con;
+        $this->user_obj = new User($con, $user);
+    }
+
+    public function submitPost($body, $user_to, $imageName, $heading) {
+        $body = mysqli_real_escape_string($this->con, $body);
+        $heading = strip_tags($heading);
+        $heading = mysqli_real_escape_string($this->con, $heading);
+        $check_empty = preg_replace('/\s+/', '', $body);
+
+        if ($check_empty == "") {
+            return [
+                'status' => 'error',
+                'message' => 'Post content cannot be empty'
+            ];
+        }
+
+        $date_added = date("Y-m-d H:i:s");
+        $added_by = $this->user_obj->getUsername();
+        $user_to = ($user_to == $added_by) ? "none" : $user_to;
+
+        $query = mysqli_query($this->con, "INSERT INTO posts VALUES('', '$body', '$heading','$added_by', '$user_to', '$date_added', 'no', 'no', '0', '$imageName')");
+        
+        if (!$query) {
+            return [
+                'status' => 'error',
+                'message' => 'Database error while creating post'
+            ];
+        }
+
+        $returned_id = mysqli_insert_id($this->con);
+        $num_posts = $this->user_obj->getNumPosts();
+        $num_posts++;
+        mysqli_query($this->con, "UPDATE users SET num_posts='$num_posts' WHERE username='$added_by'");
+
+        return [
+            'status' => 'success',
+            'message' => 'Post created successfully',
+            'data' => [
+                'post_id' => $returned_id,
+                'body' => $body,
+                'heading' => $heading,
+                'added_by' => $added_by,
+                'date_added' => $date_added,
+                'image' => $imageName
+            ]
+        ];
+    }
+
+    public function loadPostsFriends($options = [], $limit = 10) {
+        $page = isset($options['page']) ? (int)$options['page'] : 1;
+        $start = ($page - 1) * $limit;
+        
+        $username = $this->user_obj->getUsername();
+        
+        $str = "SELECT p.*, u.first_name, u.last_name, u.profile_pic, u.username 
+                FROM posts p 
+                INNER JOIN users u ON p.added_by = u.username 
+                WHERE p.deleted='no' 
+                AND (p.added_by = '$username' 
+                    OR p.added_by IN (SELECT friend_array FROM users WHERE username = '$username'))
+                ORDER BY p.id DESC 
+                LIMIT $start, $limit";
+        
+        $query = mysqli_query($this->con, $str);
+        
+        $posts = [];
+        while($row = mysqli_fetch_array($query)) {
+            $id = $row['id'];
+            $body = $row['body'];
+            $heading = $row['heading'];
+            $added_by = $row['added_by'];
+            $date_time = $row['date_added'];
+            $imagePath = $row['image'];
+            
+            $likes = $this->getLikes($id);
+            $comments = $this->getComments($id);
+            
+            $body_truncated = strlen($body) > 200 ? substr($body, 0, 200) . '...' : $body;
+            
+            $posts[] = [
+                'id' => $id,
+                'body' => $body,
+                'body_truncated' => $body_truncated,
+                'heading' => $heading,
+                'added_by' => [
+                    'username' => $row['username'],
+                    'first_name' => $row['first_name'],
+                    'last_name' => $row['last_name'],
+                    'profile_pic' => $row['profile_pic']
+                ],
+                'time_message' => $this->getTime($date_time),
+                'image' => $imagePath ? '/uploads/posts/' . $imagePath : null,
+                'likes' => $likes,
+                'comments_count' => count($comments),
+                'can_delete' => $added_by === $username,
+                'link' => '/post.php?id=' . $id
+            ];
+        }
+        
+        $str = "SELECT COUNT(*) as total 
+                FROM posts p 
+                WHERE p.deleted='no' 
+                AND (p.added_by = '$username' 
+                    OR p.added_by IN (SELECT friend_array FROM users WHERE username = '$username'))";
+        
+        $count_query = mysqli_query($this->con, $str);
+        $row = mysqli_fetch_array($count_query);
+        $total = $row['total'];
+        
+        return [
+            'data' => [
+                'posts' => $posts,
+                'has_more' => ($total > ($start + $limit)),
+                'next_page' => $page + 1
+            ]
+        ];
+    }
+
+    private function getTime($datetime) {
+        $timestamp = strtotime($datetime);
+        $timeAgo = time() - $timestamp;
+
+        if ($timeAgo < 60) {
+            return "Just now";
+        } else if ($timeAgo < 3600) {
+            $minutes = floor($timeAgo / 60);
+            return $minutes . " minute" . ($minutes > 1 ? "s" : "") . " ago";
+        } else if ($timeAgo < 86400) {
+            $hours = floor($timeAgo / 3600);
+            return $hours . " hour" . ($hours > 1 ? "s" : "") . " ago";
+        } else if ($timeAgo < 604800) {
+            $days = floor($timeAgo / 86400);
+            return $days . " day" . ($days > 1 ? "s" : "") . " ago";
+        } else {
+            return date("F j, Y", $timestamp);
+        }
+    }
+
+    private function getLikes($post_id) {
+        $query = mysqli_query($this->con, "SELECT COUNT(*) as count FROM likes WHERE post_id='$post_id'");
+        $row = mysqli_fetch_array($query);
+        return $row['count'];
+    }
+
+    private function getComments($post_id) {
+        $query = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$post_id'");
+        $comments = [];
+        while($row = mysqli_fetch_array($query)) {
+            $comments[] = $row;
+        }
+        return $comments;
+    }
+}

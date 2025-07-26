@@ -1,0 +1,25 @@
+vendor
+PSD/
+config/keys.php
+swirl-2.sql
+swirl.sql
+node_modules
+php-live-reload
+src
+.vscode
+extras.docx
+package-lock.json
+phrwatcher.php
+/includes/header - Copy (2).php
+/includes/header - Copy.php
+/includes/profile-user-header copy.php
+/includes/user-header copy.php
+/includes/src
+/includes/classes/Post copy.php
+/index - Copy (2).php
+/index - Copy.php
+/index copy.php
+/message-notif.php
+/social.sql
+/swirl.sql
+/Notes

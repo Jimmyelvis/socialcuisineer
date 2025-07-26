@@ -1,0 +1,129 @@
+.addPostsContain {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-column: center-start / center-end;
+  position: relative;
+  padding-top: 16rem;
+
+  @include respond(bp-largest) {
+    padding-top: 24rem;
+  }
+
+  .heading-2 {
+    font-size: 7rem;
+    line-height: 1;
+
+    @include respond(bp-large) {
+      font-size: 6rem;
+    }
+  }
+
+  .closeOverlay {
+    position: absolute;
+    width: 3rem;
+    top: 8rem;
+    right: 2rem;
+    cursor: pointer;
+
+    @include respond(bp-largest) {
+      top: 16rem;
+    }
+  }
+
+  form {
+    width: 80%;
+    padding-bottom: 6rem;
+
+    @include respond(bp-largest) {
+      width: 90%;
+    }
+
+    @include respond(bp-small) {
+      width: 100%;
+    }
+
+    .inputBox {
+      margin: 2.6rem 0;
+      font-size: 2rem;
+    }
+
+    .imgPreview {
+      display: flex;
+      width: 100%;
+      height: 46rem;
+      color: rgba($color-primary, .7);
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      padding: 0 !important;
+      margin-top: 4rem;
+
+      .img-preview-image {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
+
+    .file-upload-flexed {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .inpFile {
+        display: none;
+      }
+  
+      .file-upload-button {
+        -webkit-appearance: none;
+        font-size: 1.6rem;
+        margin-right: 4rem;
+
+        @include respond(bp-large) {
+            width: 16rem;
+        }
+      }
+  
+      .file-upload-label {
+            max-width: 53rem;
+            font-size: 0.95em;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: $color-primary;
+      }
+    }
+
+
+    .btn-modalSubmit {
+      margin-bottom: 2rem;
+    }
+
+  }
+
+}
+
+.addPostBtn {
+  grid-column: col-end 3 / col-end 5;
+  margin: 10rem auto 0 auto;
+  width: 80%;
+  cursor: pointer;
+  display: block;
+
+   @include respond(bp-largest) {
+    margin: 20rem auto 0 auto;
+    width: 100%;
+  }
+
+  @include respond(bp-small) {
+    grid-column: col-end 2 / col-end 6;
+    margin: 14rem auto 0 auto;
+    width: 70%;
+  }
+}
+
+

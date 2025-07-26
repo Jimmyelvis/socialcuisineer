@@ -1,0 +1,33 @@
+0000000000000000000000000000000000000000 5dec6155d0369211a1706475bf8cfcbb9ed7f0b9 Jimmyelvis <jinjoe@zoho.com> 1528320568 -0500	commit (initial): intial commit
+5dec6155d0369211a1706475bf8cfcbb9ed7f0b9 3a8b92f9efc01abf6d54126c919fd55a64f05b46 Jimmyelvis <jinjoe@zoho.com> 1528322852 -0500	commit: added database creditials
+3a8b92f9efc01abf6d54126c919fd55a64f05b46 597b8d266aead6399b939eacff5dbc74c9ccc9f9 Jimmyelvis <jinjoe@zoho.com> 1528325458 -0500	commit: added composer.json
+597b8d266aead6399b939eacff5dbc74c9ccc9f9 6dd9863d4e03a7b1ed73470be16e309f5b940e9d Jimmyelvis <jinjoe@zoho.com> 1528325846 -0500	commit: trying database again
+6dd9863d4e03a7b1ed73470be16e309f5b940e9d 926754aa4cd394a72408a5e75e4640953ee072ca Jimmyelvis <jinjoe@zoho.com> 1528329548 -0500	commit: ajusted css
+926754aa4cd394a72408a5e75e4640953ee072ca 042e1c8d50e50d93005a15c3862645e589002d98 Jimmyelvis <jinjoe@zoho.com> 1528329742 -0500	commit: ajusted files names
+042e1c8d50e50d93005a15c3862645e589002d98 33dc5242665c61805ab6cecf154a8ac7d1cae5e0 Jimmyelvis <jinjoe@zoho.com> 1528329993 -0500	commit: ajusted files names
+33dc5242665c61805ab6cecf154a8ac7d1cae5e0 f63d8ad81add39aab10f0c73ade8bd3f1b244898 Jimmyelvis <jinjoe@zoho.com> 1528566716 -0500	commit: use aws/aws-sdk-php
+f63d8ad81add39aab10f0c73ade8bd3f1b244898 17ea3ff5ee6b70ac1d90f3104edca32a2c1c0f39 Jimmyelvis <jinjoe@zoho.com> 1528571907 -0500	commit: new images files
+17ea3ff5ee6b70ac1d90f3104edca32a2c1c0f39 65b256202b17d8114ffc922f20dc1e32b89f2457 Jimmyelvis <jinjoe@zoho.com> 1529798203 -0500	commit: use aws/aws-sdk-php
+65b256202b17d8114ffc922f20dc1e32b89f2457 bc28a2af9acfe5491bffc982126fd1ab6cc5f8dd Jimmyelvis <jinjoe@zoho.com> 1529871426 -0500	commit: refactoring
+bc28a2af9acfe5491bffc982126fd1ab6cc5f8dd 5679fb96573b07e58778b4d5b4e2fdc9ad06a166 Jimmyelvis <jinjoe@zoho.com> 1530725302 -0500	commit: changed database location
+5679fb96573b07e58778b4d5b4e2fdc9ad06a166 4c166c9aa079213573242af19dd6e0efd797b620 Jimmyelvis <jinjoe@zoho.com> 1545001757 -0500	commit: Changed readme file
+4c166c9aa079213573242af19dd6e0efd797b620 329c47f05cf719f89cd785dabf110903e36e316c Jimmyelvis <jinjoe@zoho.com> 1545002259 -0500	commit: Changed readme file
+329c47f05cf719f89cd785dabf110903e36e316c 7da20b8b2e696c8c2c764b0c24d8e4fa8976ecf1 Jimmyelvis <jinjoe@zoho.com> 1630366688 -0400	commit: 2021 update version 1
+7da20b8b2e696c8c2c764b0c24d8e4fa8976ecf1 0a74d7dbf9de6b1c9690b3fdf0073c947f59de4f Jimmyelvis <jinjoe@zoho.com> 1630367514 -0400	commit: 2021 update version 1.1
+0a74d7dbf9de6b1c9690b3fdf0073c947f59de4f aa14a9c80817aa2c099c034ac59792b93bfab47b Jimmyelvis <jinjoe@zoho.com> 1630367857 -0400	commit: 2021 update version 1.1
+aa14a9c80817aa2c099c034ac59792b93bfab47b aed7f84190cc688329a6bdd3600bbda05ba66389 Jimmyelvis <jinjoe@zoho.com> 1630367929 -0400	commit: 2021 update version 1.1
+aed7f84190cc688329a6bdd3600bbda05ba66389 034e4afc734857e8348b71b607acb8df394c0bdd Jimmyelvis <jinjoe@zoho.com> 1630368000 -0400	commit: 2021 update version 1.1
+034e4afc734857e8348b71b607acb8df394c0bdd 5b39a778f464b81f33cc6ca9b10a33a5808204e2 Jimmyelvis <jinjoe@zoho.com> 1631304522 -0400	commit: updated readme
+5b39a778f464b81f33cc6ca9b10a33a5808204e2 aaa7c373c2c10e248f5e94d29efc99d910bdc47b Jimmyelvis <jinjoe@zoho.com> 1643428644 -0500	commit: added browsersync to setup
+aaa7c373c2c10e248f5e94d29efc99d910bdc47b 3e376caac3f9dc7e086d531a31c2693b09c36b73 Jimmyelvis <jinjoe@zoho.com> 1644682657 -0500	commit: changed header
+3e376caac3f9dc7e086d531a31c2693b09c36b73 88a06fd5f4b0fd41d86cc0a0bf1c9025840619a6 Jimmyelvis <jinjoe@zoho.com> 1645903830 -0500	commit: some javscript file changes
+88a06fd5f4b0fd41d86cc0a0bf1c9025840619a6 979f63b6f76173d7b319822534c48f744eac06af Jimmyelvis <jinjoe@zoho.com> 1646598204 -0500	commit: Structural changes to javascript
+979f63b6f76173d7b319822534c48f744eac06af 0b66d5ff5748c0b6d1c71c560c6617cfd348722a Jimmyelvis <jinjoe@zoho.com> 1646599469 -0500	commit: Structural changes to javascript
+0b66d5ff5748c0b6d1c71c560c6617cfd348722a 64bca61d219d77a797b90a4093078bf1634c73ee Jimmyelvis <jinjoe@zoho.com> 1646599505 -0500	pull: Merge made by the 'recursive' strategy.
+64bca61d219d77a797b90a4093078bf1634c73ee 7d91a5a57e2dfdb1afe519e055c94ef51a26dd9a Jimmyelvis <jinjoe@zoho.com> 1647198948 -0400	commit: added editing posts capabilites
+7d91a5a57e2dfdb1afe519e055c94ef51a26dd9a 89b13fa5084c0028bdc32ef20c0273c183b9a84d Jimmyelvis <jinjoe@zoho.com> 1647807833 -0400	commit: updated the edit_post_handler
+89b13fa5084c0028bdc32ef20c0273c183b9a84d b1f3daa37f67055b87352ebd757e38bd7750669c Jimmyelvis <jinjoe@zoho.com> 1648504795 -0400	commit: Deleted folder from repository only
+b1f3daa37f67055b87352ebd757e38bd7750669c 3a686815f4aedbe32dace8289bdc77168e795ce9 Jimmyelvis <jinjoe@zoho.com> 1648504906 -0400	commit: Added the ability to edit and delete comments
+3a686815f4aedbe32dace8289bdc77168e795ce9 814d62c04f21c78ed354edccb35a5380ba2e5f5a Jimmyelvis <jinjoe@zoho.com> 1649112376 -0400	commit: Added the ability to edit and delete comments
+814d62c04f21c78ed354edccb35a5380ba2e5f5a 88dd4e73fabba27564af1ecc2e778e6e87ac3228 Jimmyelvis <jinjoe@zoho.com> 1712442680 -0400	commit: before changes to user class
+88dd4e73fabba27564af1ecc2e778e6e87ac3228 c9328eb91675cee6f9c6999cbada43f6ad37ff3e Jimmyelvis <jinjoe@zoho.com> 1712443104 -0400	commit: after changes to user class

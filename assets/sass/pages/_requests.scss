@@ -1,0 +1,80 @@
+.requests {
+  position: relative;
+  grid-column: center-start / center-end;
+  margin: 20rem 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+
+  .noRequests {
+    text-align: center;
+    margin-top: 9rem;
+    grid-column: 1 / -1;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    align-items: center;
+    padding: 3rem 0;
+    justify-content: center;
+
+    .avatar {
+      height: 16rem;
+      width: 16rem;
+      border-radius: 50%;
+      overflow: hidden;
+      justify-self: center;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10%;
+      justify-self: center;
+
+      .heading-3 {
+        font-size: 3rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        align-items: flex-start;
+      }
+    }
+
+
+  }
+
+  .btn {
+    margin-right: 3rem;
+  }
+
+   .response {
+     width: 64%;
+     background-color: $color-secondary;
+     color: #fff;
+     padding: 1.8rem 0;
+     display: none;
+     opacity: 0;
+     visibility: hidden;
+     transition: opacity 600ms linear;
+     text-align: center;
+     position: absolute;
+   }
+
+   .response {
+     font-size: 2.7rem;
+   }
+
+
+}

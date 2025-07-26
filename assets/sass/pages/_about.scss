@@ -1,0 +1,49 @@
+.bio {
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+
+.infobar {
+  grid-column: col-end 2/ col-end 6;
+  margin: 1rem 0 5rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem;
+  border-radius: 1.8rem;
+
+  @include respond(bp-largest) {
+    margin-top: 16rem;
+  }
+
+  @include respond(bp-small) {
+    margin-top: 0;
+    flex-direction: column;
+    margin: 12rem 0 2rem 0;
+  }
+
+  .location, .favFood {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .location {
+
+    @include respond(bp-small) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .label {
+    color: $color-primary;
+  }
+
+  li {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: $color-secondary;
+  }
+}

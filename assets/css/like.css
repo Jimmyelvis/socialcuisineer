@@ -1,0 +1,118 @@
+.likes iframe {
+  width: 100%;
+  width: 100%;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+}
+
+.likes iframe input.comment_like {
+  background-color: #6a66d9;
+  border-width: 0;
+  border-style: none;
+  border-color: snow;
+  border-image: none;
+  padding: 0.6rem 2rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.likes iframe .likedby {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: wheat;
+  padding: 0;
+}
+
+.likes iframe .likedby .likedForm {
+  background-color: yellowgreen;
+  flex: 0 0 25rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
+}
+
+.likes iframe .likedby .likedForm .likeholder {
+  position: relative;
+  background-color: blueviolet;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
+}
+
+.likes iframe .likedby .likedForm .likeholder .btnUnlike {
+  padding: 2rem;
+  background: url(../img/btn-liked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 0;
+  border-style: outset;
+  border-color: transparent;
+  border-image: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.likes iframe .likedby .likedForm .likeholder .btnlike {
+  padding: 2rem;
+  background: url(../img/btn-notLiked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 0;
+  border-style: outset;
+  border-color: transparent;
+  border-image: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.likes iframe .likedby .likedForm .heading-3 {
+  font-size: 2.8rem;
+}
+
+.likes iframe .likedby .avatars {
+  display: flex;
+}
+
+.likes iframe .likedby .avatars .avatar {
+  overflow: hidden;
+  border-radius: 50%;
+  width: 7.8rem;
+  height: 7.8rem;
+  border: 3px solid #fff;
+  margin-left: -3rem;
+  position: relative;
+}
+
+.likes iframe .likedby .avatars .avatar img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.likes iframe .likedby .avatars .likeId-1 {
+  z-index: 60;
+}
+
+.likes iframe .likedby .avatars .likeId-2 {
+  z-index: 59;
+}
+
+.likes iframe .likedby .avatars .likeId-3 {
+  z-index: 58;
+}
+
+.likes iframe .likedby .avatars .likeId-4 {
+  z-index: 57;
+}
+
+.likes iframe .likedby .avatars .likeId-5 {
+  z-index: 56;
+}

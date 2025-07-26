@@ -1,0 +1,47 @@
+@import url("https://use.typekit.net/xeb5ajt.css");
+@import url('https://fonts.googleapis.com/css2?family=Inder&display=swap');
+
+%heading {
+  font-family: $font-heading;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.05rem;
+  color: $color-primary;
+}
+
+.heading-1 {
+  @extend %heading;
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.heading-2 {
+  @extend %heading;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.heading-3 {
+  @extend %heading;
+  font-size: 1.6rem;
+}
+
+.heading-4 {
+  @extend %heading;
+  font-size: 1.3rem;
+}
+
+.paragraph {
+  font-size: $default-font-size;
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}
+
+.display {
+  font-family: $font-heading;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: 0.05rem;
+}

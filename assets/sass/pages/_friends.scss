@@ -1,0 +1,52 @@
+.friends {
+  grid-column: center-start / center-end;
+  margin: 10rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 60rem;
+
+  @include respond(bp-largest) {
+      margin: 20rem 0;
+  }
+
+  .entry {
+    height: auto;
+    flex: 0 0 30rem;
+    margin: 0 1%;
+    margin-bottom: 5rem;
+
+    @include respond(bp-large) {
+      flex: 0 0 48%;
+    }
+
+    @include respond(bp-small) {
+      flex: 0 0 80%;
+    }
+
+    @include respond(bp-smallest) {
+      flex: 0 0 90%;
+    }
+
+    @include respond(bp-tiny) {
+      flex: 0 0 100%;
+    }
+
+    img {
+      object-fit: cover;
+      height: 28rem;
+      border-radius: 1.2rem;
+
+      @include respond(bp-small) {
+        height: 32rem;
+      }
+    }
+
+    .heading-4 {
+      text-align: center;
+      color: $color-primary;
+      font-size: 2.8rem;
+      margin-top: 2rem;
+    }
+  }
+}

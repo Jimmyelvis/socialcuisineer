@@ -1,0 +1,412 @@
+.settingsContain {
+  grid-column: center-start / center-end;
+  margin: 19rem 0 10rem 0;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  .heading-2 {
+    text-align: center;
+  }
+
+  .fileUploadAvatar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5rem 0;
+
+      .fileUploadInputAvatar {
+        display: none;
+      }
+
+      .avatar {
+        width: 21rem;
+        height: 21rem;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 6rem auto 1rem auto;
+        position: relative;
+        transition: all 500ms linear;
+        cursor: pointer;
+        border: none;
+        outline: none;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          object-fit: cover;
+          height: 100%;
+          max-width: 100%;
+        }
+    
+        @include respond(bp-largest) {
+          width: 15rem;
+          height: 15rem;
+        }
+    
+        &::after {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            content: "";
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: 54%;
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+            transition: all 500ms linear;
+        }
+    
+      }
+    
+      .avatar:hover {
+        filter: blur(0.1rem);
+      }
+    
+      .avatar:hover::after {
+        background-image: url(../../assets/img/upload.svg);
+        z-index: 200;
+        transition: all 500ms linear;
+        background-size: 54%;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        background-color: #57358da1;
+        filter: blur(0px);
+        left: 0;
+      }
+
+      .fileUploadAvatarLabel {
+        font-size: 0.95em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: rgba($color-primary, .7);
+      }
+  }
+
+
+
+  .heading-4 {
+    font-size: 2.1rem;
+    margin-bottom: 5rem;
+    text-align: center;
+
+  }
+
+  .inputBox {
+    margin: 2.6rem 0;
+    font-size: 2rem;
+  }
+
+  .imgPreview {
+    display: flex;
+    width: 100%;
+    height: 46rem;
+    color: rgba($color-primary, .7);
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    padding: 0 !important;
+    margin-top: 4rem;
+    text-align: center;
+
+    .img-preview-image {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
+  .inputItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 9rem;
+    width: 100%;
+
+    .inputBox {
+      margin: 2.6rem 0;
+      font-size: 1.6rem;
+      flex: 0 0 49%;
+
+      @include respond(bp-medium) {
+        flex: 0 0 100%;
+      }
+    }
+
+  }
+
+  .file-upload-flexed {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .inpFile {
+      display: none;
+    }
+
+    .file-upload-button {
+      -webkit-appearance: none;
+      font-size: 1.6rem;
+      margin-right: 4rem;
+
+      @include respond(bp-large) {
+        width: 16rem;
+      }
+    }
+
+    .file-upload-label {
+      max-width: 53rem;
+      font-size: 0.95em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $color-primary;
+    }
+  }
+
+
+  .btn-modalSubmit {
+    margin-bottom: 2rem;
+
+    @include respond(bp-medium) {
+      font-size: 1.5rem;
+      padding: 1.3rem 1.5rem;
+    }
+  }
+
+  .closeAccount {
+    margin-top: 11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .heading-3 {
+      font-size: 3.6rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+ .uploadRes,.response {
+       width: 80%;
+       background-color: $color-secondary;
+       color: #fff;
+       margin: 0 auto 4rem auto;
+       padding: 1.8rem 0;
+       display: none;
+       opacity: 0;
+       visibility: hidden;
+       transition: opacity 600ms linear;
+       text-align: center;
+ }
+
+ .uploadRes {
+   font-size: 2.6rem;
+ }
+
+ .response {
+   font-size: 3.6rem;
+ }
+
+ .uploadAvatarBtn {
+   margin-top: 2rem;
+   box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0.47);
+   display: none;
+ }
+
+
+
+ .cropperJsModal.active {
+   opacity: 1;
+   visibility: visible;
+   transition: opacity 400ms linear;
+   display: flex;
+ }
+
+
+ 
+
+}
+
+ /**
+ * Avatar Cropping Tool
+ */
+
+ .cropperJsModal {
+   align-items: stretch;
+   justify-content: center;
+
+   .modalContent {
+     width: 100%;
+     border-radius: 0;
+
+     .cropperJsModal-body {
+       display: flex;
+       justify-content: center;
+       min-height: 55rem;
+
+       @include respond(bp-medium) {
+         min-height: 40rem;
+         justify-content: flex-start;
+         flex-direction: column;
+         align-items: center;
+       }
+
+       .imgContainer {
+         flex: 0 0 46%;
+         background-color: rgba(106, 102, 217, 0.15);
+         height: 55rem;
+         position: relative;
+
+         @include respond(bp-medium) {
+           height: 48rem;
+           position: relative;
+           width: 85%;
+           flex: unset;
+         }
+
+         @include respond(bp-tiny) {
+           width: 100%;
+         }
+
+       
+
+         #croppedAvatarImage {
+           object-fit: cover;
+           height: 100%;
+           width: 100%;
+           position: absolute;
+           top: 0;
+           left: 0;
+         }
+       }
+
+       .preview {
+         background-color: rgba(106, 102, 217, 0.15);
+         flex: 0 0 46%;
+         margin-left: 1%;
+         height: 55rem !important;
+         position: relative;
+         overflow: hidden;
+
+         @include respond(bp-medium) {
+           flex: unset;
+           margin-left: 0;
+           height: 48rem !important;
+           width: 85% !important;
+           margin-top: 2%;
+         }
+
+         @include respond(bp-tiny) {
+           width: 100% !important;
+         }
+
+     
+
+         img {
+           position: absolute;
+           object-fit: cover;
+         }
+       }
+     }
+   }
+
+ }
+
+
+ /**
+ * Profile Header Cropping Tool
+ */
+
+ .cropperJsProfileHeaderModal {
+   align-items: stretch;
+   justify-content: center;
+
+   .modalContent {
+     width: 100%;
+     border-radius: 0;
+
+     .cropperJsProfileHeaderModal-body {
+       display: flex;
+       justify-content: center;
+       min-height: 55rem;
+       flex-direction: column;
+       align-items: center;
+
+       @include respond(bp-medium) {
+         min-height: 40rem;
+         justify-content: flex-start;
+         flex-direction: column;
+         align-items: center;
+       }
+
+       .imgContainer {
+         background-color: rgba(106, 102, 217, 0.15);
+         height: 29rem;
+         position: relative;
+         overflow: hidden !important;
+         width: 70%;
+         margin-bottom: 4rem; 
+
+         @include respond(bp-largest) {
+           height: 35rem;
+           width: 80%;
+         }
+
+          @include respond(bp-medium) {
+            width: 95%;
+          }
+
+          @include respond(bp-tiny) {
+            width: 100%;
+          }
+
+         #croppedProfileImage {
+           object-fit: cover;
+           height: 100%;
+           width: 100%;
+           position: absolute;
+           top: 0;
+           left: 0;
+         }
+       }
+
+       .preview {
+         background-color: rgba(106, 102, 217, 0.15);
+         height: 29rem !important;
+         position: relative;
+         overflow: hidden;
+         width: 70% !important;
+
+         @include respond(bp-largest) {
+           height: 35rem;
+           width: 80%;
+         }
+
+          @include respond(bp-medium) {
+            width: 95%;
+          }
+
+         @include respond(bp-smallest) {
+           width: 100% !important;
+         }
+
+
+         img {
+           position: absolute;
+           object-fit: cover;
+         }
+       }
+     }
+
+   }
+
+
+ }

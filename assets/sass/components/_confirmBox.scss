@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap');
+
+.confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 7, 35, 0.76);
+  padding: 10px;
+  box-sizing: border-box;
+
+  opacity: 0;
+  animation-name: confirm---open;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
+
+  .confirmWindow {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    font-size: 14px;
+    font-family: $font-primary;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.67);
+
+    opacity: 0;
+    transform: scale(0.75);
+    animation-name: confirmWindow---open;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.6s;
+  }
+
+  .confirmTitlebar,
+  .confirmContent,
+  .confirmButtons {
+    padding: 1.25em;
+  }
+
+  .confirmTitlebar {
+    background: linear-gradient(to left, #807ece 0%, #3e3aa7 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $font-heading;
+  }
+
+  .confirmTitle {
+    font-weight: bold;
+    font-size: 2.2rem;
+  }
+
+  .confirmBtnClose {
+    background: none;
+    outline: none;
+    border: none;
+    transform: scale(2.5);
+    color: #ffffff;
+    transition: color 0.15s;
+  }
+
+  .confirmBtnClose:hover {
+    color: #00b7ff;
+    cursor: pointer;
+  }
+
+  .confirmContent {
+    line-height: 1.8em;
+  }
+
+  .confirmButtons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-puprle {
+    box-shadow: 1px 4px 12px 3px rgba(106, 102, 217, 0);
+  }
+
+  .btn-orange {
+     box-shadow: 1px 4px 12px 3px rgba(217, 173, 102, 0);
+    margin-left: 2rem;
+  }
+}
+
+.confirmCloseAnimation {
+  animation-name: confirm---close !important;
+}
+
+@keyframes confirm---open {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes confirm---close {
+  from {
+    opacity: 1
+  }
+
+  to {
+    opacity: 0
+  }
+}
+
+@keyframes confirmWindow---open {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

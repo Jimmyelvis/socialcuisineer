@@ -1,0 +1,494 @@
+.detail {
+  margin: 7rem 0;
+  grid-column: 1/ -1;
+
+
+  .postHeading {
+    width: 100%;
+    position: relative;
+    height: 55.3rem;
+    margin-top: 2rem;
+    margin-bottom: 20rem;
+
+    @include respond(bp-large) {
+      height: 45.3rem;
+    }
+
+    @include respond(bp-small) {
+      height: 39.3rem;
+    }
+
+    @include respond(bp-smallest) {
+      height: 35.3rem;
+      margin-bottom: 17rem;
+    }
+
+    .avatar {
+      position: absolute;
+      z-index: 1101;
+      bottom: -2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22rem;
+      height: 22rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 7px solid rgba(255, 255, 255, 0.3);
+
+      @include respond(bp-large) {
+        width: 20rem;
+        height: 20rem;
+        bottom: -0.9rem;
+      }
+
+      @include respond(bp-small) {
+        width: 15rem;
+        height: 15rem;
+        bottom: -0.1rem;
+        border: 5px solid rgba(255, 255, 255, 1);
+      }
+
+      @include respond(bp-tiny) {
+        width: 12rem;
+        height: 12rem;
+        bottom: 0rem;
+        border: 3px solid white;
+      }
+
+      .post-profile-pic {
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
+
+    .edit {
+      position: absolute;
+      z-index: 1101;
+      bottom: -2.5rem;
+      left: 80%;
+      transform: translateX(-50%);
+      width: 8.5rem;
+      height: 8.5rem;
+
+      @include respond(bp-small) {
+        left: 90%;
+        width: 7.4rem;
+        height: 7.4rem;
+      }
+
+      @include respond(bp-smallest) {
+        width: 6rem;
+        height: 6rem;
+        bottom: -1rem;
+      }
+
+      .edit-btn {
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
+
+    .details {
+      position: absolute;
+      z-index: 1100;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 113%;
+      text-align: center;
+      border-bottom: 1px solid rgba(82, 78, 189, 0.09);
+      padding-bottom: 3rem;
+      width: 100%;
+      background-color: #fffef9;
+      padding-top: 4.9rem;
+
+
+      .heading-2 {
+        font-size: 3.8rem;
+        color: $color-primary;
+        margin-bottom: 0.9rem;
+      }
+
+      .heading-3 {
+        font-size: 2.9rem;
+        color: $color-secondary;
+        margin-bottom: 0rem;
+      }
+
+      .timeMsg {
+        color: $color-text;
+        font-size: 2.5rem;
+        font-weight: 600;
+      }
+
+      @include respond(bp-small) {
+        padding-top: 3.7rem;
+
+        .heading-2 {
+          font-size: 3.2rem;
+        }
+
+        .heading-3 {
+          font-size: 2.2rem;
+        }
+
+        .timeMsg {
+          font-size: 2rem;
+        }
+
+      }
+
+      @include respond(bp-tiny) {
+        padding-top: 3.7rem;
+
+        .heading-2 {
+          font-size: 2.8rem;
+        }
+
+        .heading-3 {
+          font-size: 1.9rem;
+        }
+
+        .timeMsg {
+          font-size: 1.8rem;
+        }
+
+      }
+
+
+    }
+
+    .imagebg {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+
+
+      .detailBg {
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        height: 100%;
+        object-position: center;
+      }
+    }
+
+
+    .overlay {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      //  background: rgba(0,0,0,0.11);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(30, 28, 74, 0.43) 100%);
+    }
+
+  }
+
+  #post_body {
+    width: 110rem;
+    margin: 0 auto;
+
+    @include respond(bp-largest) {
+      width: 90rem;
+    }
+
+    @include respond(bp-large) {
+      width: 70rem;
+    }
+
+    @include respond(bp-medium) {
+      width: 90%;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+
+      img {
+        width: 100% !important;
+        height: 50rem;
+        margin: 3rem auto;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+
+  &>.comments {
+    margin: 7rem auto;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(204, 203, 255, 0.23);
+    width: 110rem;
+    min-height: 34rem;
+
+    //  display: none;
+
+    @include respond(bp-largest) {
+      width: 90rem;
+    }
+
+    @include respond(bp-large) {
+      width: 70rem;
+    }
+
+    @include respond(bp-medium) {
+      width: 90%;
+    }
+
+    .heading {
+      width: 100%;
+      padding: 2.5rem 0;
+      //  background-color: $color-primary;
+      background: linear-gradient(to right, #807ece 0%, #3e3aa7 100%);
+      margin-bottom: 5rem;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      .heading-3 {
+        color: $color-white;
+        margin-left: 7rem;
+
+        @include respond(bp-smallest) {
+          margin-left: 4rem;
+        }
+      }
+
+    }
+
+    textarea.inputBox.textArea {
+      border-width: 0;
+      border-style: inset;
+      border-image: none;
+      display: block;
+      width: 80%;
+      margin: 0 auto 3rem auto;
+      padding: 2rem 2rem;
+
+      border-radius: 0.8rem;
+      border: 2px solid rgba(106, 102, 217, 0.26);
+      transition: all 300ms linear;
+
+      &::-webkit-input-placeholder {
+        color: rgba($color-primary, .7);
+      }
+
+      &:focus {
+        outline: none;
+        border: 2px solid rgba(106, 102, 217, 0.57);
+      }
+
+      @include respond(bp-small) {
+        width: 90%;
+      }
+
+    }
+
+    .btn-puprle {
+      margin-left: 84%;
+
+      @include respond(bp-small) {
+        margin-left: 81%;
+      }
+    }
+
+    .commentResponse {
+      width: 56%;
+      margin: 6rem auto 11rem auto;
+      padding: 1.2rem 0rem;
+      color: $color-offwhite;
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bolder;
+      background: linear-gradient(to left, #807ece 0%, #3e3aa7 100%);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 400ms linear;
+    }
+
+
+    .commentEntry {
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      grid-template-rows: repeat(3, max-content);
+      width: 70%;
+      margin: 6rem auto;
+      transition: opacity 300ms linear;
+      opacity: 1;
+
+      @include respond(bp-smallest) {
+        width: 85%;
+      }
+
+      .avatar {
+        grid-row: 1 / -1;
+        border-radius: 50%;
+        height: 8.6rem;
+        width: 8.6rem;
+        position: relative;
+        overflow: hidden;
+
+        @include respond(bp-medium) {
+          height: 6.5rem;
+          width: 6.5rem;
+          align-self: start;
+        }
+
+        @include respond(bp-small) {
+          grid-row: 1 / 1;
+          grid-column: 1 / -1;
+          justify-self: center;
+          margin-bottom: 2rem;
+          height: 7.5rem;
+          width: 7.5rem;
+        }
+
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          object-fit: cover;
+        }
+      }
+
+      .nameTime {
+        display: flex;
+        list-style: none;
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+        align-items: center;
+
+        @include respond(bp-small) {
+          grid-column: 1 / -1;
+          justify-content: center;
+          margin-bottom: 2.4rem;
+        }
+
+        li {
+          margin: 0 2%;
+        }
+
+        .name {
+          font-weight: bold;
+          color: $color-primary;
+          font-size: 1.9rem;
+        }
+
+        .time {
+          font-weight: bold;
+          color: $color-secondary;
+          font-size: 1.5rem;
+        }
+
+        .response {
+          color: $color-offwhite;
+          background-color: $color-secondary;
+          padding: 0.5rem 1rem;
+          font-size: 1.4rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 500ms linear;
+        }
+      }
+
+      p {
+        grid-column: 2 / -1;
+        margin-left: 2%;
+        font-size: 1.4rem;
+        margin-top: 0.5rem;
+        background-color: rgba(181, 179, 242, 0);
+        border: 2px solid rgba(181, 179, 242, 0);
+        padding: 0;
+        transition: all 300ms linear;
+
+        @include respond(bp-small) {
+          grid-column: 1 / -1;
+          margin-left: 0;
+          padding: 0 5%;
+        }
+      }
+
+
+
+      .editState {
+        padding: 2rem;
+        background-color: rgba(181, 179, 242, 0.144);
+        border-radius: 0.8rem;
+        border: 2px solid rgba(181, 179, 242, 0.35);
+        opacity: 1;
+        visibility: visible;
+        display: block;
+        transition: all 300ms linear;
+      }
+
+      .editstatebtns {
+        justify-self: end;
+        display: flex;
+
+        @include respond(bp-small) {
+          grid-column: 1 / -1;
+        }
+
+        .commentStateBtn {
+          background-color: transparent;
+          border-width: 0;
+          border-style: none;
+          border-color: transparent;
+          border-image: none;
+          font-weight: bold;
+          letter-spacing: 1px;
+          cursor: pointer;
+        }
+
+        .editCommentbtn,
+        .saveCommentbtn {
+          color: $color-primary;
+        }
+
+        .deleteCommentbtn {
+          color: $color-danger;
+          margin-left: 5rem;
+        }
+
+        .saveCommentbtn,
+        .cancelCommentbtn {
+          display: none;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 700ms linear;
+        }
+
+        .cancelCommentbtn {
+          color: $color-third;
+          margin-left: 5rem;
+        }
+      }
+    }
+
+    .btn-loadMore {
+      margin: 0 auto 4rem auto;
+      display: block;
+    }
+
+    .no_comments {
+      text-align: center;
+      margin: 6rem auto;
+      font-weight: bold;
+      color: $color-secondary;
+    }
+  }
+
+  [contenteditable] {
+    outline: 0px solid transparent;
+  }
+
+}

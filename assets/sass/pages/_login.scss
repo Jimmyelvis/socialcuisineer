@@ -1,0 +1,495 @@
+.wrapper {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../img/login-purple-bg.jpg);
+  padding: 10rem 0;
+  background-size: cover;
+
+  .welcome-text {
+    width: 60%;
+    text-align: center;
+    color: $color-offwhite;
+
+    .heading-1 {
+      margin-bottom: 5rem;
+      color: $color-third;
+    }
+  }
+
+  .loginBox {
+    background-color: $color-white;
+    width: 120rem;
+    border-radius: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    height: 70rem;
+    box-shadow: 4px 5px 9px 4px rgba(0, 0, 0, 0.18);
+
+    @include respond(bp-largest) {
+      width: 95%;
+    }
+
+    @include respond(bp-medium) {
+      height: 94rem;
+    }
+
+    .form-container {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      transition: all 0.6s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @include respond(bp-medium) {
+        display: none;
+      }
+
+      .heading-2 {
+        margin-bottom: 3rem;
+      }
+
+      form  {
+        width: 65%;
+
+        .inputField {
+          width: 90%;
+          margin: 0 auto;
+          position: relative;
+
+          .inputIcon {
+            width: 2.3rem;
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+          }
+
+          input {
+            background-color: rgba(165,162,248,0.11);
+            border: 2px solid rgba(106, 102, 217, 0.07);
+            padding: 1.2rem 1.5rem 1.2rem 6rem;
+            margin: 8px 0;
+            width: 100%;
+            transition: all 400ms linear;
+            border: 2px solid rgba(106, 102, 217, 0.07);
+    
+            &::-webkit-input-placeholder {
+              color: rgba($color-primary, .7);
+              font-weight: bold;
+            }
+    
+            &:focus {
+              outline: none;
+              border: 2px solid rgba(106, 102, 217, 0.57);
+            }
+    
+          }
+
+        }
+      
+      }
+
+      .btn-login {
+        border: 5px solid #dee4ed;
+        box-shadow: none;
+        border-radius: 4.8rem;
+        width: 50%;
+        margin: 3rem auto 0 auto;
+        padding: 0.8rem 0;
+        font-size: 1.8rem;
+        background: linear-gradient(#b5b3f2 0%, #7672f2 100%);
+      }
+
+    }
+
+    .sign-in-container {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+
+      .signInresponse {
+        margin-bottom: 4rem;
+        font-size: 2rem;
+        color: $color-secondary;
+      }
+    }
+
+    .sign-up-container {
+      left: 0;
+      width: 50%;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50.1%;
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.6s ease-in-out;
+      z-index: 100;
+
+      @include respond(bp-medium) {
+        display: none;
+      }
+
+      .overlay {
+        background: radial-gradient(ellipse at center, rgba(194, 192, 252, 1) 0%, rgba(130, 126, 243, 1) 100%);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0 0;
+        color: #FFFFFF;
+        position: relative;
+        left: -100%;
+        height: 100%;
+        width: 200%;
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
+
+        .overlay-panel {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          padding: 0 40px;
+          text-align: center;
+          top: 0;
+          height: 100%;
+          width: 50%;
+          transform: translateX(0);
+          transition: transform 0.6s ease-in-out;
+
+          .heading-2 {
+            color: $color-third;
+            margin-bottom: 2rem;
+          }
+
+          .errors {
+            background-color: $color-white;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: opacity 300ms linear;
+            opacity: 0;
+            display: none;
+
+            .closeSignupErrors,
+            .closeSigninErrors {
+              position: absolute;
+              top: 5rem;
+              right: 5rem;
+              width: 3rem;
+              cursor: pointer;
+            }
+
+            .signupErrors,
+            .signinErrors {
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+               width: 100%;
+               height: 100%;
+               display: flex;
+
+              .errItem {
+                color: $color-primary;
+                text-align: left;
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin: 3rem auto;
+                list-style: none;
+              }
+            }
+
+          }
+
+
+        }
+
+        .overlay-left {
+          transform: translateX(-20%);
+        }
+
+      
+
+        .overlay-right {
+          right: 0;
+          transform: translateX(0);
+        }
+
+
+      }
+    }
+
+    .form-container-mobile {
+      display: none;
+      height: 100%;
+
+      @include respond(bp-medium) {
+        display: block;
+      }
+
+      form {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+      }
+
+      .welcome {
+        background: linear-gradient(to bottom, rgba(182, 180, 240, 1) 0%, rgba(130, 126, 243, 1) 100%);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 3rem;
+        opacity: 1;
+        transition: opacity 400ms linear;
+
+        .logo {
+          width: 12rem;
+          margin-bottom: 7rem;
+        }
+
+        .heading-2 {
+          font-size: 4rem;
+          color: $color-third;
+          margin-bottom: 5rem;
+          text-align: center;
+        }
+
+        p {
+          width: 80%;
+          color: #fff;
+
+          @include respond(bp-tiny) {
+            width: 90%;
+          }
+        }
+
+        .btn-ghost {
+          width: 29%;
+          margin: 3rem auto 0 auto;
+          padding: 1.5rem 0;
+
+          @include respond(bp-smallest) {
+            width: 39%;
+          }
+        }
+      }
+
+      .signup {
+        display: none;
+        width: 100%;
+        height: 100%;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 400ms linear;
+
+
+          .heading-2 {
+            margin-bottom: 3rem;
+          }
+
+          form {
+            width: 85%;
+
+            .inputField {
+              width: 90%;
+              margin: 0 auto;
+              position: relative;
+
+              .inputIcon {
+                width: 2.3rem;
+                position: absolute;
+                top: 50%;
+                left: 2rem;
+                transform: translateY(-50%);
+              }
+
+              input {
+                background-color: rgba(165, 162, 248, 0.11);
+                border: 2px solid rgba(106, 102, 217, 0.07);
+                padding: 1.2rem 1.5rem 1.2rem 6rem;
+                margin: 2rem 0;
+                width: 100%;
+                transition: all 400ms linear;
+                border: 2px solid rgba(106, 102, 217, 0.07);
+
+                &::-webkit-input-placeholder {
+                  color: rgba($color-primary, .7);
+                  font-weight: bold;
+                }
+
+                &:focus {
+                  outline: none;
+                  border: 2px solid rgba(106, 102, 217, 0.57);
+                }
+
+              }
+
+            }
+
+          }
+
+         
+      }
+
+      .signin {
+        display: none;
+        width: 100%;
+        height: 100%;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 400ms linear;
+
+        .signInresponseMobile {
+          margin-bottom: 4rem;
+          font-size: 3rem;
+          color: $color-secondary;
+        }
+
+
+        .heading-2 {
+          margin-bottom: 3rem;
+        }
+
+        form {
+          width: 85%;
+
+          .inputField {
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+
+            .inputIcon {
+              width: 2.3rem;
+              position: absolute;
+              top: 50%;
+              left: 2rem;
+              transform: translateY(-50%);
+            }
+
+            input {
+              background-color: rgba(165, 162, 248, 0.11);
+              border: 2px solid rgba(106, 102, 217, 0.07);
+              padding: 1.2rem 1.5rem 1.2rem 6rem;
+              margin: 2rem 0;
+              width: 100%;
+              transition: all 400ms linear;
+              border: 2px solid rgba(106, 102, 217, 0.07);
+
+              &::-webkit-input-placeholder {
+                color: rgba($color-primary, .7);
+                font-weight: bold;
+              }
+
+              &:focus {
+                outline: none;
+                border: 2px solid rgba(106, 102, 217, 0.57);
+              }
+
+            }
+
+          }
+
+        }
+
+
+
+      
+      }
+
+      .btn-group {
+        width: 90%;
+        display: flex;
+        justify-content: space-around;
+        margin: 5rem auto 0 auto;
+
+        .btn-login {
+          border: 5px solid #dee4ed;
+          box-shadow: none;
+          border-radius: 4.8rem;
+          padding: 0.8rem 0;
+          font-size: 1.8rem;
+          background: linear-gradient(#b5b3f2 0%, #7672f2 100%);
+          width: 40%;
+        }
+  
+        .btn-cancel {
+          border: 5px solid #ede4de;
+          box-shadow: none;
+          border-radius: 4.8rem;
+          padding: 0.8rem 0;
+          font-size: 1.8rem;
+          background: linear-gradient(to bottom, rgba(250, 206, 118, 1) 0%, rgba(254, 182, 69, 1) 100%);
+          width: 40%;
+          color: #fff;
+        }
+
+      }
+
+      .error {
+        text-align: center;
+        width: 90%;
+        color: #ff840e;
+        font-weight: bold;
+      }
+
+    }
+  }
+
+    /******************************** Animation ***********************************/
+
+    /* Move SignIn to Right */
+    .loginBox.right-panel-active .sign-in-container {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+
+    /* Move Overlay To Left */
+    .loginBox.right-panel-active .overlay-container {
+      transform: translateX(-100%);
+    }
+
+    /* Bring sign up over sign in */
+    .loginBox.right-panel-active .sign-up-container {
+      transform: translateX(100%);
+      opacity: 1;
+      z-index: 5;
+    }
+
+    /* Move Overlay Back To Right */
+    .loginBox.right-panel-active .overlay {
+      transform: translateX(50%);
+    }
+
+    .loginBox.right-panel-active .overlay-left {
+      transform: translateX(0) !important;
+    }
+
+    .loginBox.right-panel-active .overlay-right {
+      transform: translateX(20%) !important;
+    }
+
+}
