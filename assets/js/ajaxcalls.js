@@ -71,29 +71,29 @@ $(document).ready(function() {
   When you click away from the elements below
   the results will get removed
 */
-$(document).click(function(e){
+// $(document).click(function(e){
 
-  if(e.target.class != "searchResultsbox" && e.target.id != "searchBox") {
+//   if(e.target.class != "searchResultsbox" && e.target.id != "searchBox") {
 
-    $('.searchBox').val("");
-    $(".searchResultsbox").html("");
-    $('.search_results_footer').html("");
-    $('.search_results_footer').toggleClass("search_results_footer_empty");
-    $('.search_results_footer').toggleClass("search_results_footer");
-  }
+//     $('.searchBox').val("");
+//     $(".searchResultsbox").html("");
+//     $('.search_results_footer').html("");
+//     $('.search_results_footer').toggleClass("search_results_footer_empty");
+//     $('.search_results_footer').toggleClass("search_results_footer");
+//   }
 
-  if(e.target.className != "dropdown_data_window") {
+//   if(e.target.className != "dropdown_data_window") {
 
-    $(".dropdown_data_window").html("");
-    $(".dropdown_data_window").css({"padding" : "0px", "height" : "0px"});
-  }
+//     $(".dropdown_data_window").html("");
+//     $(".dropdown_data_window").css({"padding" : "0px", "height" : "0px"});
+//   }
 
-  if ($('.searchBox').val("")) {
-    $(".searchResultsbox").css({"padding" : "0px"});
+//   if ($('.searchBox').val("")) {
+//     $(".searchResultsbox").css({"padding" : "0px"});
 
-  }
+//   }
 
-});
+// });
 
 async function updateLike(post_id, value) {
   try {
@@ -187,10 +187,9 @@ async function getDropdownData(user, type) {
 async function getLiveSearchUsers(value, user) {
 
   /*
-      Post ajax call for  when we access the ( includes/handlers/ajax_search.php ) page
+      Post ajax call for when we access the search handlers
       we will use the parameters {query:value, userLoggedIn: user}
-      whatever is returned will be used in (data)
-      q == the query string we are passing
+      The handlers now return JSON data instead of HTML
   */
 
   if (searchOptionSelected == "Users") {
@@ -201,7 +200,6 @@ async function getLiveSearchUsers(value, user) {
     allResults = "searchallposts";
   }
 
-
   try {
     const response = await fetch(option, {
       method: 'POST',
@@ -216,77 +214,182 @@ async function getLiveSearchUsers(value, user) {
 
     const data = await response.json();
     
-    if (data.status === 'success') {
-      if($(".search_results_footer_empty")[0]) {
-        $(".search_results_footer_empty").toggleClass("search_results_footer");
-        $(".search_results_footer_empty").toggleClass("search_results_footer_empty");
-      }
-
-      $('.searchResultsbox').html(data.data.html);
-      $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
-      $('.searchResultsbox').css({"paddingBottom": "20%"})
-    } else {
-      $('.search_results_footer').html("");
-      $('.search_results_footer').toggleClass("search_results_footer_empty");
-      $('.search_results_footer').toggleClass("search_results_footer");
-      $('.searchResultsbox').html("");
-      $('.searchResultsbox').css({"padding": "0px"})
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-async function getLiveSearchUsersMobile(value, user) {
-
-  /*
-      Post ajax call  when we access the ( includes/handlers/ajax_search.php ) page
-      we will use the parameters {query:value, userLoggedIn: user}
-      whatever is returned will be used in (data)
-      q == the query string we are passing
-  */
-
-
-     if (searchOptionSelected == "Users") {
-       var option = "includes/handlers/ajax_search_mobile.php";
-       allResults = "searchallusers";
-     } else {
-       var option = "includes/handlers/ajax_search_recipes_mobile.php";
-       allResults = "searchallposts";
-     }
-
-
-  try {
-    const response = await fetch(option, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: value,
-        userLoggedIn: user
-      })
-    });
-
-    const data = await response.json();
+    // Get DOM elements once instead of querying multiple times
+    const searchResultsBox = document.querySelector('.searchResultsbox');
+    const searchResultsFooter = document.querySelector('.search_results_footer');
+    
     
     if (data.status === 'success') {
-      if($(".search_results_footer_empty")[0]) {
-        $(".search_results_footer_empty").toggleClass("search_results_footer");
-        $(".search_results_footer_empty").toggleClass("search_results_footer_empty");
+
+
+
+
+      if (searchResultsBox) {
+        searchResultsBox.innerHTML = '';
+        searchResultsBox.style.padding = '0px';
       }
 
-      $('.searchResultsbox').html(data.data.html);
-      $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
-      $('.searchResultsbox').css({"paddingBottom": "20%"})
-    } else {
-      $('.search_results_footer').html("");
-      $('.search_results_footer').toggleClass("search_results_footer_empty");
-      $('.search_results_footer').toggleClass("search_results_footer");
-      $('.searchResultsbox').html("");
-      $('.searchResultsbox').css({"padding": "0px"})
+
+      let htmlContent = '';
+      let totalResults = '';
+      
+      if (data.data.type === 'users') {
+        // Generate HTML for users
+         htmlContent = data.data.users;
+
+        if (htmlContent && htmlContent.length > 0) {
+          
+          htmlContent.forEach(user => {
+
+            /*html*/
+            const html = `
+              <a href='${user.url}' class='users-entry'>
+                <div class='avatar'>
+                  <img src='${user.profile_pic}'>
+                </div>
+
+                <div class='userInfo'>
+                  <h3 class='heading-3 name'>
+                    ${user.first_name} ${user.last_name}
+                  </h3>
+                  <h4 class='heading-4 username'>
+                    ${user.username}
+                  </h4>
+
+                  <span class='common'>
+                    ${user.mutual_friends}
+                  </span>
+                </div>
+
+                <div class='block'></div>
+              </a>
+            `;
+
+            searchResultsBox.innerHTML += html; 
+            searchResultsBox.style.paddingBottom = '20%';
+          })  
+        }
+
+        totalResults = data.data.users.length;
+        
+      } 
+      
+      else if (data.data.type === 'recipes') {
+       
+        let htmlContent = data.data.recipes;
+
+        if(htmlContent && htmlContent.length > 0) {
+          
+          htmlContent.forEach(recipe => {
+
+            /*html*/
+            const html = `
+              <a href='${recipe.url}' class='posts-entry'>
+                <div class='post-pic'>
+                  <img src='${recipe.image}'>
+                </div>
+
+                <div class='post-info'>
+                  <h3 class='heading-3 headline'>
+                    ${recipe.heading}
+                  </h3>
+
+                  <div class='userInfo'>
+                    <div class='avatar'>
+                      <img src='${recipe.author.profile_pic}'>
+                    </div>
+
+                    <div class='author'>
+                      <h3 class='heading-3 name'>
+                        By: ${recipe.author.first_name} ${recipe.author.last_name}
+                      </h3>
+
+                      <h3 class='heading-4 username'>
+                        @${recipe.author.username}
+                      </h3>
+                    </div>
+                  </div>
+                
+
+                
+                </div>
+
+                <div class='block'></div>
+              </a>
+            `;
+            
+            searchResultsBox.innerHTML += html; 
+            searchResultsBox.style.paddingBottom = '20%';
+          })
+        }
+
+        totalResults = data.data.recipes.length;  
+
+      }
+
+      if (totalResults > 0) {
+        searchResultsFooter.innerHTML = `${totalResults} results`;
+      }
+      
+
     }
   } catch (error) {
     console.error('Error:', error);
   }
 }
+
+
+
+// async function getLiveSearchUsersMobile(value, user) {
+
+//   /*
+//       Post ajax call  when we access the ( includes/handlers/ajax_search.php ) page
+//       we will use the parameters {query:value, userLoggedIn: user}
+//       whatever is returned will be used in (data)
+//       q == the query string we are passing
+//   */
+
+
+//      if (searchOptionSelected == "Users") {
+//        var option = "includes/handlers/ajax_search_mobile.php";
+//        allResults = "searchallusers";
+//      } else {
+//        var option = "includes/handlers/ajax_search_recipes_mobile.php";
+//        allResults = "searchallposts";
+//      }
+
+
+//   try {
+//     const response = await fetch(option, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         query: value,
+//         userLoggedIn: user
+//       })
+//     });
+
+//     const data = await response.json();
+    
+//     if (data.status === 'success') {
+//       if($(".search_results_footer_empty")[0]) {
+//         $(".search_results_footer_empty").toggleClass("search_results_footer");
+//         $(".search_results_footer_empty").toggleClass("search_results_footer_empty");
+//       }
+
+//       $('.searchResultsbox').html(data.data.html);
+//       $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
+//       $('.searchResultsbox').css({"paddingBottom": "20%"})
+//     } else {
+//       $('.search_results_footer').html("");
+//       $('.search_results_footer').toggleClass("search_results_footer_empty");
+//       $('.search_results_footer').toggleClass("search_results_footer");
+//       $('.searchResultsbox').html("");
+//       $('.searchResultsbox').css({"padding": "0px"})
+//     }
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }

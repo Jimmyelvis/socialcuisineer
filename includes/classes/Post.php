@@ -167,7 +167,7 @@ class Post {
                         'likes' => $this->getLikes($id),        // Number of likes
                         'comments_count' => count($this->getComments($id)), // Number of comments
                         'can_delete' => $added_by === $userLoggedIn, // Permission check for deletion
-                        'link' => '/post.php?id=' . $id         // Direct link to full post
+                        'link' => 'post.php?id=' . $id         // Direct link to full post
                     ];
                 }
             }
@@ -253,7 +253,7 @@ class Post {
                 'image' => $imagePath ? $imagePath : null,
                 'likes' => $this->getLikes($id),
                 'comments_count' => count($this->getComments($id)),
-                'link' => '/post.php?id=' . $id
+                'link' => 'post.php?id=' . $id
             ];
 
 	

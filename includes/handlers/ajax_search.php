@@ -21,68 +21,54 @@ if ($data === null) {
 $query = isset($data['query']) ? $data['query'] : '';
 $userLoggedIn = isset($data['userLoggedIn']) ? $data['userLoggedIn'] : '';
 
-// Initialize HTML output
-$html_output = '';
+// Sanitize the query to prevent SQL injection
+$query = mysqli_real_escape_string($con, $query);
 
 $names = explode(" ", $query);
-$mutual_friends = "";
-
-
-
-//If query contains an underscore, assume user is searching for usernames
-if(strpos($query, '_') !== false)
-	$usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE username LIKE '$query%' AND user_closed='no' LIMIT 4");
-
-//If there are two words, assume they are first and last names respectively
-else if(count($names) == 2)
-	$usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' AND last_name LIKE '$names[1]%') AND user_closed='no' LIMIT 4");
-
-  //If query has one word only, search first names or last names
-  else
-  	$usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' OR last_name LIKE '$names[0]%') AND user_closed='no' LIMIT 4");
-
+$users_array = [];
 
 // Only proceed if we have a query
 if($query != "") {
+    // Build the query based on search pattern
+    if(strpos($query, '_') !== false) {
+        // If query contains an underscore, assume user is searching for usernames
+        $usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE username LIKE '$query%' AND user_closed='no' LIMIT 4");
+    } else if(count($names) == 2) {
+        // If there are two words, assume they are first and last names respectively
+        $usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' AND last_name LIKE '$names[1]%') AND user_closed='no' LIMIT 4");
+    } else {
+        // If query has one word only, search first names or last names
+        $usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' OR last_name LIKE '$names[0]%') AND user_closed='no' LIMIT 4");
+    }
+
     // Check if query was successful and has results
     if($usersReturnedQuery && mysqli_num_rows($usersReturnedQuery) > 0) {
         // Process results
         while($row = mysqli_fetch_array($usersReturnedQuery)) {
             $user = new User($con, $userLoggedIn);
+            $mutual_friends = "";
 
-            if($row['username'] != $userLoggedIn)
+            if($row['username'] != $userLoggedIn) {
                 $mutual_friends = $user->getMutualFriends($row['username']) . " friends in common";
-            else
-                $mutual_friends = "";
+            }
 
-            $html_output .= "
-            <a href='" . $row['username'] . "' class='users-entry'>
-                <div class='avatar'>
-                  <img src='" . $row['profile_pic'] . "'>
-                </div>
-
-                <div class='userInfo'>
-                  <h3 class='heading-3 name'>
-                    " . $row['first_name'] . " " . $row['last_name'] . "
-                  </h3>
-                  <h4 class='heading-4 username'>
-                    " . $row['username'] . "
-                  </h4>
-      
-                  <span class='common'>
-                    " . $mutual_friends . "
-                  </span>
-                </div>
-
-                <div class='block'></div>
-            </a>";
+            // Add user data to array
+            $users_array[] = [
+                'username' => $row['username'],
+                'first_name' => $row['first_name'],
+                'last_name' => $row['last_name'],
+                'profile_pic' => $row['profile_pic'],
+                'mutual_friends' => $mutual_friends,
+                'url' => $row['username'] // URL to user profile
+            ];
         }
         
-        // Return success with HTML
+        // Return success with JSON data
         echo json_encode([
             'status' => 'success',
             'data' => [
-                'html' => $html_output
+                'users' => $users_array,
+                'type' => 'users'
             ]
         ]);
     } else {

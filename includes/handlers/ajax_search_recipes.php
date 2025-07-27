@@ -22,8 +22,8 @@ if ($data === null) {
 $query = isset($data['query']) ? $data['query'] : '';
 $userLoggedIn = isset($data['userLoggedIn']) ? $data['userLoggedIn'] : '';
 
-// Initialize HTML output
-$html_output = '';
+// Initialize recipes array
+$recipes_array = [];
 
 // Only proceed if we have a query
 if($query != "") {
@@ -44,44 +44,27 @@ if($query != "") {
     if($postsReturnedQuery && mysqli_num_rows($postsReturnedQuery) > 0) {
         // Process results
         while($row = mysqli_fetch_array($postsReturnedQuery)) {
-            $link = 'post.php?id=';
-            
-            $html_output .= "
-            <a href='" . $link . $row['id'] . "' class='posts-entry'>
-                <div class='post-pic'>
-                  <img src='" . $row['image'] . "'>
-                </div>
-
-                <div class='post-info'>
-                  <h3 class='heading-3 headline'>
-                    " . $row['heading'] . "
-                  </h3>
-                  <div class='userInfo'>
-                    <div class='avatar'>
-                      <img src='" . $row['profile_pic'] . "'>
-                    </div>
-
-                    <div class='author'>
-                      <h3 class='heading-3 name'>
-                        By:  " . $row['first_name'] . " " . $row['last_name'] . "
-                      </h3>
-
-                      <h3 class='heading-4 username'>
-                        @" . $row['username'] . "
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-
-                <div class='block'></div>
-            </a>";
+            // Add recipe data to array
+            $recipes_array[] = [
+                'id' => $row['id'],
+                'heading' => $row['heading'],
+                'image' => $row['image'],
+                'link' => 'post.php?id=' . $row['id'],
+                'author' => [
+                    'username' => $row['username'],
+                    'first_name' => $row['first_name'],
+                    'last_name' => $row['last_name'],
+                    'profile_pic' => $row['profile_pic']
+                ]
+            ];
         }
         
-        // Return success with HTML
+        // Return success with JSON data
         echo json_encode([
             'status' => 'success',
             'data' => [
-                'html' => $html_output
+                'recipes' => $recipes_array,
+                'type' => 'recipes'
             ]
         ]);
     } else {

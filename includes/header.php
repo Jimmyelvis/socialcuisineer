@@ -111,7 +111,7 @@ $num_requests = $user_obj->getNumberOfFriendRequests();
         <div class="searchResultsbox">
         </div>
 
-        <div class="search_results_footer_empty">
+        <div class="search_results_footer">
         </div>
 
       </div>
