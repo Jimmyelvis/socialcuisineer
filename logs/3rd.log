@@ -1,0 +1,9 @@
+HomePage.js:497 error SyntaxError: Unexpected token '<', "
+
+<!DOCTYPE "... is not valid JSON
+HomePage.js:413 Post button clicked, starting AJAX submission
+HomePage.js:433 Sending AJAX request with: {headers: Array(1), formData entries: Array(6)}
+HomePage.js:445 Response received: Response {type: 'basic', url: 'http://localhost:3065/Social-Cuisiener-2025/index.php', redirected: false, status: 200, ok: true, …}
+HomePage.js:446 Response status: 200
+HomePage.js:447 Response headers: (9) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+HomePage.js:451 Content type: application/json

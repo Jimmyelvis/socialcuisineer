@@ -1,8 +1,18 @@
 <?php
 
+// Start output buffering to catch any unwanted HTML
+ob_start();
+
 include("includes/header.php");
 
 if (isset($_POST['post'])) {
+	// Clear any output that might have been generated
+	ob_clean();
+	// Debug: Log all headers to see what we're receiving
+	error_log('All headers: ' . print_r(getallheaders(), true));
+	error_log('HTTP_X_REQUESTED_WITH: ' . (isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? $_SERVER['HTTP_X_REQUESTED_WITH'] : 'not set'));
+	error_log('POST data: ' . print_r($_POST, true));
+	error_log('ajax_request isset: ' . (isset($_POST['ajax_request']) ? 'YES' : 'NO'));
 
 	$uploadOk = 1;
 	$imageName = $_FILES['inpFile']['name'];
@@ -36,14 +46,35 @@ if (isset($_POST['post'])) {
 	if ($uploadOk) {
 		$post = new Post($con, $userLoggedIn);
 		$post->submitPost($_POST['post_text'], 'none', $imageName, $_POST['post_heading']);
-		header("Location: index.php");
+		
+		// Check if this is an AJAX request - temporarily force to true for testing
+		if (true) {
+		    // Return JSON response for AJAX
+		    header('Content-Type: application/json');
+		    echo json_encode(['success' => true]);
+		    exit;
+		} else {
+		    // Traditional redirect for non-AJAX
+		    // header("Location: index.php");
+		}
 	} else {
-		echo "<div style='text-align:center;' class='alert alert-danger'>
+		// Check if this is an AJAX request - temporarily force to true for testing
+		if (true) {
+		    // Return JSON response for AJAX
+		    header('Content-Type: application/json');
+		    echo json_encode(['success' => false, 'error' => $errorMessage]);
+		    exit;
+		} else {
+		    // Traditional HTML response for non-AJAX
+		    echo "<div style='text-align:center;' class='alert alert-danger'>
 				$errorMessage
 			</div>";
+		}
 	}
 }
 
+// If we reach here, it's a normal page request, so output the buffered content
+ob_end_flush();
 
 ?>
 
@@ -63,7 +94,7 @@ if (isset($_POST['post'])) {
 
 	<div class="tabIndex tabAddPosts">
 
-		<form action="index.php" method="POST" enctype="multipart/form-data">
+		<form action="" method="POST" enctype="multipart/form-data">
 
 			<div class="inputBox imgPreview" id="imgPreview">
 				<img src="" class="img-preview-image">

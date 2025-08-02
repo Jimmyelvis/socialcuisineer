@@ -100,7 +100,7 @@ class Homepage {
    * 1. Initial page load to display the first set of posts
    * 2. When the user scrolls near the bottom of the page (via scrollView method)
    */
-  loadPosts() {
+  loadPosts(afterPost = false) {
     // Prevent multiple simultaneous AJAX requests
     // This is critical for infinite scrolling to avoid duplicate posts
     if (this.inProgress === true) {
@@ -116,6 +116,12 @@ class Homepage {
       // Exit if the posts container doesn't exist in the DOM
       this.inProgress = false;
       return;
+    }
+
+    // clear postArea
+
+    if (afterPost === true) {
+      postsArea.innerHTML = ""; 
     }
 
     // Determine which page to load
@@ -393,6 +399,116 @@ class Homepage {
     const previewContainer = document.getElementById("imgPreview");
     const previewImage = document.querySelector(".img-preview-image");
     const previewDefaultText = document.querySelector(".imgPreview-DefaultTxt");
+    const postForm = document.querySelector(".tabAddPosts form");
+    const postButton = document.getElementById("post_button");
+
+   
+
+    // Set up AJAX form submission
+    if (postForm && postButton) {
+      console.log('Setting up AJAX form submission');
+      
+      // Prevent form from submitting traditionally
+      postForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('Form submit prevented');
+      });
+      
+      postButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent traditional form submission
+        console.log('Post button clicked, starting AJAX submission');
+        
+        // Get form data (this automatically includes file inputs)
+        const formData = new FormData(postForm);
+        
+        // Add the post field to trigger PHP handler (submit button name)
+        formData.append('post', 'Post');
+        
+        // Add a field to indicate this is an AJAX request
+        formData.append('ajax_request', '1');
+        
+        // Show loading indicator
+        const originalText = postButton.value;
+        postButton.value = "Posting...";
+        postButton.disabled = true;
+        
+        // Add header to indicate this is an AJAX request
+        const headers = new Headers();
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+
+        console.log('Sending AJAX request with:', {
+          "headers": Array.from(headers.entries()),
+          "formData entries": Array.from(formData.entries())
+        });
+        
+        // Submit via AJAX
+        fetch('index.php', {
+          method: 'POST',
+          headers: headers,
+          body: formData // This includes the file data
+        })
+        .then(response => {
+          console.log('Response received:', response);
+          console.log('Response status:', response.status);
+          console.log('Response headers:', Array.from(response.headers.entries()));
+          
+          // Check if the response is JSON
+          const contentType = response.headers.get("content-type");
+          console.log('Content type:', contentType);
+          
+          if (contentType && contentType.indexOf("application/json") !== -1) {
+            return response.json();
+          } else {
+            // Get the text response to see what we're actually getting
+            return response.text().then(text => {
+              console.log('Non-JSON response received:', text);
+              throw new Error('Expected JSON response but got: ' + contentType);
+            });
+          }
+        })
+        .then(data => {
+          if (data && data.success) {
+            // Clear form
+            postForm.reset();
+            
+            // Reset preview
+            previewImage.setAttribute("src", "");
+            previewDefaultText.style.display = "block";
+            previewImage.style.display = "none";
+            
+            // Reset summernote editor if it exists
+            if (window.jQuery && $('#summernote').length) {
+              $('#summernote').summernote('reset');
+            }
+            
+            // Show success message
+            alert("Post created successfully!");
+            
+            // Switch to timeline tab to see the new post
+            document.getElementById("btnTimeline").click();
+            
+            // Reload posts
+            let afterPost = true; 
+            this.loadPosts(afterPost);
+          } else if (data && data.error) {
+            alert(data.error);
+          }
+          
+          // Reset button
+          postButton.value = originalText;
+          postButton.disabled = false;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Error creating post", error);
+          console.log("error" , error); 
+          
+          // Reset button
+          postButton.value = originalText;
+          postButton.disabled = false;
+        });
+      });
+    }
 
     Array.prototype.forEach.call(
       document.querySelectorAll(".file-upload-button"),
