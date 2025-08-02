@@ -51,14 +51,17 @@
 
       public function getFriendsRequests() {
         $username = $this->user['username'];
-        $theReqs = array();
-        $return_string = "";
+        $theReqs = [];
+        $response = [];
 
         $query = mysqli_query($this->con, "SELECT * FROM friend_requests WHERE user_to='$username'");
 
 
         if (mysqli_num_rows($query) == 0) {
-            echo "You have no friend requests at this time!";
+            $response = [
+                'status' => 'success',
+                'message' => 'You have no friend requests at this time!'
+            ];
         } else {
 
             while($row = mysqli_fetch_array($query)) {
@@ -78,20 +81,15 @@
                 $user_from_fullname = $this->getFullnameForReqs($req);
                 
                 
-                $return_string .="
-                <div class='entry'>
-                    <img src='" . $user_pic . "' '>
-                    <h4 class='heading-4'>$user_from_fullname  </h4>
-                </div>
-                ";
-
+                $response[] = [
+                    'user_from' => $user_from,
+                    'user_from_fullname' => $user_from_fullname,
+                    'user_pic' => $user_pic
+                ];
             }
         }
 
-        return $return_string . " <a href='requests.php' class='heading-4 seeAll'>
-            See All Your Friend Requests
-        </a>
-        ";
+        return json_encode($response);
 
       }
 

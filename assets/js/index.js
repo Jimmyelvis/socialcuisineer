@@ -1,33 +1,22 @@
-	import axios from 'axios';
+	// Main entry point for webpack hot module replacement
+// This file imports all the modules that should be hot-reloadable
 
-  // Pages
-  import Homepage from './modules/HomePage';
-  import ProfilePage from './modules/ProfilePage'
-  import SettingsPage from './modules/SettingsPage'
-  import FriendRequests from './modules/FriendsReqPage';
-  import PostDetail from './modules/PostDetail';
-  import Login from './modules/Login';
+// Import your main JavaScript modules here
+import './pages/HomePage.js';
+import './pages/ProfilePage.js';
+import './pages/PostDetailPage.js';
+import './pages/Login.js';
+import './pages/FriendsReqPage.js';
+import './pages/SettingsPage.js';
+import './pages/EditPost.js';
+import './modules/AddFriend.js';
+import './modules/DeletePost.js';
+import './modules/MenuBtns.js';
+import './modules/Parallax.js';
+import './modules/RemoveFriend.js';
+import './ajaxcalls.js';
 
-
-  import AddFriend from './modules/AddFriend';
-  import RemoveFriend from './modules/RemoveFriend';
-  import MenuBtns from './modules/MenuBtns';
-
-  import Parallax from './modules/Parallax';
-
-  // Pages
-  const homepage = new Homepage();
-  // const profilepage = new ProfilePage();
-  const settingspage = new SettingsPage(); 
-  const friendsreq = new FriendRequests();
-  const postdetail = new PostDetail();
-  const login = new Login();
-
-
-  const addfriend = new AddFriend();
-  const removeFriend = new RemoveFriend();
-  const menuBtns = new MenuBtns();
-  
-  const parallax = new Parallax();
-
- 
+// Enable Hot Module Replacement
+if (module.hot) {
+  module.hot.accept();
+}

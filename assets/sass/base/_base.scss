@@ -107,3 +107,27 @@ p {
 .fade {
   transition: all 1s linear;
 }
+
+.alert{
+  position: absolute;
+  top: 10rem;
+  right: 10rem;
+  z-index: 2000;
+  padding: 3rem 5rem;
+  font-size: 3rem;
+}
+
+.alert-success {
+  background: green;
+  color: #fff;
+}
+
+.alert-warning {
+  background: orange;
+  color: #fff;
+}
+
+.alert-danger {
+    background: red;
+    color: #fff;
+}

@@ -85,11 +85,6 @@ if (isset($_POST['post'])) {
 
 			<input class="btn btn-puprle btn-modalSubmit" type="submit" name="post" id="post_button" value="Post">
 
-
-			<button class="btn btn-puprle btn-modalSubmit">
-				Submit
-			</button>
-
 		</form>
 
 	</div>

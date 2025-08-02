@@ -1,6 +1,7 @@
 import axios from "axios";
 
 
+
 class Homepage {
   constructor() {
     this.events();
@@ -19,6 +20,8 @@ class Homepage {
         this.scrollView();
       }
     });
+
+    console.log('Homepage module loaded');
   }
 
   events() {
@@ -166,7 +169,7 @@ class Homepage {
                 <img src="${post.added_by.profile_pic}" alt="">
               </div>
               
-              ${post.can_delete ?  '<button id="post' + post.id + '" class="card-closeBtn"><img src="./assets/img/close-btn-v2.svg" alt=""></button>' : ''}
+
               
               <div class="card-info">
                 <div class="card-desc">
@@ -442,7 +445,7 @@ class Homepage {
         reader.addEventListener("load", function () {
           previewImage.setAttribute("src", this.result);
 
-          getCroppedImage("src", this.result);
+          // getCroppedImage("src", this.result);
         });
 
         reader.readAsDataURL(file);
@@ -456,6 +459,7 @@ class Homepage {
       }
     });
   }
+
 }
 
 export const homepage = new Homepage();

@@ -13,12 +13,14 @@ module.exports = {
     addfriend: "./assets/js/modules/AddFriend.js",
     menubtns: "./assets/js/modules/MenuBtns.js",
     parallax: "./assets/js/modules/Parallax.js",
+    deletepost: "./assets/js/modules/DeletePost.js",
     removefriend: "./assets/js/modules/RemoveFriend.js",
+    ajaxcalls: "./assets/js/ajaxcalls.js"
   },
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./assets/js/dist"),
-    publicPath: "",
+    publicPath: "/assets/js/dist/",
   },
   mode: "development",
   module: {
@@ -45,7 +47,6 @@ module.exports = {
       },
       {
         test: /\.php$/,
-        // file loader maybe?
         use: [
           {
             loader: "html-loader",
@@ -54,5 +55,27 @@ module.exports = {
         ],
       },
     ],
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, './'),
+    },
+    hot: true,
+    liveReload: true,
+    watchFiles: ['assets/js/**/*.js'],
+    devMiddleware: {
+      writeToDisk: true,
+      publicPath: '/assets/js/dist/',
+    },
+    port: 8080,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  },
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 300,
+    poll: 1000,
   },
 };

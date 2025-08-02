@@ -10,6 +10,10 @@ class Parallax {
       this.addParallaxScrolling(e);
       
     });
+
+    console.log('Parallax module loaded');
+
+    this.test();
   }
 
 
@@ -31,6 +35,10 @@ class Parallax {
           "translate3d(" + posX + "px, " + posY + "px, 0px)";
       }
     }
+  }
+
+  test() {
+    console.log('Parallax test');
   }
 }
 

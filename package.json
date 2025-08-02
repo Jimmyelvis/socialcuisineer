@@ -12,7 +12,10 @@
     "build:css": "npm-run-all compile:sass prefix:css compress:css",
     "build": "webpack --mode production --progress",
     "sync": "browser-sync start --proxy http://localhost/Social-Cuisiener-2025 --port 3065 --ui-port 3075 --files '**/*.php' '**/*.js' '**/*.css'",
-    "dev": "webpack -w"
+    "dev": "webpack -w",
+    "hot": "webpack serve --mode development --open",
+    "hot-dev": "npm-run-all --parallel watch:sass hot sync",
+    "hot-dev-wp": "npm-run-all --parallel watch:sass hot sync dev"
   },
   "author": "",
   "license": "ISC",

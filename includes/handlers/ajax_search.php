@@ -74,7 +74,7 @@ if($query != "") {
     } else {
         // No results found
         echo json_encode([
-            'status' => 'error',
+            'status' => 'No Results Found',
             'message' => 'No results found'
         ]);
     }

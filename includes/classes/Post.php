@@ -1028,5 +1028,20 @@ class Post {
         ];
     }
 
+    public function deletePost($data)
+	{
+		// Handle both array and direct value parameters
+		$post_id = is_array($data) ? $data['post_id'] : $data;
+
+		// Make sure we have a valid post ID
+		if (!$post_id) {
+			return false;
+		}
+
+		$query = mysqli_query($this->con, "UPDATE posts SET deleted='yes' WHERE id='$post_id'");
+
+		return $query ? true : false;
+	}
+
     
 }

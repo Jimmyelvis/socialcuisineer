@@ -4,6 +4,8 @@ class PostDetail {
   constructor() {
     this.events();
     this.post_detail = document.querySelector(".detail");
+
+    console.log('PostDetail module loaded');
   }
 
   events() {
