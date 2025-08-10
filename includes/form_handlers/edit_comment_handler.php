@@ -2,14 +2,29 @@
 include("../../config/config.php");
 include("../classes/User.php");
 include("../classes/Post.php");
+include("../classes/Notification.php");
+include("../classes/GetDate.php");
 
-$posts = new Post($con, $_REQUEST['userLoggedIn']);
+// Start output buffering to prevent any unwanted output
+ob_start();
 
+$data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($_POST['edit_comment'])) {
+$userLoggedIn = $data['userLoggedIn'];
+$comment_Body = $data['comment_Body'];
+$commentToUser = $data['commentToUser'];
+$id = $data['comment_id'];
 
+$posts = new Post($con, $userLoggedIn);
 
+$posts->editComment($comment_Body, $commentToUser, $id, $userLoggedIn);
 
+// Clean any output before sending JSON
+ob_clean();
 
-  $posts->editComment($_REQUEST);
-}
+// Set JSON content type
+header('Content-Type: application/json');
+
+// Return the result as JSON
+echo json_encode($result);
+exit;

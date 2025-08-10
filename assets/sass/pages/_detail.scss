@@ -190,7 +190,7 @@
 
   }
 
-  #post_body {
+  .post_body {
     width: 110rem;
     margin: 0 auto;
 
@@ -316,10 +316,11 @@
       display: grid;
       grid-template-columns: 12rem 1fr;
       grid-template-rows: repeat(3, max-content);
-      width: 70%;
+      width: 80%;
       margin: 6rem auto;
       transition: opacity 300ms linear;
       opacity: 1;
+      padding: 2rem 4rem;
 
       @include respond(bp-smallest) {
         width: 85%;
@@ -428,6 +429,7 @@
         visibility: visible;
         display: block;
         transition: all 300ms linear;
+        margin-bottom: 2rem;
       }
 
       .editstatebtns {
@@ -489,6 +491,10 @@
 
   [contenteditable] {
     outline: 0px solid transparent;
+  }
+
+  .new-entry {
+    background: #7e7bcc17;
   }
 
 }

@@ -8,11 +8,6 @@ include("includes/header.php");
 if (isset($_POST['post'])) {
 	// Clear any output that might have been generated
 	ob_clean();
-	// Debug: Log all headers to see what we're receiving
-	error_log('All headers: ' . print_r(getallheaders(), true));
-	error_log('HTTP_X_REQUESTED_WITH: ' . (isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? $_SERVER['HTTP_X_REQUESTED_WITH'] : 'not set'));
-	error_log('POST data: ' . print_r($_POST, true));
-	error_log('ajax_request isset: ' . (isset($_POST['ajax_request']) ? 'YES' : 'NO'));
 
 	$uploadOk = 1;
 	$imageName = $_FILES['inpFile']['name'];
@@ -47,8 +42,10 @@ if (isset($_POST['post'])) {
 		$post = new Post($con, $userLoggedIn);
 		$post->submitPost($_POST['post_text'], 'none', $imageName, $_POST['post_heading']);
 		
-		// Check if this is an AJAX request - temporarily force to true for testing
-		if (true) {
+		// Check if this is an AJAX request
+		if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+		    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') || 
+		    isset($_POST['ajax_request'])) {
 		    // Return JSON response for AJAX
 		    header('Content-Type: application/json');
 		    echo json_encode(['success' => true]);
@@ -58,8 +55,10 @@ if (isset($_POST['post'])) {
 		    // header("Location: index.php");
 		}
 	} else {
-		// Check if this is an AJAX request - temporarily force to true for testing
-		if (true) {
+		// Check if this is an AJAX request
+		if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+		    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') || 
+		    isset($_POST['ajax_request'])) {
 		    // Return JSON response for AJAX
 		    header('Content-Type: application/json');
 		    echo json_encode(['success' => false, 'error' => $errorMessage]);
@@ -111,10 +110,19 @@ ob_end_flush();
 			</div>
 
 
-			<input type="text" placeholder="Headline" name="post_heading" class="inputBox inputHeadline">
+			<input 
+				type="text" 
+				placeholder="Headline" 
+				name="post_heading" 
+				class="inputBox inputHeadline"
+			>
 			<textarea name="post_text" class="inputBox textArea" rows="10" cols="50" id="summernote" placeholder="Post Something..."></textarea>
 
-			<input class="btn btn-puprle btn-modalSubmit" type="submit" name="post" id="post_button" value="Post">
+
+			<div class="btn-group">
+				<input type="reset" value="Reset" class="btn btn-orange btn-modalSubmit" id="reset_button">
+				<input class="btn btn-puprle btn-modalSubmit" type="submit" name="post" id="post_button" value="Post">
+			</div>
 
 		</form>
 

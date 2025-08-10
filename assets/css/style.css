@@ -244,6 +244,13 @@ p {
   color: white;
 }
 
+.btn-group {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
 .confirm {
   position: fixed;
   top: 0;
@@ -3533,29 +3540,29 @@ header .nav-loggedinUser a:hover {
   left: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(30, 28, 74, 0.43) 100%);
 }
-.detail #post_body {
+.detail .post_body {
   width: 110rem;
   margin: 0 auto;
 }
 @media only screen and (max-width: 75em) {
-  .detail #post_body {
+  .detail .post_body {
     width: 90rem;
   }
 }
 @media only screen and (max-width: 62.5em) {
-  .detail #post_body {
+  .detail .post_body {
     width: 70rem;
   }
 }
 @media only screen and (max-width: 50em) {
-  .detail #post_body {
+  .detail .post_body {
     width: 90%;
   }
 }
-.detail #post_body p {
+.detail .post_body p {
   margin-bottom: 0.5rem;
 }
-.detail #post_body p img {
+.detail .post_body p img {
   width: 100% !important;
   height: 50rem;
   margin: 3rem auto;
@@ -3651,10 +3658,11 @@ header .nav-loggedinUser a:hover {
   display: grid;
   grid-template-columns: 12rem 1fr;
   grid-template-rows: repeat(3, max-content);
-  width: 70%;
+  width: 80%;
   margin: 6rem auto;
   transition: opacity 300ms linear;
   opacity: 1;
+  padding: 2rem 4rem;
 }
 @media only screen and (max-width: 31.25em) {
   .detail > .comments .commentEntry {
@@ -3758,6 +3766,7 @@ header .nav-loggedinUser a:hover {
   visibility: visible;
   display: block;
   transition: all 300ms linear;
+  margin-bottom: 2rem;
 }
 .detail > .comments .commentEntry .editstatebtns {
   justify-self: end;
@@ -3809,6 +3818,9 @@ header .nav-loggedinUser a:hover {
 }
 .detail [contenteditable] {
   outline: 0px solid transparent;
+}
+.detail .new-entry {
+  background: rgba(126, 123, 204, 0.0901960784);
 }
 
 .editpostContain {

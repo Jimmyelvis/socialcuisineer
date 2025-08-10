@@ -1,4 +1,5 @@
 import axios from "axios";
+import Confirm from "../modules/Confirm.js";
 
 
 
@@ -406,20 +407,55 @@ class Homepage {
 
     // Set up AJAX form submission
     if (postForm && postButton) {
-      console.log('Setting up AJAX form submission');
-      
       // Prevent form from submitting traditionally
       postForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log('Form submit prevented');
       });
       
       postButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent traditional form submission
-        console.log('Post button clicked, starting AJAX submission');
         
         // Get form data (this automatically includes file inputs)
         const formData = new FormData(postForm);
+        
+        // Validate form fields before submission
+        const postHeading = formData.get('post_heading');
+        const postText = formData.get('post_text');
+        const fileInput = document.querySelector('input[name="inpFile"]');
+        const hasFile = fileInput && fileInput.files && fileInput.files.length > 0;
+        
+        // Collect validation errors
+        const errors = [];
+
+        if (!hasFile) {
+          errors.push('Please select an image for your post');
+        }
+        
+        
+        if (!postHeading || postHeading.trim() === '') {
+          errors.push('Please enter a headline for your post');
+        }
+        
+        if (!postText || postText.trim() === '' || postText === '<p><br></p>') {
+          errors.push('Please enter some content for your post');
+        }
+        
+        // Show validation errors if any
+        if (errors.length > 0) {
+          Confirm.open({
+            title: "Form Validation Error",
+            message: errors.join('<br>'),
+            okText: "OK",
+            cancelText: "Cancel",
+            onok: () => {
+              return;
+            },
+            oncancel: () => {
+              return;
+            }
+          });
+          return; // Stop form submission
+        }
         
         // Add the post field to trigger PHP handler (submit button name)
         formData.append('post', 'Post');
@@ -436,10 +472,6 @@ class Homepage {
         const headers = new Headers();
         headers.append('X-Requested-With', 'XMLHttpRequest');
 
-        console.log('Sending AJAX request with:', {
-          "headers": Array.from(headers.entries()),
-          "formData entries": Array.from(formData.entries())
-        });
         
         // Submit via AJAX
         fetch('index.php', {
@@ -448,20 +480,14 @@ class Homepage {
           body: formData // This includes the file data
         })
         .then(response => {
-          console.log('Response received:', response);
-          console.log('Response status:', response.status);
-          console.log('Response headers:', Array.from(response.headers.entries()));
-          
           // Check if the response is JSON
           const contentType = response.headers.get("content-type");
-          console.log('Content type:', contentType);
           
           if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json();
           } else {
             // Get the text response to see what we're actually getting
             return response.text().then(text => {
-              console.log('Non-JSON response received:', text);
               throw new Error('Expected JSON response but got: ' + contentType);
             });
           }
@@ -482,16 +508,48 @@ class Homepage {
             }
             
             // Show success message
-            alert("Post created successfully!");
+            // alert("Post created successfully!");
+
+            Confirm.open({
+              title: "Post created successfully!",
+              message: "Do you want to see the new posts?",
+              okText: "See the new posts",
+              cancelText: "Stay Here",
+              onok: () => {
+                // Switch to timeline tab to see the new post
+                document.getElementById("btnTimeline").click();
+              },
+              oncancel: () => {
+               return
+              }
+            });
             
-            // Switch to timeline tab to see the new post
-            document.getElementById("btnTimeline").click();
+          
             
             // Reload posts
             let afterPost = true; 
+
+            // window smooth scroll to the top when switching tabs
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+
             this.loadPosts(afterPost);
           } else if (data && data.error) {
-            alert(data.error);
+           
+            Confirm.open({
+              title: "Error",
+              message: data.error,
+              okText: "OK",
+              cancelText: "Cancel",
+              onok: () => {
+                return;
+              },
+              oncancel: () => {
+                return;
+              }
+            });
           }
           
           // Reset button
@@ -500,8 +558,7 @@ class Homepage {
         })
         .catch(error => {
           console.error('Error:', error);
-          alert("Error creating post", error);
-          console.log("error" , error); 
+          alert("Error creating post"); 
           
           // Reset button
           postButton.value = originalText;

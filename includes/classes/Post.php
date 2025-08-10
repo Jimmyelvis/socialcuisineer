@@ -293,6 +293,55 @@ class Post {
         return $row['count'];
     }
 
+    public function getLikedBy($post_id)
+	{
+		$likes_for_post = "";
+		$like_unlike_form  = "";
+		$avatars = "";
+
+
+		$userLoggedIn = $this->user_obj->getUsername();
+
+
+		$get_likes = mysqli_query($this->con, "SELECT likes, added_by FROM posts WHERE id='$post_id'");
+
+		$row = mysqli_fetch_array($get_likes);
+		$total_likes = $row['likes'];
+		$user_liked = $row['added_by'];
+
+		$user_details_query = mysqli_query($this->con, "SELECT * FROM users WHERE username='$user_liked'");
+		$row = mysqli_fetch_array($user_details_query);
+		$total_user_likes = $row['num_likes'];
+
+		// $get_liked_by = mysqli_query($con, "SELECT username FROM likes WHERE post_id='$post_id' LIMIT 3");
+
+		$get_liked_by = mysqli_query($this->con, "SELECT likes.username, likes.post_id, likes.id, users.first_name, 
+          users.last_name, users.profile_pic, users.username 
+          FROM likes, users 
+          WHERE users.username = likes.username
+          AND likes.post_id = '$post_id'
+          ORDER BY likes.id DESC
+        ");
+
+        $liked_by = [];
+       while ($row = mysqli_fetch_array($get_liked_by)) {
+           $id = $row['id'];
+           $username = $row['username'];
+           $first_name = $row['first_name'];
+           $last_name = $row['last_name'];
+           $profile_pic = $row['profile_pic'];
+           $liked_by[] = [
+               'id' => $id,
+               'username' => $username,
+               'first_name' => $first_name,
+               'last_name' => $last_name,
+               'profile_pic' => $profile_pic
+           ];
+       }
+
+		return $liked_by;
+	}
+
     private function getComments($post_id, $added_by = null) {
         $get_comments = mysqli_query($this->con, "SELECT * FROM comments WHERE post_id='$post_id' AND removed='no' ORDER BY id ASC");
         $comments = [];
@@ -310,6 +359,9 @@ class Post {
             $full_name = $user_obj->getFirstAndLastName();
             $prof_pic = $user_obj->getProfilePic();
             $loggedUser = $this->user_obj->getUsername();
+
+            $get_date_format = new GetDate();
+            $date_added = $get_date_format->getTheDate($date_added);
 
             // Determine if user can edit/delete the comment
             $showEditBtn = '';
@@ -520,9 +572,8 @@ class Post {
             $user_to = mysqli_real_escape_string($this->con, $user_to);
 
             // Insert comment
-            $insert_query = mysqli_query($this->con, "
-                INSERT INTO comments (post_body, posted_by, posted_to, date_added, removed, post_id) 
-                VALUES (?, ?, ?, NOW(), 'no', ?)
+            $insert_query = mysqli_query($this->con, "INSERT INTO comments (post_body, posted_by, posted_to, date_added, removed, post_id) 
+                VALUES ('$body', '$userLoggedIn', '$post_author', NOW(), 'no', '$post_id')
             ");
 
             if (!$insert_query) {
@@ -562,8 +613,8 @@ class Post {
                 error_log("Error sending notifications: " . $e->getMessage());
             }
 
-            // Get the newly created comment
-            $comment = $this->getComments($post_id)[0] ?? null;
+            // Get the newly created comment, which will be the last comment in the array
+             $comment = $this->getComments($post_id)[count($this->getComments($post_id)) - 1] ?? null;
 
             return [
                 'status' => 'success',
@@ -575,7 +626,8 @@ class Post {
             error_log("Error in sendComment: " . $e->getMessage());
             return [
                 'status' => 'error',
-                'message' => 'An error occurred while posting your comment'
+                'message' => $e->getMessage(),
+                'error_data' => $e->getMessage()
             ];
         }
     }
@@ -642,23 +694,24 @@ class Post {
                 throw new Exception(mysqli_error($this->con));
             }
 
-            // Get the updated comment
-            $updated_comment = $this->getComments($post_id, $posted_by);
-            $comment = array_filter($updated_comment, function($c) use ($comment_id) {
-                return $c['id'] == $comment_id;
-            });
+            // // Get the updated comment
+            // $updated_comment = $this->getComments($post_id, $posted_by);
+            // $comment = array_filter($updated_comment, function($c) use ($comment_id) {
+            //     return $c['id'] == $comment_id;
+            // });
 
             return [
                 'status' => 'success',
                 'message' => 'Comment updated successfully',
-                'data' => !empty($comment) ? reset($comment) : null
+                // 'data' => !empty($comment) ? reset($comment) : null
             ];
 
         } catch (Exception $e) {
-            error_log("Error in editComment: " . $e->getMessage());
+            error_log("Error in sendComment: " . $e->getMessage());
             return [
                 'status' => 'error',
-                'message' => 'An error occurred while updating your comment'
+                'message' => $e->getMessage(),
+                'error_data' => $e->getMessage()
             ];
         }
     }
@@ -727,7 +780,7 @@ class Post {
             error_log("Error in deleteComment: " . $e->getMessage());
             return [
                 'status' => 'error',
-                'message' => 'An error occurred while deleting the comment'
+                'message' => 'An error occurred while deleting the comment' . $e->getMessage()
             ];
         }
     }
@@ -994,8 +1047,11 @@ class Post {
             $comments_count = mysqli_num_rows($comments_check);
 
             // Get time message
-            $time_message = new GetDate($date_time);
-            $time_message->getTheDate($date_time);
+            // $time_message = new GetDate($date_time);
+            // $time_message->getTheDate($date_time);
+
+            $get_date_format = new GetDate();
+            $time_message = $get_date_format->getTheDate($date_time);
 
             return [
                 'status' => 'success',
@@ -1011,11 +1067,12 @@ class Post {
                     ],
                     'user_to' => $user_to_info,
                     'date_added' => $date_time,
-                    'time_message' => $time_message->time_message,
+                    'time_message' => $time_message,
                     'image' => $imagePath ? $imagePath : null,
                     'can_edit' => $userLoggedIn == $added_by,
                     'can_delete' => $userLoggedIn == $added_by,
                     'likes' => $this->getLikes($id),
+                    'liked_by' => $this->getLikedBy($id),
                     'comments_count' => $comments_count,
                     'comments' => $this->getComments($id, $added_by)
                 ]
@@ -1024,6 +1081,7 @@ class Post {
 
         return [
             'status' => 'error',
+            'post_id tried' => $post_id,
             'message' => 'Post not found. If you clicked a link, it may be broken.'
         ];
     }

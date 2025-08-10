@@ -1,0 +1,137 @@
+/* 
+ * Loading Placeholders CSS
+ * For hybrid server-client rendering approach
+ */
+
+/* Base loading placeholder animation */
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.loading-placeholder {
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+/* Post heading placeholders */
+.loading-heading {
+  height: 4rem;
+  width: 80%;
+  margin-bottom: 1.5rem;
+  border-radius: 0.4rem;
+}
+
+.loading-subheading {
+  height: 2rem;
+  width: 60%;
+  margin-bottom: 2rem;
+  border-radius: 0.3rem;
+}
+
+/* Avatar placeholder */
+.loading-avatar {
+  width: 7.8rem;
+  height: 7.8rem;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+}
+
+/* Post body placeholder */
+.loading-paragraph {
+  height: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.3rem;
+}
+
+.loading-paragraph.full {
+  width: 100%;
+}
+
+.loading-paragraph.medium {
+  width: 80%;
+}
+
+.loading-paragraph.short {
+  width: 60%;
+}
+
+/* Comments placeholder */
+.loading-comment {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.loading-comment-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+}
+
+.loading-comment-content {
+  flex: 1;
+}
+
+.loading-comment-name {
+  height: 1.5rem;
+  width: 40%;
+  margin-bottom: 0.8rem;
+  border-radius: 0.3rem;
+}
+
+.loading-comment-text {
+  height: 1.2rem;
+  width: 90%;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.loading-comment-text.short {
+  width: 70%;
+}
+
+/* Like section placeholder */
+.loading-likes {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.loading-like-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+}
+
+.loading-like-text {
+  height: 1.8rem;
+  width: 12rem;
+  border-radius: 0.3rem;
+}
+
+/* Input placeholder */
+.loading-input {
+  height: 4rem;
+  width: 100%;
+  border-radius: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Button placeholder */
+.loading-button {
+  height: 4rem;
+  width: 10rem;
+  border-radius: 0.8rem;
+}

@@ -64,3 +64,10 @@
   background: transparent;
   color: white;
 }
+
+.btn-group {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-top: 3rem;
+}
