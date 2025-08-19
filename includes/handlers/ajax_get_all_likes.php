@@ -29,14 +29,7 @@ try {
     $post = new Post($con, $userLoggedIn);
     $likes = $post->getAllLikes($postId);
     
-    echo json_encode([
-        'status' => 'success',
-        'message' => 'Likes retrieved successfully',
-        'data' => [
-            'likes' => $likes,
-            'total_count' => count($likes)
-        ]
-    ]);
+    echo json_encode($likes);
 } catch (Exception $e) {
     echo json_encode([
         'status' => 'error',

@@ -3,344 +3,351 @@
 */
 
 
-  input.comment_like {
-    background-color: #6a66d9;
-    border-width: 0;
-    border-style: none;
-    border-color: snow;
-    border-image: none;
-    padding: 0.6rem 2rem;
-    color: #fff;
-    font-weight: bold;
-  }
+input.comment_like {
+  background-color: #6a66d9;
+  border-width: 0;
+  border-style: none;
+  border-color: snow;
+  border-image: none;
+  padding: 0.6rem 2rem;
+  color: #fff;
+  font-weight: bold;
+}
 
-  .likedby {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 15rem;
-   padding: 0;
-   margin-bottom: 3rem;
+.likedby {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15rem;
+  padding: 0;
+  margin-bottom: 3rem;
 
-    @include respond(bp-tiny) {
-      flex-direction: column;
-      margin-bottom: 5rem;
-    }
-
-    .likedForm {
-      flex: 0 0 25rem;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      height: 100%;
-      flex-direction: row;
-
-      .likeHolder {
-        position: relative;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 3rem;
-
-        .btnUnlike {
-          padding: 3rem;
-          background: url(../img/btn-liked.svg);
-          background-position: center;
-          background-repeat: no-repeat;
-          border-width: 0;
-          border-style: outset;
-          border-color: transparent;
-          border-image: none;
-          cursor: pointer;
-          position: absolute;
-        }
-
-        .btnlike {
-          padding: 3rem;
-          background: url(../img/btn-notLiked.svg);
-          background-position: center;
-          background-repeat: no-repeat;
-          border-width: 0;
-          border-style: outset;
-          border-color: transparent;
-          border-image: none;
-          cursor: pointer;
-          position: absolute;
-        }
-
-
-      }
-
-      .heading-3 {
-        font-size: 2.8rem;
-      }
-
-      @include respond(bp-smallest) {
-        flex: 0 0 20rem;
-        margin-left: -5%;
-
-         .likeholder {
-           margin-right: 0rem;
-         }
-
-         .heading-3 {
-           font-size: 2.2rem;
-         }
-
-      }
-
-     @include respond(bp-tiny) {
-       flex: 0 0 39%;
-       margin-bottom: 1rem;
-       justify-content: space-between;
-
-       .likeholder {
-         margin-right: 4rem;
-       }
-     }
-
-       
-    }
-
-    .avatars {
-      display: flex;
-
-      @include respond(bp-tiny) {
-        margin-bottom: 1rem;
-      }
-
-      .avatar {
-        overflow: hidden;
-        border-radius: 50%;
-        width: 7.8rem;
-        height: 7.8rem;
-        border: 3px solid #fff;
-        margin-left: -3rem;
-        position: relative;
-
-         @include respond(bp-smallest) {
-           width: 6.9rem;
-           height: 6.9rem;
-         }
-
-        img {
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      .likeId-1 {
-        z-index: 60;
-      }
-
-      .likeId-2 {
-        z-index: 59;
-      }
-
-      .likeId-3 {
-        z-index: 58;
-      }
-
-      .likeId-4 {
-        z-index: 57;
-      }
-
-      .likeId-5 {
-        z-index: 56;
-      }
-
-    }
-
-    .likeByNumber {
-      margin-left: 1rem;
-      color: $color-secondary;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-  }
-
-  .moreLikesOverlay {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    z-index: 5000;
-    align-items: center;
+  @include respond(bp-smallest) {
+    flex-direction: column;
     justify-content: center;
-    opacity: 0;
-    display: none;
-    visibility: hidden;
+    gap: 3rem;
+    margin-top: 6rem;
+  }
 
-    
+  .likedForm {
+    flex: 0 0 25rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    flex-direction: row;
 
-    .content{
-      background-color: #fff;
-      min-height: 30rem;
-      padding: 10rem 0;
+    .likeHolder {
+      position: relative;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 20;
-      position: relative;
-      flex: 0 0 80%;
-      position: relative;
-      opacity: 0;
-      transition: opacity 400ms linear;
+      margin-right: 3rem;
 
-      max-height: 90%;
+      .btnThumbFilled {
+        padding: 3rem;
+        background: url(../img/btn-liked.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        border-width: 0;
+        border-style: outset;
+        border-color: transparent;
+        border-image: none;
+        cursor: pointer;
+        position: absolute;
+      }
+
+      .btnThumbNotFilled {
+        padding: 3rem;
+        background: url(../img/btn-notLiked.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        border-width: 0;
+        border-style: outset;
+        border-color: transparent;
+        border-image: none;
+        cursor: pointer;
+        position: absolute;
+      }
+
+
+    }
+
+    .heading-3 {
+      font-size: 2.8rem;
+    }
+
+    @include respond(bp-smallest) {
+      flex: 0 0 0;
+      margin-left: 0;
+      gap: 1rem;
+
+      .likeholder {
+        margin-right: 0rem;
+      }
+
+      .heading-3 {
+        font-size: 2.2rem;
+      }
+
+    }
+
+    @include respond(bp-tiny) {
+      flex: 0 0 39%;
+      margin-bottom: 1rem;
+      justify-content: space-between;
+
+      .likeholder {
+        margin-right: 4rem;
+      }
+    }
+
+
+  }
+
+  .avatars {
+    display: flex;
+
+    @include respond(bp-tiny) {
+      margin-bottom: 1rem;
+    }
+
+    .avatar {
+      overflow: hidden;
+      border-radius: 50%;
+      width: 7.8rem;
+      height: 7.8rem;
+      border: 3px solid #fff;
+      margin-left: -3rem;
+      position: relative;
+
+      @include respond(bp-smallest) {
+        width: 6.9rem;
+        height: 6.9rem;
+      }
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .likeId-1 {
+      z-index: 60;
+    }
+
+    .likeId-2 {
+      z-index: 59;
+    }
+
+    .likeId-3 {
+      z-index: 58;
+    }
+
+    .likeId-4 {
+      z-index: 57;
+    }
+
+    .likeId-5 {
+      z-index: 56;
+    }
+
+  }
+
+  .likeByNumber {
+    margin-left: 1rem;
+    color: $color-secondary;
+    font-size: 2rem;
+    cursor: pointer;
+
+    @include respond(bp-smallest) {
+      margin-left: 0;
+    }
+  }
+}
+
+.moreLikesOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 5000;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  display: none;
+  visibility: hidden;
+
+
+
+  .content {
+    background-color: #fff;
+    min-height: 30rem;
+    padding: 10rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    position: relative;
+    flex: 0 0 80%;
+    position: relative;
+    opacity: 0;
+    transition: opacity 400ms linear;
+
+    max-height: 90%;
+
+    @include respond(bp-medium) {
+      min-height: unset;
+      height: 100%;
+      flex: 0 0 100%;
+      overflow-y: scroll;
+
+      max-height: unset;
+    }
+
+    .closeModal {
+      position: absolute;
+      right: 3rem;
+      top: 3rem;
+      width: 3rem;
+      cursor: pointer;
 
       @include respond(bp-medium) {
-        min-height: unset;
-        height: 100%;
-        flex: 0 0 100%;
-        overflow-y: scroll;
+        // position: fixed;
 
-        max-height: unset;
-      }
-
-      .closeModal {
         position: absolute;
-        right: 3rem;
-        top: 3rem;
-        width: 3rem;
-        cursor: pointer;
-
-        @include respond(bp-medium) {
-          // position: fixed;
-
-          position: absolute;
-          right: 6rem;
-          top: 4rem;
-        }
+        right: 6rem;
+        top: 4rem;
       }
-      
-      .likes {
+    }
+
+    .likes {
+      display: flex;
+      justify-content: flex-start;
+      align-content: flex-start;
+      width: 90%;
+      margin: 0 auto;
+      flex-wrap: wrap;
+
+      @include respond(bp-medium) {
+        height: 100%;
+        justify-content: space-evenly;
+      }
+
+      .like {
+        flex: 0 0 18rem;
         display: flex;
-        justify-content: flex-start;
-        align-content: flex-start;
-        width: 90%;
-        margin: 0 auto;
-        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        margin: 4rem 4rem;
+        align-items: center;
 
         @include respond(bp-medium) {
-          height: 100%;
-          justify-content: space-evenly;
+          margin: 2rem 2rem;
+          justify-content: start;
+          height: 17rem;
         }
 
-        .like {
-          flex: 0 0 18rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          margin: 4rem 4rem;
-          align-items: center;
-
-          @include respond(bp-medium) {
-            margin: 2rem 2rem;
-            justify-content: start;
-            height: 17rem;
-          }
-
-          .avatar {
-            top: 0;
-            left: 0;
-            object-fit: cover;
-            height: 12rem;
-            width: 12rem;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-          }
-
-          .heading-3 {
-            font-size: 2.3rem;
-            cursor: pointer;
-          }
-
-         
+        .avatar {
+          top: 0;
+          left: 0;
+          object-fit: cover;
+          height: 12rem;
+          width: 12rem;
+          border-radius: 50%;
+          margin-bottom: 1rem;
         }
+
+        .heading-3 {
+          font-size: 2.3rem;
+          cursor: pointer;
+        }
+
+
       }
+    }
 
-      /*
+    /*
           SimpleBar Styles
       */
 
-      .simplebar-track.simplebar-vertical {
-        top: 1.3rem;
-        width: 1.1rem;
-      }
-
-      .simplebar-track {
-        z-index: 1;
-        position: absolute;
-        right: 1rem;
-        bottom: 0;
-        pointer-events: none;
-        overflow: hidden;
-      }
-
-      .simplebar-scrollbar:before {
-        position: absolute;
-        content: '';
-        background: rgba(73,69,180,0.85);
-        border-radius: 7px;
-        left: 2px;
-        right: 2px;
-        opacity: 0.6;
-        transition: opacity 0.2s linear;
-      }
+    .simplebar-track.simplebar-vertical {
+      top: 1.3rem;
+      width: 1.1rem;
     }
 
-
-    .overlay {
+    .simplebar-track {
+      z-index: 1;
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #28264D;
-      top: 0;
-      left: 0;
-      z-index: 18;
-      transition: all 400ms linear;
-      opacity: 0;
+      right: 1rem;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .simplebar-scrollbar:before {
+      position: absolute;
+      content: '';
+      background: rgba(73, 69, 180, 0.85);
+      border-radius: 7px;
+      left: 2px;
+      right: 2px;
+      opacity: 0.6;
+      transition: opacity 0.2s linear;
     }
   }
 
-  .moreLikesOverlay.active {
-      opacity: 1;
-      display: flex;
-      visibility: visible;
 
-      @include respond(bp-medium) {
-        align-items: unset;
-        justify-content: unset;
-      }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #28264D;
+    top: 0;
+    left: 0;
+    z-index: 18;
+    transition: all 400ms linear;
+    opacity: 0;
   }
+}
 
-  //  .btnUnlike {
-  //    padding: 2rem;
-  //    background: url(../img/btn-liked.svg);
-  //    background-position: center;
-  //    background-repeat: no-repeat;
-  //    border-width: 0;
-  //    border-style: outset;
-  //    border-color: transparent;
-  //    border-image: none;
-  //    cursor: pointer;
-  //    position: absolute;
-  //  }
+.moreLikesOverlay.active {
+  opacity: 1;
+  display: flex;
+  visibility: visible;
 
-  //  .btnlike {
-  //    padding: 2rem;
-  //    background: url(../img/btn-notLiked.svg);
-  //    background-position: center;
-  //    background-repeat: no-repeat;
-  //    border-width: 0;
-  //    border-style: outset;
-  //    border-color: transparent;
-  //    border-image: none;
-  //    cursor: pointer;
-  //    position: absolute;
-  //  }
+  @include respond(bp-medium) {
+    align-items: unset;
+    justify-content: unset;
+  }
+}
+
+//  .btnUnlike {
+//    padding: 2rem;
+//    background: url(../img/btn-liked.svg);
+//    background-position: center;
+//    background-repeat: no-repeat;
+//    border-width: 0;
+//    border-style: outset;
+//    border-color: transparent;
+//    border-image: none;
+//    cursor: pointer;
+//    position: absolute;
+//  }
+
+//  .btnlike {
+//    padding: 2rem;
+//    background: url(../img/btn-notLiked.svg);
+//    background-position: center;
+//    background-repeat: no-repeat;
+//    border-width: 0;
+//    border-style: outset;
+//    border-color: transparent;
+//    border-image: none;
+//    cursor: pointer;
+//    position: absolute;
+//  }
 
 
 /*

@@ -26,6 +26,8 @@ class Homepage {
   }
 
   events() {
+
+    console.log("Homepage events initialized");
     this.loadPosts();
     this.LoadhighLights();
     this.summerNoteInit();

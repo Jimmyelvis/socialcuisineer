@@ -441,10 +441,12 @@ input.comment_like {
   padding: 0;
   margin-bottom: 3rem;
 }
-@media only screen and (max-width: 25em) {
+@media only screen and (max-width: 31.25em) {
   .likedby {
     flex-direction: column;
-    margin-bottom: 5rem;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 6rem;
   }
 }
 .likedby .likedForm {
@@ -463,7 +465,7 @@ input.comment_like {
   justify-content: center;
   margin-right: 3rem;
 }
-.likedby .likedForm .likeHolder .btnUnlike {
+.likedby .likedForm .likeHolder .btnThumbFilled {
   padding: 3rem;
   background: url(../img/btn-liked.svg);
   background-position: center;
@@ -475,7 +477,7 @@ input.comment_like {
   cursor: pointer;
   position: absolute;
 }
-.likedby .likedForm .likeHolder .btnlike {
+.likedby .likedForm .likeHolder .btnThumbNotFilled {
   padding: 3rem;
   background: url(../img/btn-notLiked.svg);
   background-position: center;
@@ -492,8 +494,9 @@ input.comment_like {
 }
 @media only screen and (max-width: 31.25em) {
   .likedby .likedForm {
-    flex: 0 0 20rem;
-    margin-left: -5%;
+    flex: 0 0 0;
+    margin-left: 0;
+    gap: 1rem;
   }
   .likedby .likedForm .likeholder {
     margin-right: 0rem;
@@ -560,6 +563,11 @@ input.comment_like {
   font-size: 2rem;
   cursor: pointer;
 }
+@media only screen and (max-width: 31.25em) {
+  .likedby .likeByNumber {
+    margin-left: 0;
+  }
+}
 
 .moreLikesOverlay {
   position: fixed;
@@ -587,8 +595,8 @@ input.comment_like {
   transition: opacity 400ms linear;
   max-height: 90%;
   /*
-      SimpleBar Styles
-  */
+        SimpleBar Styles
+    */
 }
 @media only screen and (max-width: 50em) {
   .moreLikesOverlay .content {
@@ -3603,6 +3611,11 @@ header .nav-loggedinUser a:hover {
   color: rgb(255, 255, 255);
   margin-left: 7rem;
 }
+@media only screen and (max-width: 50em) {
+  .detail > .comments .heading .heading-3 {
+    font-size: 2.6rem;
+  }
+}
 @media only screen and (max-width: 31.25em) {
   .detail > .comments .heading .heading-3 {
     margin-left: 4rem;
@@ -3638,6 +3651,11 @@ header .nav-loggedinUser a:hover {
 @media only screen and (max-width: 37.5em) {
   .detail > .comments .btn-puprle {
     margin-left: 81%;
+  }
+}
+@media only screen and (max-width: 25em) {
+  .detail > .comments .btn-puprle {
+    margin-left: 75%;
   }
 }
 .detail > .comments .commentResponse {
@@ -3743,7 +3761,7 @@ header .nav-loggedinUser a:hover {
 .detail > .comments .commentEntry p {
   grid-column: 2/-1;
   margin-left: 2%;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-top: 0.5rem;
   background-color: rgba(181, 179, 242, 0);
   border: 2px solid rgba(181, 179, 242, 0);

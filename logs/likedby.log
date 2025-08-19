@@ -1,0 +1,38 @@
+Parallax.js:14 Parallax module loaded
+Parallax.js:41 Parallax test
+PostDetailPage.js:704 Setting up comment event handlers
+PostDetailPage.js:13 ✅ Using embedded data for hydration (hybrid approach)
+PostDetailPage.js:14 Initial post data: {id: '174', body: '                                                  …                                                 ', heading: 'My Steak Dinner', added_by: {…}, user_to: null, …}
+PostDetailPage.js:31 🔄 Starting hydration process with embedded data
+PostDetailPage.js:34   → Hydrating post heading
+PostDetailPage.js:37   → Hydrating likes section
+PostDetailPage.js:572 {likesTotal: 4, avatarLimit: 3, andMoreDisplayNumber: 1, likedBy: Array(4)}andMoreDisplayNumber: 1avatarLimit: 3likedBy: (4) [{…}, {…}, {…}, {…}]0: {id: '289', username: 'dylancougar', first_name: 'Dylan', last_name: 'Cougar', profile_pic: 'assets/img/profile_pics/dylancougar.jpeg'}1: {id: '264', username: 'ace_caracer', first_name: 'Ace', last_name: 'Caracer', profile_pic: 'assets/img/profile_pics/ace_caracer1298bdf4381590d65e0e044f3b891996n.jpeg'}2: {id: '262', username: 'cori_gianni', first_name: 'Cori', last_name: 'Gianni', profile_pic: 'assets/img/profile_pics/cori_gianni.jpeg'}3: {id: '156', username: 'phil_brooks', first_name: 'Phil', last_name: 'Brooks', profile_pic: 'assets/img/profile_pics/phil_brooks.jpeg'}length: 4[[Prototype]]: Array(0)likesTotal: 4[[Prototype]]: Object
+PostDetailPage.js:40   → Hydrating post body
+PostDetailPage.js:43   → Hydrating comments section
+PostDetailPage.js:47   → Initializing parallax effect
+PostDetailPage.js:48 Uncaught TypeError: (0 , _modules_Parallax__WEBPACK_IMPORTED_MODULE_0__.parallax) is not a function
+    at PostDetail.hydrateFromInitialData (PostDetailPage.js:48:13)
+    at new PostDetail (PostDetailPage.js:15:12)
+    at HTMLDocument.eval (PostDetailPage.js:813:5)
+hydrateFromInitialData @ PostDetailPage.js:48
+PostDetail @ PostDetailPage.js:15
+eval @ PostDetailPage.js:813
+jquery-3.4.1.min.js:2 Error: <path> attribute d: Expected number, "…               tc0.2,0,0.4-0.2,0…".
+xe @ jquery-3.4.1.min.js:2
+He @ jquery-3.4.1.min.js:2
+append @ jquery-3.4.1.min.js:2
+(anonymous) @ translateContent.js:1
+e @ jquery-3.4.1.min.js:2
+t @ jquery-3.4.1.min.js:2
+setTimeout
+(anonymous) @ jquery-3.4.1.min.js:2
+c @ jquery-3.4.1.min.js:2
+fireWith @ jquery-3.4.1.min.js:2
+fire @ jquery-3.4.1.min.js:2
+c @ jquery-3.4.1.min.js:2
+fireWith @ jquery-3.4.1.min.js:2
+ready @ jquery-3.4.1.min.js:2
+setTimeout
+(anonymous) @ jquery-3.4.1.min.js:2
+(anonymous) @ jquery-3.4.1.min.js:2
+(anonymous) @ jquery-3.4.1.min.js:2

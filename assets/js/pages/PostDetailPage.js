@@ -5,7 +5,8 @@ import Confirm from "../modules/Confirm.js";
 class PostDetail {
   constructor() {
     this.post_detail = document.querySelector(".detail");
-    console.log("PostDetail module loaded");
+    this.events();
+    this.setupCommentEventHandlers();
     
     // Check if we have initial data embedded
     if (typeof initialPostData !== 'undefined') {
@@ -17,13 +18,12 @@ class PostDetail {
       this.getSinglePost();
     }
     
-    this.events();
-    console.log("PostDetail module loaded");
   }
 
   events() {
+
     this.getAllLikes();
-    this.editComment();
+    this.updateLike();  
   }
   
   //  use embedded data
@@ -57,7 +57,7 @@ class PostDetail {
     }
   }
 
-  async getAllLikes() {
+  getAllLikes() {
     const likedBy = document.querySelector(".likedby");
     const likeByNumberBtn = document.querySelector(".likeByNumber");
     const moreLikesOverlay = document.querySelector(".moreLikesOverlay");
@@ -66,13 +66,22 @@ class PostDetail {
     const moreLikesContent = document.querySelector(".moreLikesContent");
     const likes = document.querySelector(".likes");
 
-    likedBy?.addEventListener("click", async function (e) {
+    likedBy.addEventListener("click", async function (e) {
       if (e.target.classList.contains("likeByNumber")) {
+        console.log("likeByNumber clicked");
+        
+        // Get post_id from the closest post container or data attribute
+        const postContainer = e.target.closest(".detail");
+        const post_id = postContainer ? postContainer.dataset.postId : null;
+        
+        console.log("Post container:", postContainer);
+        console.log("Post ID:", post_id);
+        
         try {
           const response = await fetch(
             "includes/handlers/ajax_get_all_likes.php",
             {
-              method: "GET",
+              method: "POST", // Changed from GET to POST
               headers: {
                 "Content-Type": "application/json",
               },
@@ -141,6 +150,78 @@ class PostDetail {
     }
   }
 
+  async updateLike() {
+
+    const likedBy = document.querySelector("#likedBy");
+    likedBy.addEventListener("click", async (e) => {
+
+      if (e.target.classList.contains("btnlike")) {
+        console.log("btnlike clicked");
+
+        console.log("status ",e.target.name);
+
+        // TODO: Send the value of e.target.name to the server
+
+        let likeValue;
+
+        switch (e.target.name) {
+          case "likedByCurrentUser":
+            likeValue = 'removing_like';
+            break;
+          case "notLikedByCurrentUserYet":
+            likeValue = 'adding_like';
+            break;
+          default:
+            likeValue = 0;
+        }
+
+        console.log("likeValue ",likeValue);
+
+        try {
+          const response = await fetch("includes/handlers/ajax_update_likes.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              post_id: post_id,
+              like_value: likeValue,
+              userLoggedIn: userLoggedIn,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (data.status === "success") {
+            console.log(
+              {
+                liked_by: data.data.recent_likers
+              }
+            ); 
+
+            /* 
+            We need to renderLikedBy and pass in the recent Likers array
+            so it can rehydrate with the latest data
+            */
+            this.renderLikedBy({
+              liked_by: data.data.recent_likers
+            });
+
+        
+
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        } 
+      }
+
+    });
+
+    
+  } 
+
   async sendComment({ postId, commentText, userLoggedIn }) {
     console.log("commentBtn clicked");
     const commentResponse = document.querySelector(".commentResponse");
@@ -202,7 +283,9 @@ class PostDetail {
 
           /*html*/
           newComment = `
-          <div class='commentEntry new-entry'>
+          <div class='commentEntry new-entry'
+            data-commentid='${newComment.id}' data-commentto='${newComment.posted_to}'
+          >
             <div class='avatar'>
               <img src='${newComment.posted_by.profile_pic}' class='post-profile-pic'>
             </div>
@@ -214,9 +297,11 @@ class PostDetail {
                 </a>
               </li>
               <li class='time'>${newComment.date_added}</li>
+              <li class='response'></li>
+
             </div>
           
-            <p>${newComment.body}</p>
+            <p class='commentBody'>${newComment.body}</p>
 
             ${newComment.can_edit ? /*html*/ `
               <div class='editstatebtns'>
@@ -426,7 +511,7 @@ class PostDetail {
     postHeading.innerHTML = '';
     
     // Add content
-    postHeading.innerHTML = `
+    postHeading.innerHTML = /*html*/ `
       <div class='avatar'>
         <a href='${data.added_by.username}'>
           <img src='${data.added_by.profile_pic}' class='post-profile-pic'>
@@ -455,7 +540,7 @@ class PostDetail {
 
       <div class='overlay'></div>
       <div class='imagebg'>
-        <img class='detailBg scroll' src='${
+        <img class='detailBg scroll zoom-effect' src='${
           data.image
         }' data-rate='0.6' data-direction='vertical'>  
       </div>
@@ -476,6 +561,7 @@ class PostDetail {
       likesTotal: likesTotal,
       avatarLimit: avatarLimit,
       andMoreDisplayNumber: andMoreDisplayNumber,
+      likedBy: data.liked_by
     });
 
     /*html*/
@@ -484,8 +570,10 @@ class PostDetail {
        <div class='likeHolder'>
            <input 
              type='submit' 
-             class='btnUnlike' 
+             class='btnlike ${data.liked_by.some((like) => like.username === userLoggedIn) ? 
+              "btnThumbFilled" : "btnThumbNotFilled"}'
              value=''
+             name='${data.liked_by.some((like => like.username === userLoggedIn)) ? "likedByCurrentUser" : "notLikedByCurrentUserYet"}'
            >
         </div>
 
@@ -493,7 +581,7 @@ class PostDetail {
      </div>
   
      <div class='avatars'>
-      {
+      
         ${data.liked_by
           .sort((a, b) => b.id - a.id)
           .slice(0, avatarLimit)
@@ -562,7 +650,7 @@ class PostDetail {
               <li class='response'></li>
             </div>
           
-            <p  class='commentBody'>${comment.body}</p>
+            <p class='commentBody'>${comment.body}</p>
 
             ${comment.can_edit ? /*html*/ `
             <div class='editstatebtns'>
@@ -594,21 +682,38 @@ class PostDetail {
         userLoggedIn: userLoggedIn,
       });
     });
+  }
+  /**
+   * Sets up all comment-related event handlers using event delegation
+   * This centralizes all comment event handling in one place
+   */
+  setupCommentEventHandlers() {
+
+    console.log("Setting up comment event handlers");
 
 
-    // Use Event delegation to check if the edit button was clicked
+    // Single event handler for all comment buttons using event delegation
     document.addEventListener("click", (e) => {
       const target = e.target;
+      const commentEntry = target.closest(".commentEntry");
+      
+      // Skip if not within a comment entry or not one of our action buttons
+      if (!commentEntry) return;
+      if (!target.classList.contains("editCommentbtn") && 
+          !target.classList.contains("deleteCommentbtn") && 
+          !target.classList.contains("saveCommentbtn") && 
+          !target.classList.contains("cancelCommentbtn")) return;
+      
+      // Common elements needed for all button types
+      const commentBody = commentEntry.querySelector(".commentBody");
+      const thisEditBtn = commentEntry.querySelector(".editCommentbtn");
+      const thisDeleteBtn = commentEntry.querySelector(".deleteCommentbtn");
+      const thisSaveBtn = commentEntry.querySelector(".saveCommentbtn");
+      const thisCancelBtn = commentEntry.querySelector(".cancelCommentbtn");
+      
+      // Handle different button types
       if (target.classList.contains("editCommentbtn")) {
-        const commentEntry = target.closest(".commentEntry");
-        const commentBody = commentEntry.querySelector(".commentBody");
-        const originalText = commentBody.textContent;
-
-        const thisEditBtn = commentEntry.querySelector(".editCommentbtn");
-        const thisDeleteBtn = commentEntry.querySelector(".deleteCommentbtn");
-        const thisSaveBtn = commentEntry.querySelector(".saveCommentbtn");
-        const thisCancelBtn = commentEntry.querySelector(".cancelCommentbtn");
-
+        // Edit button clicked
         commentBody.contentEditable = true;
         commentBody.classList.add("editState");
         commentBody.focus();  
@@ -625,46 +730,25 @@ class PostDetail {
           thisCancelBtn.style.opacity = "1";
           thisCancelBtn.style.pointerEvents = "auto";
         }, 300);
-      }
-    });
-
-    // Use Event delegation to check if the cancel button was clicked
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.classList.contains("cancelCommentbtn")) {
-        const commentEntry = target.closest(".commentEntry");
-        const commentBody = commentEntry.querySelector(".commentBody");
-        const originalText = commentBody.textContent;
-
-        const thisEditBtn = commentEntry.querySelector(".editCommentbtn");
-        const thisDeleteBtn = commentEntry.querySelector(".deleteCommentbtn");
-        const thisSaveBtn = commentEntry.querySelector(".saveCommentbtn");
-        const thisCancelBtn = commentEntry.querySelector(".cancelCommentbtn");
-
+      } 
+      else if (target.classList.contains("cancelCommentbtn")) {
+        // Cancel button clicked
+        const originalText = commentBody.getAttribute("data-original-text") || commentBody.textContent;
+        
+        commentBody.contentEditable = false;
         commentBody.classList.remove("editState");
         commentBody.textContent = originalText;
         thisEditBtn.style.display = "block";
         thisDeleteBtn.style.display = "block";
         thisSaveBtn.style.display = "none";
         thisCancelBtn.style.display = "none";
-      }
-    });
-
-    // Use Event delegation to check if the save button was clicked
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.classList.contains("saveCommentbtn")) {
-        const commentEntry = target.closest(".commentEntry");
-        const commentBody = commentEntry.querySelector(".commentBody");
-        const originalText = commentBody.textContent;
-
-        const thisEditBtn = commentEntry.querySelector(".editCommentbtn");
-        const thisDeleteBtn = commentEntry.querySelector(".deleteCommentbtn");
-        const thisSaveBtn = commentEntry.querySelector(".saveCommentbtn");
-        const thisCancelBtn = commentEntry.querySelector(".cancelCommentbtn");
-
+      } 
+      else if (target.classList.contains("saveCommentbtn")) {
+        // Save button clicked
+        const newText = commentBody.textContent;
+        
+        commentBody.contentEditable = false;
         commentBody.classList.remove("editState");
-        commentBody.textContent = originalText;
         thisEditBtn.style.display = "block";
         thisDeleteBtn.style.display = "block";
         thisSaveBtn.style.display = "none";
@@ -672,44 +756,42 @@ class PostDetail {
 
         this.editComment({
           commentId: commentEntry.dataset.commentid,
-          newText: commentBody.textContent,
+          newText: newText,
           userLoggedIn: userLoggedIn,
           commentToUser: commentEntry.dataset.commentto,
           commentEntryDataId: commentEntry.dataset.commentid,
         });
-      }
-    });
+      } 
+      else if (target.classList.contains("deleteCommentbtn")) {
+        // Delete button clicked - show confirmation dialog
 
-    // Use Event delegation to check if the delete button was clicked
-    document.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.classList.contains("deleteCommentbtn")) {
-        const commentEntry = target.closest(".commentEntry");
-        const commentBody = commentEntry.querySelector(".commentBody");
-        const originalText = commentBody.textContent;
-
-        const thisEditBtn = commentEntry.querySelector(".editCommentbtn");
-        const thisDeleteBtn = commentEntry.querySelector(".deleteCommentbtn");
-        const thisSaveBtn = commentEntry.querySelector(".saveCommentbtn");
-        const thisCancelBtn = commentEntry.querySelector(".cancelCommentbtn");
-
-        commentBody.classList.remove("editState");
-        commentBody.textContent = originalText;
-        thisEditBtn.style.display = "block";
-        thisDeleteBtn.style.display = "block";
-        thisSaveBtn.style.display = "none";
-        thisCancelBtn.style.display = "none";
-
-        this.deleteComment({
-          commentId: commentEntry.dataset.commentid,
-          userLoggedIn: userLoggedIn,
-          commentToUser: commentEntry.dataset.commentto,
-          commentEntryDataId: commentEntry.dataset.commentid,
+        Confirm.open({
+          title: "Delete Comment",  
+          message: "Are you sure you want to delete this comment? This action cannot be undone.",
+          okText: "OK",
+          cancelText: "Cancel",
+          onok: () => {
+            this.deleteComment({
+              commentId: commentEntry.dataset.commentid,
+              userLoggedIn: userLoggedIn,
+              commentToUser: commentEntry.dataset.commentto,
+              commentEntryDataId: commentEntry.dataset.commentid,
+            });
+            return;
+          },
+          oncancel: () => {
+            return;
+          }
         });
-      }
-    });
 
     
+      }
+      
+      // Store original text when entering edit mode for potential cancel
+      if (target.classList.contains("editCommentbtn")) {
+        commentBody.setAttribute("data-original-text", commentBody.textContent);
+      }
+    });
   }
 }
 

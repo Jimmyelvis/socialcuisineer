@@ -8,12 +8,15 @@ class Parallax {
      *  */
     document.addEventListener("scroll", (e) => {
       this.addParallaxScrolling(e);
-      
+
+      // setTimeout(() => {
+      //   this.addZoomInEffect();
+      // }, 800);
+
     });
 
     console.log('Parallax module loaded');
 
-    this.test();
   }
 
 
@@ -37,9 +40,15 @@ class Parallax {
     }
   }
 
-  test() {
-    console.log('Parallax test');
+  addZoomInEffect() {
+
+    const element = document.querySelector(".zoom-effect");
+
+    element.style.transition = "transform 3.5s ease";
+    element.style.transform = "scale(1.4)";
   }
+
+ 
 }
 
 export const parallax = new Parallax();

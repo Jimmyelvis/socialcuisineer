@@ -253,6 +253,10 @@
         color: $color-white;
         margin-left: 7rem;
 
+        @include respond(bp-medium) {
+          font-size: 2.6rem;
+        }
+
         @include respond(bp-smallest) {
           margin-left: 4rem;
         }
@@ -293,6 +297,10 @@
 
       @include respond(bp-small) {
         margin-left: 81%;
+      }
+
+      @include respond(bp-tiny) {
+        margin-left: 75%;
       }
     }
 
@@ -404,7 +412,7 @@
       p {
         grid-column: 2 / -1;
         margin-left: 2%;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         margin-top: 0.5rem;
         background-color: rgba(181, 179, 242, 0);
         border: 2px solid rgba(181, 179, 242, 0);

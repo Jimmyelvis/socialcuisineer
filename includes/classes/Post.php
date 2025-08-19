@@ -852,7 +852,9 @@ class Post {
                     'total_likes' => (int)$row['likes'],
                     'added_by' => $row['added_by'],
                     'likes' => $likes
-                ]
+                ],
+                'message' => 'Likes retrieved successfully',
+
             ];
 
         } catch (Exception $e) {
@@ -868,17 +870,19 @@ class Post {
         try {
             // Validate inputs
             $post_id = (int)$post_id;
-            $value = (int)$value;
+           
             
             if ($post_id <= 0) {
                 throw new Exception('Invalid post ID');
             }
             
-            if ($value !== 1 && $value !== 2) { // 1 = like, 2 = unlike
+            if ($value !== 'adding_like' && $value !== 'removing_like') { 
                 throw new Exception('Invalid like action');
             }
 
             $userLoggedIn = $this->user_obj->getUsername();
+            $userProfilePic = $this->user_obj->getProfilePic();
+            $userFullName = $this->user_obj->getFirstAndLastName();
             
             // Get current post info
             $get_likes = mysqli_query($this->con, "
@@ -908,7 +912,7 @@ class Post {
             mysqli_begin_transaction($this->con);
 
             try {
-                if ($value === 1) { // Like
+                if ($value === 'adding_like') { // Like
                     // Update post likes
                     $total_likes++;
                     $query = mysqli_query($this->con, "UPDATE posts SET likes = $total_likes WHERE id = $post_id");
@@ -956,7 +960,7 @@ class Post {
                     INNER JOIN users u ON u.username = l.username
                     WHERE l.post_id = $post_id
                     ORDER BY l.id DESC
-                    LIMIT 3
+                   
                 ");
 
                 if (!$recent_likers) throw new Exception(mysqli_error($this->con));
@@ -979,10 +983,15 @@ class Post {
                     'data' => [
                         'post_id' => $post_id,
                         'total_likes' => $total_likes,
-                        'action' => $value === 1 ? 'liked' : 'unliked',
+                        'action' => $value === 'adding_like' ? 'liked' : 'unliked',
                         'recent_likers' => $likers,
                         'remaining_likes' => max(0, $total_likes - 3),
-                        'is_liked' => $value === 1
+                        'is_liked' => $value === 'adding_like',
+                        'recent_liker' => [
+                            'username' => $userLoggedIn,
+                            'avatar' => $userProfilePic,
+                            'fullname' => $userFullName
+                        ]
                     ]
                 ];
 
@@ -1085,6 +1094,36 @@ class Post {
             'message' => 'Post not found. If you clicked a link, it may be broken.'
         ];
     }
+
+    public function editPost($data, $image)
+	{
+		$heading = $data['headline'];
+		$body = $data['body'];
+		$user_to = $data['userLoggedIn'];
+		$post_id = $data['post_id'];
+
+		$body = mysqli_real_escape_string($this->con, $body);
+		$heading = strip_tags($heading); //removes html tags
+		$heading = mysqli_real_escape_string($this->con, $heading);
+
+		//Current date and time
+		$date_added = date("Y-m-d H:i:s");
+		//Get username
+		$added_by = $this->user_obj->getUsername();
+
+		//If user is on own profile, user_to is 'none'
+		if ($user_to == $added_by) {
+			$user_to = "none";
+		}
+
+		$query = mysqli_query($this->con, "UPDATE posts SET body='$body', heading='$heading', added_by='$added_by', user_to='$user_to', date_added='$date_added', image='$image'  WHERE id='$post_id'");
+
+		if (!$query) {
+			echo "There was an error updating your post";
+		} else {
+			echo "You Post Was Successfully Updated";
+		}
+	}
 
     public function deletePost($data)
 	{
