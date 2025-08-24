@@ -15,7 +15,7 @@
     "dev": "webpack -w",
     "hot": "webpack serve --mode development --open",
     "hot-dev": "npm-run-all --parallel watch:sass hot sync",
-    "hot-dev-wp": "npm-run-all --parallel watch:sass hot sync dev"
+    "hot-dev-wp": "npm-run-all --parallel watch:sass hot dev"
   },
   "author": "",
   "license": "ISC",

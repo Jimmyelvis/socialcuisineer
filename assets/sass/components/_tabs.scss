@@ -1,77 +1,64 @@
 .tabContent {
   position: relative;
-   padding: 0.1px;
-   grid-column: center-start / center-end;
-   margin: 19rem 0 6rem 0;
-   min-height: 75.5rem;
+  padding: 0.1px;
+  grid-column: center-start / center-end;
+  margin: 19rem 0 6rem 0;
+  min-height: 75.5rem;
 
-   .tab{
-     opacity: 0;
-     visibility: hidden;
-     width: 100%;
-     transition: opacity 0.4s ease;
-     position: relative;
-     top: 0;
-     left:0;
-     width: 100%;
+  .tab {
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    transition: opacity 0.4s ease;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
     //  min-height: 60rem;
     //  display: none;
-   }
+  }
 
-   .tab.show {
-     opacity: 1;
-     visibility: visible;
-     left: 0;
-     position: relative;
-   }
+  .tab.show {
+    opacity: 1;
+    visibility: visible;
+    left: 0;
+    position: relative;
+  }
 
-   .tab-timeline {
-    //  display: grid;
+  .tab-timeline {
 
-    //  grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
-    // //  grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
-    //  //  grid-template-columns: repeat(2, minmax(min(28rem, 100%), 66rem));
+    .posts_area {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
+      //  grid-template-columns: repeat(2, minmax(min(28rem, 100%), 66rem));
+      gap: 0.4rem;
+      position: relative;
+      padding-bottom: 8rem;
 
-    //  grid-auto-rows: minmax(47rem, 1fr);
-    //  gap: 0.4rem;
+      @include respond(bp-largest) {
+        grid-template-columns: repeat(auto-fit, minmax(44.8rem, 1fr));
+      }
 
-    //  @include respond(bp-large) {
-    //    grid-template-columns: repeat(auto-fit, minmax(42.2rem, 1fr));
-    //    grid-auto-rows: minmax(42.2rem, 1fr);
-    //  }
+      @include respond(bp-large) {
+        grid-template-columns: repeat(auto-fit, minmax(33.5rem, 1fr));
+      }
 
-     .posts_area {
-       display: grid;
+      @include respond(bp-medium) {
+        grid-template-columns: repeat(auto-fit, minmax(44.5rem, 1fr));
+      }
 
-       grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
-       //  grid-template-columns: repeat(2, minmax(min(28rem, 100%), 66rem));
+      @include respond(bp-smallest) {
+        grid-template-columns: repeat(auto-fit, minmax(39rem, 1fr));
+      }
 
-       gap: 0.4rem;
-
-       @include respond(bp-largest) {
-         grid-template-columns: repeat(auto-fit, minmax(44.8rem, 1fr));
-       }
-
-       @include respond(bp-large) {
-         grid-template-columns: repeat(auto-fit, minmax(33.5rem, 1fr));
-       }
-
-        @include respond(bp-medium) {
-          grid-template-columns: repeat(auto-fit, minmax(44.5rem, 1fr));
-        }
-
-        @include respond(bp-smallest) {
-          grid-template-columns: repeat(auto-fit, minmax(39rem, 1fr));
-        }
-
-        @include respond(bp-tiny) {
-          grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-        }
-        
-        
+      @include respond(bp-tiny) {
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+      }
 
 
-       min-height: 67rem;
+
+
+      min-height: 67rem;
 
 
       .recipe-card {
@@ -86,28 +73,28 @@
         @include respond(bp-tiny) {
           height: 40rem;
         }
- 
+
         .card-userImage {
- 
-         @include respond(bp-medium) {
-           left: 2.5rem;
-           width: 8rem;
-           height: 8rem;
-         }
- 
+
+          @include respond(bp-medium) {
+            left: 2.5rem;
+            width: 8rem;
+            height: 8rem;
+          }
+
         }
-        
+
         .card-closeBtn {
- 
-         @include respond(bp-medium) {
-           top: 2.5rem;
-           right: 3rem;
-           width: 3rem;
-           height: 3rem;
-         }
- 
+
+          @include respond(bp-medium) {
+            top: 2.5rem;
+            right: 3rem;
+            width: 3rem;
+            height: 3rem;
+          }
+
         }
- 
+
         .card-info {
           display: flex;
           z-index: 100;
@@ -115,68 +102,68 @@
           position: absolute;
           width: 100%;
           bottom: 20%;
- 
-           .card-headings {
- 
-             @include respond(bp-medium){
- 
-               .heading-2 {
-                 font-size: 3.5rem;
-               }
-   
-               .heading-3 {
-                 font-size: 2.8rem;
-               }
-   
-               .heading-4 {
-                 font-size: 1.9rem;
-               }
-             }
- 
-           }
- 
-           .card-stats {
- 
-             @include respond(bp-medium) {
-               justify-content: flex-end;
-               flex: 0 0 50%;
-               margin-left: 50%;
-               padding-left: 0;
-               padding-top: 2rem;
 
-               .likes {
-                 flex: 0 0 25%;
-               }
+          .card-headings {
 
-               .comments {
-                 flex: 0 0 25%;
-               }
- 
-               .heading-4 {
-                 font-size: 2.8rem;
-               }
- 
-               img {
-                 height: 2.8rem;
-                 width: 2.8rem;
-               }
- 
-             
-             }
+            @include respond(bp-medium) {
 
-             @include respond(bp-small) {
-                .likes {
-                  flex: 0 0 35%;
-                }
+              .heading-2 {
+                font-size: 3.5rem;
+              }
 
-                .comments {
-                  flex: 0 0 35%;
-                }
-             }
- 
-           }
+              .heading-3 {
+                font-size: 2.8rem;
+              }
+
+              .heading-4 {
+                font-size: 1.9rem;
+              }
+            }
+
+          }
+
+          .card-stats {
+
+            @include respond(bp-medium) {
+              justify-content: flex-end;
+              flex: 0 0 50%;
+              margin-left: 50%;
+              padding-left: 0;
+              padding-top: 2rem;
+
+              .likes {
+                flex: 0 0 25%;
+              }
+
+              .comments {
+                flex: 0 0 25%;
+              }
+
+              .heading-4 {
+                font-size: 2.8rem;
+              }
+
+              img {
+                height: 2.8rem;
+                width: 2.8rem;
+              }
+
+
+            }
+
+            @include respond(bp-small) {
+              .likes {
+                flex: 0 0 35%;
+              }
+
+              .comments {
+                flex: 0 0 35%;
+              }
+            }
+
+          }
         }
- 
+
       }
 
       .noMorePosts.column {
@@ -186,61 +173,61 @@
         font-size: 2.2rem;
         color: $color-secondary;
       }
-     }
+    }
 
 
-   }
+  }
 
-   .tab-about {
-     display: block;
+  .tab-about {
+    display: block;
 
-     @include respond(bp-largest) {
-       .infobar {
-         margin-top: 0;
-       }
-     }
+    @include respond(bp-largest) {
+      .infobar {
+        margin-top: 0;
+      }
+    }
 
-     @include respond(bp-smallest) {
-       .infobar {
-         margin: 0;
-       }
-     }
-   }
+    @include respond(bp-smallest) {
+      .infobar {
+        margin: 0;
+      }
+    }
+  }
 
-   .tab-messages {
-     display: grid;
-     grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  .tab-messages {
+    display: grid;
+    grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 
-     .messagesBox {
-       grid-column: center-start / center-end;
+    .messagesBox {
+      grid-column: center-start / center-end;
 
-       @include respond(bp-small) {
-         grid-column: 1 / -1;
-       }
-     }
-   }
+      @include respond(bp-small) {
+        grid-column: 1 / -1;
+      }
+    }
+  }
 
-   .tab-friends {
-     display: grid;
-     grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  .tab-friends {
+    display: grid;
+    grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 
-     .friends {
-       grid-column: 1 / -1;
-       display: flex;
-       flex-wrap: wrap;
-       justify-content: center;
-       margin: 0;
+    .friends {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0;
 
-       .entry {
-         height: auto;
-         flex: 0 0 30rem;
-         margin: 0 1%;
-         margin-bottom: 5rem;
-       }
-     }
+      .entry {
+        height: auto;
+        flex: 0 0 30rem;
+        margin: 0 1%;
+        margin-bottom: 5rem;
+      }
+    }
 
 
-   }
+  }
 
 
 }

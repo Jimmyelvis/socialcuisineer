@@ -4,23 +4,34 @@ include("../classes/User.php");
 include("../classes/GetDate.php");
 include("../classes/Post.php");
 
-header('Content-Type: application/json');
+$data = json_decode(file_get_contents('php://input'), true);
+if (!$data) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'No data received man'
+    ]);
+    exit;
+}
 
-if (!isset($_POST['userLoggedIn'])) {
+if (!isset($data['userLoggedIn'])) {
     echo json_encode([
         'status' => 'error', 
-        'message' => 'No user logged in'
+        'message' => 'No user logged in man'
     ]);
     exit;
 }
 
 
-$limit = 10; //Number of posts to be loaded per call
+$limit = 4; //Number of posts to be loaded per call
+$userLoggedIn = $data['userLoggedIn'];
 
-$posts = new Post($con, $_REQUEST['userLoggedIn']);
+
 
 try {
-    $result = $posts->loadPostsFriends($_POST, $limit);
+    $posts = new Post($con, $userLoggedIn);
+    $result = $posts->loadProfilePosts($data, $limit);
+
+    echo json_encode($result);
 } catch (Exception $e) {
     echo json_encode([
         'status' => 'error',

@@ -434,7 +434,7 @@ class Post {
         }
     }
 
-    public function loadProfilePosts($data, $limit = 10) {
+    public function loadProfilePosts($data, $limit = 4) {
         $page = isset($data['page']) ? (int)$data['page'] : 1;
         $profileUser = mysqli_real_escape_string($this->con, $data['profileUsername']);
         $userLoggedIn = $this->user_obj->getUsername();
@@ -500,7 +500,7 @@ class Post {
                     ],
                     'user_to' => $user_to_info,
                     'time_message' => $time_message,
-                    'image' => $imagePath ? '/uploads/posts/' . $imagePath : null,
+                     'image' => $imagePath ? $imagePath : null, // Post image if exists
                     'likes' => $this->getLikes($id),
                     'comments_count' => count($this->getComments($id)),
                     'can_delete' => $added_by === $userLoggedIn,

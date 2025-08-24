@@ -59,7 +59,12 @@ if (isset($_POST['post_message'])) {
 
     <div class="tab tab-timeline show">
 
-      <div class="posts_area"></div>
+      <div class="posts_area">
+
+        <div class="loading">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
 
     </div>
 
@@ -173,17 +178,17 @@ if (isset($_POST['post_message'])) {
 </div>
 
 <script>
-  $(function() {
+  (function() {
 
     /**
      * Converts from PHP varible to JavaScript variable 
      * so we can use it.
      */
-    var userLoggedIn = '<?php echo $userLoggedIn; ?>';
-    var profileUsername = '<?php echo $username; ?>';
+    let userLoggedIn = '<?php echo $userLoggedIn; ?>';
+    let profileUsername = '<?php echo $username; ?>';
     const startingTab = document.querySelector('.posts_area');
     const tabContent = document.querySelector('.tabContent');
-  })
+  })()
 </script>
 
 <script src="./assets/js/dist/addfriend.js"></script>

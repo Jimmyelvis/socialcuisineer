@@ -1,4 +1,5 @@
 import { parallax } from "../modules/Parallax";
+import { RecipeCard } from "../components/recipieCard";
 import Confirm from "../modules/Confirm"
 
 class ProfilePage {
@@ -7,6 +8,9 @@ class ProfilePage {
     this.inProgress = false;
     this.profileHeaderNav = document.getElementById("profileHeaderNav");
     this.tabContent = document.querySelector(".tabContent");
+
+    this.nextPageValue = null;
+    this.morePosts = true;
 
     /**
      * Add an event listener for the window object to detect
@@ -39,11 +43,9 @@ class ProfilePage {
 
     //If .nextPage couldn't be found, it must not be on the page yet (it must be the first time loading posts), so use the value '1'
 
-    let nextPageValue = document
-      .querySelector(".posts_area")
-      .querySelector(".nextPage");
+    // let nextPageValue;
 
-    let page = nextPageValue ? nextPageValue.value : 1;
+    let page = this.nextPageValue ? this.nextPageValue : 1;
 
     fetch('includes/handlers/ajax_load_profile_posts.php', {
       method: 'POST',
@@ -64,12 +66,29 @@ class ProfilePage {
         const noMorePosts = postsArea.querySelector('.noMorePosts');
         const loading = postsArea.querySelector('.loading');
 
-        if (nextPage) nextPage.remove();
-        if (noMorePosts) noMorePosts.remove();
-        if (loading) loading.style.display = 'none';
+        // if (nextPage) nextPage.remove();
+        // if (noMorePosts) noMorePosts.remove();
+        // if (loading) loading.style.display = 'none';
 
-        postsArea.innerHTML += data.html;
+
+        data.data.posts.forEach(post => {
+          const postElement = RecipeCard({ post });
+
+ 
+          postsArea.appendChild(postElement);
+        });
+
+        if (data.data.has_more === true) {
+          this.nextPageValue = data.data.next_page;
+          this.morePosts = true;
+        }
+
+        else {
+          this.morePosts = false;
+        }
+
       } else {
+        this.morePosts = false;
         console.error('Error loading posts:', data.message);
       }
     })
@@ -83,16 +102,22 @@ class ProfilePage {
 
   scrollView() {
     if (document.querySelector(".posts_area")) {
-      let noMorePosts = document
-        .querySelector(".posts_area")
-        .querySelector(".noMorePosts").value;
 
+      let loading = document.querySelector(".loading");
       let recipecards = document.querySelectorAll(".recipe-card");
       let recipecardArr = Array.from(recipecards);
 
-      // isElementInViewport uses getBoundingClientRect(), which requires the HTML DOM object
-      if (this.isElementInView(recipecardArr[0]) && noMorePosts == "false") {
+      // isElementInViewport uses getBoundingClientRect(), which requires the HTML DOM object check if the last element is in view
+
+      if (this.isElementInView(recipecardArr[recipecardArr.length - 1]) && this.morePosts === true) {
+
+        loading.classList.add("active");
+
         this.loadPosts();
+
+      } else {
+        loading.classList.remove("active");
+        loading.innerHTML = "";
       }
     }
   }
