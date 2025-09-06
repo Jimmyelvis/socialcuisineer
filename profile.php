@@ -140,7 +140,7 @@ if (isset($_POST['post_message'])) {
     </div> -->
 
     <div class="tab tab-friends">
-      <div class="friends">
+      <div class="friends" id="friendsContainer">
 
         <?php
         //Get username parameter from url
@@ -149,11 +149,12 @@ if (isset($_POST['post_message'])) {
         } else {
           $username = $userLoggedIn; //If no username set in url, use user logged in instead
         }
-        ?>
 
-        <?php
         $user_obj = new User($con, $username);
-        foreach ($user_obj->getFriendsList() as $friend) {
+        $friends = $user_obj->getFriendsList();
+        $friends_to_render = array_slice($friends, 0, 5); // Render only the first 5 friends
+
+        foreach ($friends_to_render as $friend) {
           $friend_obj = new User($con, $friend);
           $name = $friend_obj->getFirstAndLastName();
 
@@ -169,7 +170,8 @@ if (isset($_POST['post_message'])) {
         }
         ?>
 
-
+        <!-- Placeholder for additional friends to be hydrated -->
+        <div id="moreFriends" class="moreFriendsContainer"></div>
       </div>
     </div>
 
@@ -184,6 +186,7 @@ if (isset($_POST['post_message'])) {
      * Converts from PHP varible to JavaScript variable 
      * so we can use it.
      */
+    const initialFriendsData = <?php echo json_encode(array_slice($friends, 5)); ?>; // Remaining friends
     let userLoggedIn = '<?php echo $userLoggedIn; ?>';
     let profileUsername = '<?php echo $username; ?>';
     const startingTab = document.querySelector('.posts_area');

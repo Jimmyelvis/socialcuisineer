@@ -21,17 +21,17 @@ if (!isset($data['userLoggedIn'])) {
     exit;
 }
 
-
-$limit = 4; //Number of posts to be loaded per call
 $userLoggedIn = $data['userLoggedIn'];
-
-
+$profileUsername = $data['profileUsername'];
+$page = $data['page'];
+$startAt = $data['startAt'];
+$limit = $data['limit'] ?? 5; // Default limit to 5 if not provided
 
 try {
-    $posts = new Post($con, $userLoggedIn);
-    $result = $posts->loadProfilePosts($data, $limit);
+    $user = new User($con, $userLoggedIn);
+    $results = $user->getFriendArray($page, $startAt);
 
-    echo json_encode($result);
+    echo json_encode($results);
 } catch (Exception $e) {
     echo json_encode([
         'status' => 'error',
@@ -39,4 +39,3 @@ try {
     ]);
     exit;
 }
-?>

@@ -504,7 +504,7 @@ class Post {
                     'likes' => $this->getLikes($id),
                     'comments_count' => count($this->getComments($id)),
                     'can_delete' => $added_by === $userLoggedIn,
-                    'link' => '/post.php?id=' . $id
+                    'link' => 'post.php?id=' . $id
                 ];
             }
 

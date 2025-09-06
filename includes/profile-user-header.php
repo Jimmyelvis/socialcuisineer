@@ -39,16 +39,16 @@
 
   <div id="profileHeaderNav" class="profileHeader-nav">
     <ul class="firstOptions active">
-      <li class="linkTab active">
+      <li class="linkTab active" id="timelineTab">
         Posts
       </li>
-      <li class="linkTab">
+      <li class="linkTab" id="aboutTab">
         About
       </li>
       <!-- <li class="linkTab">
         Messages
       </li> -->
-      <li class="linkTab">
+      <li class="linkTab" id="friendsTab">
         Friends
       </li>
       <li class="etc">
