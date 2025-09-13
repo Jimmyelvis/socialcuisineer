@@ -229,5 +229,132 @@
 
   }
 
+  .tabfriend-requests {
+    display: grid;
+    grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+
+     .response {
+        grid-column: col-start 1 / col-end 8;
+        text-align: center;
+        font-size: 4rem;
+        color: $color-white;
+        margin-bottom: 8rem;
+        padding: 2rem;
+        background: linear-gradient(90deg, $color-primary 0%, lighten($color-primary, 10%) 80%);
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 600ms linear;
+        text-align: center;
+
+      }
+
+
+    .requests {
+      position: relative;
+      grid-column: center-start / center-end;
+      margin: 0;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+      // justify-items: center;
+
+      .noRequests {
+        text-align: center;
+        margin-top: 9rem;
+        grid-column: 1 / -1;
+      }
+
+      .entry {
+        display: grid;
+        grid-template-columns: 27.6rem 1fr;
+        grid-template-rows: 27.6rem;
+        align-items: center;
+        padding: 3rem 0;
+        justify-content: center;
+        column-gap: 3rem;
+        width: 100rem;
+        justify-self: center;
+
+        .main-avatar {
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          overflow: hidden;
+          justify-self: center;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+          padding: 0 4rem;
+          gap: 0.2rem;
+
+          .friend-fullname {
+            font-size: 3.8rem;
+          }
+
+          .username {
+            color: #ff8944;
+            font-size: 2.2rem;
+          }
+
+          p {
+            font-size: 2rem;
+            margin: 0;
+          }
+
+          .mutual-friends-btn {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-left: 1rem;
+
+            .avatars-group {
+              display: flex;
+
+              .avatar {
+                @include createAvatar(6.1rem);
+                margin-left: -1.5rem;
+              }
+            }
+
+            .more {
+              font-size: 2rem;
+              color: $color-primary;
+              cursor: pointer;
+              font-weight: bold;
+            }
+
+            .mutual_friends_number {
+              color: $color-third;
+            }
+          }
+
+          .btn-group {
+            display: flex;
+            justify-content: unset;
+            gap: 1rem;
+            margin-top: 2rem;
+
+            .btn {
+              margin-right: 3rem;
+            }
+
+          }
+        }
+
+
+      }
+
+    }
+
+  }
 
 }

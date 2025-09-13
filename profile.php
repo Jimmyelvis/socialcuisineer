@@ -175,6 +175,24 @@ if (isset($_POST['post_message'])) {
       </div>
     </div>
 
+    <div class="tab tabfriend-requests">
+
+      <h3 class="heading-3 response">
+        Test Friend Requests
+      </h3>
+      
+      <div class="requests" id="friendRequestsContainer">
+
+
+
+        <div class="loading">
+          <span></span><span></span><span></span>
+        </div>
+
+    
+
+    </div>
+
   </div>
 
 </div>

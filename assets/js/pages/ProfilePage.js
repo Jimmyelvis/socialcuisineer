@@ -1,6 +1,11 @@
 import { parallax } from "../modules/Parallax";
 import { RecipeCard } from "../components/recipieCard";
 import Confirm from "../modules/Confirm";
+import { createFriendEntry } from "./profilepage/createFriendEntry";
+import { createFriendReqEntry } from "./profilepage/createFriendReqEntry";
+import { isElementInView } from "../modules/isElementInView";
+import { accessExtraMenuItems } from "./profilepage/accessExtraMenuItems";
+import { profileTabsAccess } from "./profilepage/profileTabsAccess";
 
 class ProfilePage {
   constructor() {
@@ -26,9 +31,10 @@ class ProfilePage {
   }
 
   events() {
+    accessExtraMenuItems();
+    profileTabsAccess();
+    this.processFriendRequest();
     this.loadPosts();
-    this.accessExtraMenuItems();
-    this.profileTabsAccess();
     this.deletePost();
     this.tabActions();
     // this.confirming();
@@ -36,11 +42,9 @@ class ProfilePage {
 
   hydrateFriends() {
 
-    const moreFriendsContainer = document.querySelector(".moreFriendsContainer");
 
     const friendsContainer = document.querySelector("#friendsContainer");
 
-    console.log("friendsContainer:", friendsContainer);
 
     if (this.inProgress === true) {
       return;
@@ -72,7 +76,7 @@ class ProfilePage {
 
           data.data.friend_array.forEach((friend) => {
             console.log("Loading friend:", friend);
-            const friendElement = this.createFriendEntry(friend);
+            const friendElement = createFriendEntry(friend);
             friendsContainer.appendChild(friendElement);
           });
 
@@ -95,20 +99,6 @@ class ProfilePage {
       });
   }
 
-  createFriendEntry(friend) {
-
-    console.log("Creating friend entry for:", friend);
-
-    const entry = document.createElement("div");
-    entry.className = "entry";
-    entry.innerHTML = `
-      <a href="${friend.username}">
-        <img src="${friend.profile_pic}" alt="${friend.name} ${friend.last_name}">
-        <h4 class="heading-4">${friend.name}</h4>
-      </a>
-    `;
-    return entry;
-  }
 
   loadPosts() {
     if (this.inProgress === true) {
@@ -146,9 +136,6 @@ class ProfilePage {
           const noMorePosts = postsArea.querySelector(".noMorePosts");
           const loading = postsArea.querySelector(".loading");
 
-          // if (nextPage) nextPage.remove();
-          // if (noMorePosts) noMorePosts.remove();
-          // if (loading) loading.style.display = 'none';
 
           data.data.posts.forEach((post) => {
             const postElement = RecipeCard({ post });
@@ -177,14 +164,6 @@ class ProfilePage {
 
   scrollView() {
 
-    console.log({
-      "next page": this.nextPageValue,
-      "more posts": this.morePosts,
-      "in progress": this.inProgress,
-      "more friends": this.moreFriends
-    });
-    
-
     if (document.querySelector(".posts_area") && this.activeTab === "timeline") {
       let loading = document.querySelector(".loading");
       let recipecards = document.querySelectorAll(".recipe-card");
@@ -192,8 +171,10 @@ class ProfilePage {
 
       // isElementInViewport uses getBoundingClientRect(), which requires the HTML DOM object check if the last element is in view
 
-      if (this.isElementInView(recipecardArr[recipecardArr.length - 1]) && this.morePosts === true) {
+      if (isElementInView(recipecardArr[recipecardArr.length - 1]) && this.morePosts === true) {
         loading.classList.add("active");
+
+        console.log("Last recipe card is in view. Loading more posts...");
 
         this.loadPosts();
       } else {
@@ -208,7 +189,7 @@ class ProfilePage {
       // console.log("Friend entries:", friendEntryArr);
       // console.log("this.moreFriends:", this.moreFriends);
 
-      if (this.isElementInView(friendEntryArr[friendEntryArr.length - 1]) && this.moreFriends === true) {
+      if (isElementInView(friendEntryArr[friendEntryArr.length - 1]) && this.moreFriends === true) {
         console.log("Last friend entry is in view. Loading more friends...");
 
         loading.classList.add("active");
@@ -221,93 +202,6 @@ class ProfilePage {
     }
   }
 
-  isElementInView(el) {
-    if (el == null) {
-      return;
-    }
-
-    var rect = el.getBoundingClientRect();
-
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && //* or $(window).height()
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth) //* or $(window).width()
-    );
-  }
-
-  accessExtraMenuItems() {
-    /**
-     * Gives access to extra menu items when the ... is clicked
-     */
-
-    const firstOptions = document.querySelector(".firstOptions");
-    const secondOptions = document.querySelector(".secondOptions");
-    const etc = document.querySelectorAll(".etc");
-    const profileHeaderNav = document.getElementById("profileHeaderNav");
-
-    profileHeaderNav.addEventListener("click", function (e) {
-      if (!e.target.matches(".etc")) return;
-
-      let options = [firstOptions, secondOptions];
-
-      options.forEach((option) => {
-        option.classList.contains("active") ? option.classList.remove("active") : option.classList.add("active");
-      });
-    });
-  }
-
-  profileTabsAccess() {
-    /**
-     * Gives access to tabs items such as timeline, about, friends
-     */
-    const contents = document.querySelectorAll(".tab");
-    const listItems = document.querySelectorAll(".linkTab");
-    const startingTab = document.querySelector(".posts_area");
-    const tabAbout = document.querySelector(".tab-about");
-    const tabMessages = document.querySelector(".tab-messages");
-    const tabfriends = document.querySelector(".tab-friends");
-
-    hideNonstartingTabs();
-
-    listItems.forEach((item, idx) => {
-      item.addEventListener("click", () => {
-        hideAllContents();
-        hideAllItems();
-
-        item.classList.add("active");
-
-        setTimeout(() => {
-          contents[idx].style.display = null;
-          this.tabContent.style.minHeight = contents[idx].offsetHeight;
-
-          setTimeout(() => {
-            contents[idx].classList.add("show");
-          }, 600);
-        }, 500);
-      });
-    });
-
-    function hideAllContents() {
-      contents.forEach((content) => {
-        content.classList.remove("show");
-
-        setTimeout(() => {
-          content.style.display = "none";
-        }, 400);
-      });
-    }
-
-    function hideAllItems() {
-      listItems.forEach((item) => item.classList.remove("active"));
-    }
-
-    function hideNonstartingTabs() {
-      tabAbout.style.display = "none";
-      // tabMessages.style.display = "none";
-      tabfriends.style.display = "none";
-    }
-  }
 
   deletePost() {
     let bodyFormData = new FormData();
@@ -356,6 +250,7 @@ class ProfilePage {
     const timelineTab = document.getElementById("timelineTab");
     const aboutTab = document.getElementById("aboutTab");
     const friendsTab = document.getElementById("friendsTab");
+    const friendsRequestsTab = document.getElementById("friendsRequestsTab");
 
     timelineTab.addEventListener("click", () => {
       // this.hydrateTimeline()
@@ -377,8 +272,124 @@ class ProfilePage {
       console.log("Active tab is: " + this.activeTab);
     });
 
+    friendsRequestsTab.addEventListener("click", () => {
+      this.getFriendRequests();
+      this.activeTab = "friendsRequests";
+
+      console.log("Active tab is: " + this.activeTab);
+    });
+
     console.log("Active tab is: " + this.activeTab);
   }
+
+  getFriendRequests() {
+    // const requestsDiv = document.querySelector(".requests");
+    // const unreadRequests = document.getElementById("unread_requests");
+
+    fetch("includes/handlers/ajax_load_friendReqs.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userLoggedIn,
+        profileUsername,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          const requestsDiv = document.querySelector("#friendRequestsContainer");
+
+          console.log("Fetched friend requests:", data);
+
+          // Clear loading state
+          requestsDiv.innerHTML = "";
+
+          // Populate friend requests
+          data.requests.forEach((friend) => {
+            const entry = createFriendReqEntry(friend);
+            requestsDiv.appendChild(entry);
+          });
+        } else {
+          console.error("Error fetching friend requests:", data.message);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  processFriendRequest(action, user_from, entryElement) {
+    const friendRequestsContainer = document.querySelector("#friendRequestsContainer");
+    const requestResponseHeader = document.querySelector(
+      ".tabfriend-requests .response "
+    );
+
+    friendRequestsContainer.addEventListener("click", function (e) {
+
+      console.log('====================================');
+      console.log("e.target:", e.target);
+      console.log('====================================');
+
+      if (e.target.classList.contains("acceptButton") || e.target.classList.contains("ignoreButton")) {
+        e.preventDefault();
+
+        console.log('====================================');
+        console.log("clicked man");
+        console.log('====================================');
+
+        let userRequestDiv = e.target.closest(".entry");
+        let uname = e.target.attributes["name"].value;
+        let unameSplit = uname.split("-");
+        let bodyFormData = new FormData();
+
+        if(e.target.classList.contains("acceptButton")) {
+          bodyFormData.append("accept_request", unameSplit[0]);
+          bodyFormData.append("user_from", unameSplit[1]);
+          bodyFormData.append("userLoggedIn", userLoggedIn);
+        } 
+
+        else if(e.target.classList.contains("ignoreButton")) {
+          bodyFormData.append("ignore_request", unameSplit[0]);
+          bodyFormData.append("user_from", unameSplit[1]);
+          bodyFormData.append("userLoggedIn", userLoggedIn);
+        }
+
+        fetch("includes/form_handlers/friends_Requests.php", {
+          method: "POST",
+          body: bodyFormData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            userRequestDiv.remove();
+            showresponse(data.message);
+          
+          })
+          .catch((error) => console.error("Error:", error));    
+
+      }
+
+        function showresponse(res) {
+          requestResponseHeader.innerHTML = res;
+          requestResponseHeader.style.display = "block";
+
+          setTimeout(() => {
+            requestResponseHeader.style.opacity = 1;
+            requestResponseHeader.style.visibility = "visible";
+          }, 600);
+
+          setTimeout(() => {
+            requestResponseHeader.style.opacity = 0;
+            requestResponseHeader.style.visibility = "hidden";
+          }, 5000);
+
+          setTimeout(() => {
+            requestResponseHeader.style.display = "none";
+          }, 6000);
+        }
+    });
+  }
+
+  
 }
 
 export const lprofile = new ProfilePage();

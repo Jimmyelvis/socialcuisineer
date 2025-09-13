@@ -67,6 +67,27 @@
   
 }
 
+@mixin createAvatar($units: 20rem) {
+
+    position: relative;
+    z-index: 1000;
+    width: $units;
+    height: $units;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff !important;
+
+    img {
+      height: 100%;
+      position: absolute;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+    }
+  
+
+}
+
 
 @mixin respond($breakpoint) {
 

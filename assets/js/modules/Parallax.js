@@ -15,7 +15,6 @@ class Parallax {
 
     });
 
-    console.log('Parallax module loaded');
 
   }
 

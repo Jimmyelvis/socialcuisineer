@@ -1098,7 +1098,7 @@ input.comment_like {
   font-weight: inherit;
 }
 .profileHeader-nav ul .linkTab.active {
-  color: #FBD8A1;
+  color: #ff8944;
   transition: opacity 0.4s ease;
 }
 .profileHeader-nav ul .currentProfile {
@@ -1295,7 +1295,7 @@ input.comment_like {
 }
 .recipe-card .card-info .card-desc .card-headings .heading-4 {
   font-size: 2rem;
-  color: #FBD8A1;
+  color: #ff8944;
   font-family: "Inder", sans-serif;
 }
 @media only screen and (max-width: 75em) {
@@ -1338,7 +1338,7 @@ input.comment_like {
   font-size: 2.6rem;
   margin-right: 1rem;
   line-height: 1;
-  color: #FBD8A1;
+  color: #ff8944;
 }
 @media only screen and (max-width: 75em) {
   .recipe-card .card-info .card-stats .likes .heading-4,
@@ -1583,6 +1583,121 @@ input.comment_like {
   flex: 0 0 30rem;
   margin: 0 1%;
   margin-bottom: 5rem;
+}
+.tabContent .tabfriend-requests {
+  display: grid;
+  grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+}
+.tabContent .tabfriend-requests .response {
+  grid-column: col-start 1/col-end 8;
+  text-align: center;
+  font-size: 4rem;
+  color: rgb(255, 255, 255);
+  margin-bottom: 8rem;
+  padding: 2rem;
+  background: linear-gradient(90deg, #6A66D9 0%, rgb(145.7853403141, 142.8534031414, 227.1465968586) 80%);
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 600ms linear;
+  text-align: center;
+}
+.tabContent .tabfriend-requests .requests {
+  position: relative;
+  grid-column: center-start/center-end;
+  margin: 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+.tabContent .tabfriend-requests .requests .noRequests {
+  text-align: center;
+  margin-top: 9rem;
+  grid-column: 1/-1;
+}
+.tabContent .tabfriend-requests .requests .entry {
+  display: grid;
+  grid-template-columns: 27.6rem 1fr;
+  grid-template-rows: 27.6rem;
+  align-items: center;
+  padding: 3rem 0;
+  justify-content: center;
+  column-gap: 3rem;
+  width: 100rem;
+  justify-self: center;
+}
+.tabContent .tabfriend-requests .requests .entry .main-avatar {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-self: center;
+}
+.tabContent .tabfriend-requests .requests .entry .main-avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.tabContent .tabfriend-requests .requests .entry .details {
+  display: flex;
+  flex-direction: column;
+  padding: 0 4rem;
+  gap: 0.2rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details .friend-fullname {
+  font-size: 3.8rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details .username {
+  color: #ff8944;
+  font-size: 2.2rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details p {
+  font-size: 2rem;
+  margin: 0;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-left: 1rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn .avatars-group {
+  display: flex;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn .avatars-group .avatar {
+  position: relative;
+  z-index: 1000;
+  width: 6.1rem;
+  height: 6.1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #fff !important;
+  margin-left: -1.5rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn .avatars-group .avatar img {
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn .more {
+  font-size: 2rem;
+  color: #6A66D9;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tabContent .tabfriend-requests .requests .entry .details .mutual-friends-btn .mutual_friends_number {
+  color: #ff8944;
+}
+.tabContent .tabfriend-requests .requests .entry .details .btn-group {
+  display: flex;
+  justify-content: unset;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.tabContent .tabfriend-requests .requests .entry .details .btn-group .btn {
+  margin-right: 3rem;
 }
 
 footer .copyright {
@@ -2848,7 +2963,7 @@ header .nav-loggedinUser a:hover {
   }
 }
 .friendsRequestsDesktop .content .menu .heading-3 {
-  color: #FBD8A1;
+  color: #ff8944;
   font-size: 4.5rem;
 }
 @media only screen and (max-width: 75em) {
@@ -2890,7 +3005,7 @@ header .nav-loggedinUser a:hover {
 }
 .friendsRequestsDesktop .content .entries .entry .heading-4 {
   text-align: center;
-  color: #FBD8A1;
+  color: #ff8944;
   font-size: 2.8rem;
   margin-top: 2rem;
 }
@@ -2958,7 +3073,7 @@ header .nav-loggedinUser a:hover {
   }
 }
 .notificationsDesktop .content .menu .heading-3 {
-  color: #FBD8A1;
+  color: #ff8944;
   font-size: 4.5rem;
 }
 @media only screen and (max-width: 75em) {
@@ -3120,7 +3235,7 @@ header .nav-loggedinUser a:hover {
   }
 }
 .messagesDesktop .content .menu .heading-3 {
-  color: #FBD8A1;
+  color: #ff8944;
   font-size: 4.5rem;
 }
 @media only screen and (max-width: 75em) {
@@ -3860,7 +3975,7 @@ header .nav-loggedinUser a:hover {
   transition: opacity 700ms linear;
 }
 .detail > .comments .commentEntry .editstatebtns .cancelCommentbtn {
-  color: #FBD8A1;
+  color: #ff8944;
   margin-left: 5rem;
 }
 .detail > .comments .btn-loadMore {
@@ -4255,7 +4370,7 @@ header .nav-loggedinUser a:hover {
 }
 .wrapper .welcome-text .heading-1 {
   margin-bottom: 5rem;
-  color: #FBD8A1;
+  color: #ff8944;
 }
 .wrapper .loginBox {
   background-color: rgb(255, 255, 255);
@@ -4396,7 +4511,7 @@ header .nav-loggedinUser a:hover {
   transition: transform 0.6s ease-in-out;
 }
 .wrapper .loginBox .overlay-container .overlay .overlay-panel .heading-2 {
-  color: #FBD8A1;
+  color: #ff8944;
   margin-bottom: 2rem;
 }
 .wrapper .loginBox .overlay-container .overlay .overlay-panel .errors {
@@ -4473,7 +4588,7 @@ header .nav-loggedinUser a:hover {
 }
 .wrapper .loginBox .form-container-mobile .welcome .heading-2 {
   font-size: 4rem;
-  color: #FBD8A1;
+  color: #ff8944;
   margin-bottom: 5rem;
   text-align: center;
 }
@@ -4821,7 +4936,7 @@ header .nav-loggedinUser a:hover {
   }
 }
 .messagesBox .messageToLabel .person {
-  color: #FBD8A1;
+  color: #ff8944;
 }
 .messagesBox .messages {
   flex: 0 0 100%;
@@ -5044,73 +5159,6 @@ header .nav-loggedinUser a:hover {
   .queryResultsPosts .recipe-card {
     width: 100%;
   }
-}
-
-.requests {
-  position: relative;
-  grid-column: center-start/center-end;
-  margin: 20rem 0;
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-}
-.requests .noRequests {
-  text-align: center;
-  margin-top: 9rem;
-  grid-column: 1/-1;
-}
-.requests .entry {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  align-items: center;
-  padding: 3rem 0;
-  justify-content: center;
-}
-.requests .entry .avatar {
-  height: 16rem;
-  width: 16rem;
-  border-radius: 50%;
-  overflow: hidden;
-  justify-self: center;
-}
-.requests .entry .avatar img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.requests .entry .details {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10%;
-  justify-self: center;
-}
-.requests .entry .details .heading-3 {
-  font-size: 3rem;
-}
-.requests .entry .details form {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  align-items: flex-start;
-}
-.requests .btn {
-  margin-right: 3rem;
-}
-.requests .response {
-  width: 64%;
-  background-color: #64B7FF;
-  color: #fff;
-  padding: 1.8rem 0;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 600ms linear;
-  text-align: center;
-  position: absolute;
-}
-.requests .response {
-  font-size: 2.7rem;
 }
 
 .settingsContain {

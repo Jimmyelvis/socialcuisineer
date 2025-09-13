@@ -81,17 +81,13 @@
         ?>
 
       </li>
-      <?php
-      if ($userLoggedIn == $username) {
 
-        echo '
-          <li>
-            <a href="requests.php">Friends Requests</a>
-          </li>
-          ';
-      }
+      <?php if ($userLoggedIn == $username): ?>
 
-      ?>
+        <li class="linkTab" id="friendsRequestsTab">
+          Friends Requests
+        </li>
+      <?php endif ?>
       <li class="etc">
         ...
       </li>
@@ -100,7 +96,6 @@
 
   <script>
     var profileUsername = '<?php echo $username; ?>';
-
   </script>
 
 </div>

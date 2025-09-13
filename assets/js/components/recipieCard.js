@@ -1,8 +1,5 @@
 export const RecipeCard = ({ post }) => {
 
-  console.log('====================================');
-  console.log("post", post);
-  console.log('====================================');
 
   const postElement = document.createElement("div");
 
