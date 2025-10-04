@@ -71,8 +71,10 @@ module.exports = {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
+    proxy: {
+      '/': 'http://localhost/Social-Cuisiener-2025'
+    }
   },
-  watch: true,
   watchOptions: {
     ignored: /node_modules/,
     aggregateTimeout: 300,

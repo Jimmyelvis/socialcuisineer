@@ -9,6 +9,8 @@ $em = ""; //email
 $em2 = ""; //email 2
 $password = ""; //password
 $password2 = ""; //password 2
+
+
 $date = ""; //Sign up date
 $error_array = array(); //Holds error messages
 
@@ -84,8 +86,8 @@ if(isset($_POST['register_button'])){
 		}
 	}
 
-  if(strlen($password > 30 || strlen($password) < 5)) {
-		array_push($error_array, "Your password must be betwen 5 and 30 characters");
+  if(strlen($password) > 30 || strlen($password) < 5) {
+		array_push($error_array, "Your password must be between 5 and 30 characters");
 	}
 
   if(!empty($error_array)) {

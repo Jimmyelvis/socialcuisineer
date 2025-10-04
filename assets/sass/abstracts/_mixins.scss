@@ -145,3 +145,20 @@
 
 
 }
+
+
+@mixin gridTempColumn {
+  grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(12, [col-start] minmax(2rem, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+
+  @include respond(bp-large) {
+    grid-template-columns: [full-start] minmax(4.5rem, 1fr) [center-start] repeat(12, [col-start] minmax(2rem, 14rem) [col-end]) [center-end] minmax(4.5rem, 1fr) [full-end];
+  }
+
+  @include respond(bp-small) {
+    grid-template-columns: [full-start] minmax(3rem, 1fr) [center-start] repeat(12, [col-start] minmax(2rem, 14rem) [col-end]) [center-end] minmax(3rem, 1fr) [full-end];
+  }
+
+  @include respond(bp-tiny) {
+    grid-template-columns: [full-start] minmax(0.5rem, 1fr) [center-start] repeat(12, [col-start] minmax(2rem, 14rem) [col-end]) [center-end] minmax(0.5rem, 1fr) [full-end];
+  }
+}

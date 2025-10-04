@@ -1426,7 +1426,7 @@ input.comment_like {
 }
 .tabContent .tab-timeline .posts_area {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(47rem, 67rem));
   gap: 0.4rem;
   position: relative;
   padding-bottom: 8rem;
@@ -1569,20 +1569,103 @@ input.comment_like {
 }
 .tabContent .tab-friends {
   display: grid;
-  grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(12, [col-start] minmax(min-content, 17rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 }
 .tabContent .tab-friends .friends {
-  grid-column: 1/-1;
-  display: flex;
-  flex-wrap: wrap;
+  grid-column: center-start/center-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
+  min-height: 60rem;
+  column-gap: 2rem;
+  row-gap: 6rem;
+}
+@media only screen and (max-width: 75em) {
+  .tabContent .tab-friends .friends {
+    margin: 20rem 0;
+  }
+}
+.tabContent .tab-friends .friends .entry a {
+  display: grid;
+  grid-template-columns: 17.6rem 1fr;
+  grid-template-rows: 17.6rem;
+  align-items: center;
+  padding: 3rem 0;
   justify-content: center;
+  column-gap: 3rem;
+}
+.tabContent .tab-friends .friends .entry a .main-avatar {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-self: center;
+}
+.tabContent .tab-friends .friends .entry a .main-avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.tabContent .tab-friends .friends .entry a .details {
+  display: flex;
+  flex-direction: column;
+  padding: 0 4rem;
+  gap: 0.2rem;
+}
+.tabContent .tab-friends .friends .entry a .details .friend-fullname {
+  font-size: 3.8rem;
+}
+.tabContent .tab-friends .friends .entry a .details .username {
+  color: #ff8944;
+  font-size: 2.2rem;
+}
+.tabContent .tab-friends .friends .entry a .details p {
+  font-size: 2rem;
   margin: 0;
 }
-.tabContent .tab-friends .friends .entry {
-  height: auto;
-  flex: 0 0 30rem;
-  margin: 0 1%;
-  margin-bottom: 5rem;
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn {
+  display: flex;
+  gap: 2rem;
+  margin-left: 1rem;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn .avatars-group {
+  display: flex;
+}
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn .avatars-group .avatar {
+  position: relative;
+  z-index: 1000;
+  width: 6.1rem;
+  height: 6.1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #fff !important;
+  margin-left: -1.5rem;
+}
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn .avatars-group .avatar img {
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn .more {
+  font-size: 2rem;
+  color: #6A66D9;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tabContent .tab-friends .friends .entry a .details .mutual-friends-btn .mutual_friends_number {
+  color: #ff8944;
+}
+.tabContent .tab-friends .friends .entry a .details .btn-group {
+  display: flex;
+  justify-content: unset;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.tabContent .tab-friends .friends .entry a .details .btn-group .btn {
+  margin-right: 3rem;
 }
 .tabContent .tabfriend-requests {
   display: grid;
@@ -4099,62 +4182,6 @@ header .nav-loggedinUser a:hover {
 }
 .editpostContain .response {
   font-size: 3.6rem;
-}
-
-.friends {
-  grid-column: center-start/center-end;
-  margin: 10rem auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 60rem;
-}
-@media only screen and (max-width: 75em) {
-  .friends {
-    margin: 20rem 0;
-  }
-}
-.friends .entry {
-  height: auto;
-  flex: 0 0 30rem;
-  margin: 0 1%;
-  margin-bottom: 5rem;
-}
-@media only screen and (max-width: 62.5em) {
-  .friends .entry {
-    flex: 0 0 48%;
-  }
-}
-@media only screen and (max-width: 37.5em) {
-  .friends .entry {
-    flex: 0 0 80%;
-  }
-}
-@media only screen and (max-width: 31.25em) {
-  .friends .entry {
-    flex: 0 0 90%;
-  }
-}
-@media only screen and (max-width: 25em) {
-  .friends .entry {
-    flex: 0 0 100%;
-  }
-}
-.friends .entry img {
-  object-fit: cover;
-  height: 28rem;
-  border-radius: 1.2rem;
-}
-@media only screen and (max-width: 37.5em) {
-  .friends .entry img {
-    height: 32rem;
-  }
-}
-.friends .entry .heading-4 {
-  text-align: center;
-  color: #6A66D9;
-  font-size: 2.8rem;
-  margin-top: 2rem;
 }
 
 .indexpg {

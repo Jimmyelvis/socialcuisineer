@@ -10,6 +10,7 @@ export const profileTabsAccess = () => {
     const tabfriends = document.querySelector(".tab-friends");
     const tabContent = document.querySelector(".tabContent");
     const tabFriendRequests = document.querySelector(".tabfriend-requests");
+    const tabRespondToRequest = document.querySelector(".tabRespondToRequest");
 
 
     hideNonstartingTabs();
@@ -51,5 +52,6 @@ export const profileTabsAccess = () => {
       // tabMessages.style.display = "none";
       tabfriends.style.display = "none";
       tabFriendRequests.style.display = "none";
+      tabRespondToRequest.style.display = "none";
     }
   }

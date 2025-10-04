@@ -101,43 +101,6 @@ if (isset($_POST['post_message'])) {
       </div>
     </div>
 
-    <!-- <div class="tab tab-messages">
-
-      <div class="messagesBox">
-
-        <div class="messageToLabel">
-          <h3 class="heading-3">
-            You and
-            <span class="person">
-              <?php
-
-              $profile_user_obj = new User($con, $username);
-
-              echo "<a href='" . $username . "'>"
-                . $profile_user_obj->getFirstAndLastName() . "
-                  </a>";
-
-              ?>
-            </span>
-          </h3>
-        </div>
-
-        <div class="messages loaded_messages" id='scroll_messages'>
-
-          <?php
-          echo $message_obj->getMessages($username);
-          ?>
-
-        </div>
-
-        <form action="" method="POST">
-          <textarea name='message_body' id='message_textarea' cols="30" rows="10" placeholder="Post Something..." class="textArea"></textarea>
-          <input type='submit' name='post_message' class='btn btn-puprle btn-modalSubmit' id='message_submit' value='Submit'>
-        </form>
-
-      </div>
-
-    </div> -->
 
     <div class="tab tab-friends">
       <div class="friends" id="friendsContainer">
@@ -152,35 +115,68 @@ if (isset($_POST['post_message'])) {
 
         $user_obj = new User($con, $username);
         $friends = $user_obj->getFriendsList();
-        $friends_to_render = array_slice($friends, 0, 5); // Render only the first 5 friends
+        $friends_to_render = array_slice($friends, 0, 10); // Render only the first 5 friends
 
-        foreach ($friends_to_render as $friend) {
-          $friend_obj = new User($con, $friend);
-          $name = $friend_obj->getFirstAndLastName();
 
-          if ($friend_obj->getUsername() !== null) {
-            echo "
-            <div class='entry'>
-                <a href='$friend'>
-                    <img src='" . $friend_obj->getProfilePic() . "'>
-                    <h4 class='heading-4'> $name </h4>
+        // only run this if $friends_to_render is not empty
+        if (!empty($friends_to_render)) {
+
+          foreach ($friends_to_render as $friend) {
+            $friend_obj = new User($con, $friend);
+            $name = $friend_obj->getFirstAndLastName();
+            $username = $friend_obj->getUsername();
+            $profile_pic = $friend_obj->getProfilePic();
+            $mutual_friends = $user_obj->ListMutalFriends($friend);
+
+            if ($friend_obj->getUsername() !== null) {
+        ?>
+              <div class='entry'>
+                <a href='<?php echo $friend; ?>'>
+                  <div class='main-avatar'>
+                    <img src='<?php echo $profile_pic; ?>' alt='<?php echo $name; ?>' s avatar'>
+                  </div>
+                  <div class='details'>
+                    <h3 class='heading-3 friend-fullname'><?php echo $name; ?></h3>
+                    <h4 class='heading-4 username'>@<?php echo $username; ?></h4>
+                    <?php if (count($mutual_friends) > 0): ?>
+                      <div class='mutual-friends-btn'>
+                        <div class='avatars-group'>
+                          <?php
+                          $shown = 0;
+                          foreach ($mutual_friends as $mutual) {
+                            if ($shown >= 3) break;
+                            echo "<img src='{$mutual['avatar']}' alt='{$mutual['name']}' class='avatar'>";
+                            $shown++;
+                          }
+                          ?>
+                        </div>
+                        <span class='more'>
+                          &amp; <span class='mutual_friends_number'>
+                            <?php echo count($mutual_friends); ?>
+                          </span> more mutual friends
+                        </span>
+                      </div>
+                    <?php endif; ?>
+                  </div>
                 </a>
-            </div>";
+              </div>
+        <?php
+            }
           }
+        } else {
+          echo "<p style='text-align:center'>" . $user_obj->getFirstAndLastName() . " has no friends yet" .  " </p>";
         }
         ?>
 
-        <!-- Placeholder for additional friends to be hydrated -->
-        <div id="moreFriends" class="moreFriendsContainer"></div>
+
       </div>
     </div>
 
     <div class="tab tabfriend-requests">
 
       <h3 class="heading-3 response">
-        Test Friend Requests
       </h3>
-      
+
       <div class="requests" id="friendRequestsContainer">
 
 
@@ -189,38 +185,56 @@ if (isset($_POST['post_message'])) {
           <span></span><span></span><span></span>
         </div>
 
-    
 
+
+      </div>
+
+    </div>
+
+    <div class="tab tabRespondToRequest">
+      <h3 class="heading-3 response">
+        Respond to Friend Request
+      </h3>
+
+      <div class="requests" id="friendRequestsContainer">
+
+
+
+        <div class="loading">
+          <span></span><span></span><span></span>
+        </div>
+
+
+
+      </div>
     </div>
 
   </div>
 
-</div>
+  <script>
+    (function() {
 
-<script>
-  (function() {
+      /**
+       * Converts from PHP varible to JavaScript variable 
+       * so we can use it.
+       */
+      const initialFriendsData = <?php echo json_encode(array_slice($friends, 5)); ?>; // Remaining friends
+      let userLoggedIn = '<?php echo $userLoggedIn; ?>';
+      let profileUsername = '<?php echo $username; ?>';
+      const startingTab = document.querySelector('.posts_area');
+      const tabContent = document.querySelector('.tabContent');
+    })()
+  </script>
 
-    /**
-     * Converts from PHP varible to JavaScript variable 
-     * so we can use it.
-     */
-    const initialFriendsData = <?php echo json_encode(array_slice($friends, 5)); ?>; // Remaining friends
-    let userLoggedIn = '<?php echo $userLoggedIn; ?>';
-    let profileUsername = '<?php echo $username; ?>';
-    const startingTab = document.querySelector('.posts_area');
-    const tabContent = document.querySelector('.tabContent');
-  })()
-</script>
-
-<script src="./assets/js/dist/addfriend.js"></script>
-<script src="./assets/js/dist/removefriend.js"></script>
-<script src="./assets/js/dist/profilepage.js"></script>
+  <script src="./assets/js/dist/addfriend.js"></script>
+  <script src="./assets/js/dist/removefriend.js"></script>
+  <script src="./assets/js/dist/profilepage.js"></script>
 
 
 
 
-<?php
+  <?php
 
-include("includes/footer.php");
+  include("includes/footer.php");
 
-?>
+  ?>

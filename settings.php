@@ -133,6 +133,9 @@ $profile_header = $row['profile_header'];
       <h3 class="heading-3">
         Crop Your Avatar Image
       </h3>
+      <p style="text-align: center; margin-top: 8px; color: #66676fff;">
+        <i>Drag the image to position • Use mouse wheel to zoom • Drag corners to resize crop area</i>
+      </p>
     </div>
 
     <div class="modalBody cropperJsModal-body">
@@ -164,6 +167,9 @@ $profile_header = $row['profile_header'];
       <h3 class="heading-3">
         Crop Your Profile Header Image
       </h3>
+      <p style="text-align: center; margin-top: 8px; color: #666;">
+        <i>Drag the image to position • Use mouse wheel to zoom • Drag corners to resize crop area</i>
+      </p>
     </div>
 
     <div class="modalBody cropperJsProfileHeaderModal-body">

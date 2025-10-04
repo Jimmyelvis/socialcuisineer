@@ -1,9 +1,7 @@
 export const createFriendReqEntry = (friend) => {
   const { user_from, user_from_fullname, user_pic, mutual_friends, mutual_friends_list } = friend;
 
-  console.log('====================================');
-  console.log("friend:", friend);
-  console.log('====================================');
+
 
   const calcMutualFriends = (mutual_friends) => {
     if (mutual_friends > 0) {
@@ -23,7 +21,9 @@ export const createFriendReqEntry = (friend) => {
         </div>
 
         <div class="details">
-            <h3 class="heading-3 friend-fullname">${user_from_fullname}</h3>
+            <h3 class="heading-3 friend-fullname">
+             <a href="${user_from}">${user_from_fullname}</a>
+            </h3>
             <h4 class="heading-4 username">@${user_from}</h4>
             <p>Sent you a friend request</p>
 

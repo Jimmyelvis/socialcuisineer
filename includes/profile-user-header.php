@@ -13,12 +13,16 @@
 
         <div class="posts">
           <img src="./assets/img/post-in-a-circle-wht.svg" alt="">
-          <h3 class="heading-3"><?php echo $user_array['num_posts']; ?></h3>
+          <h3 class="heading-3"><?php 
+             $profile_user_obj = new User($con, $username);
+             echo $profile_user_obj->getNumberOfPosts();
+          ?></h3>
         </div>
 
         <div class="likes">
           <img src="./assets/img/like-in-a-circle-wht.svg" alt="">
-          <h3 class="heading-3"><?php echo $user_array['num_likes']; ?></h3>
+          <h3 class="heading-3"><?php 
+          echo $profile_user_obj->getNumberOfLikes() ; ?></h3>
         </div>
       </div>
     </div>
@@ -72,7 +76,9 @@
           if ($logged_in_user_obj->isFriend($username)) {
             echo '<input id="removeFriend" type="submit" name="remove_friend" class="btnText btnText-orange" value="Remove Friend"><br>';
           } else if ($logged_in_user_obj->didReceiveRequest($username)) {
-            echo '<input type="submit" name="respond_request" class="btnText btnText-purple" value="Respond to Request"><br>';
+            echo '<li class="linkTab" id="friendsRespondTab" >
+              Respond to Request
+            </li><br>';
           } else if ($logged_in_user_obj->didSendRequest($username)) {
             echo '<input type="submit" name="" class="btnText btnText-purple" value="Request Sent"><br>';
           } else

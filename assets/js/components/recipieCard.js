@@ -17,7 +17,11 @@ export const RecipeCard = ({ post }) => {
       <div class="card-userImage">
         <img src="${post.added_by.profile_pic}" alt="">
       </div>
-              
+
+      <button id='post${post.id}' class='card-closeBtn'>
+          <img src='./assets/img/close-btn-v2.svg' alt=''>
+      </button>
+
         <div class="card-info">
           <div class="card-desc">
             <div class="block"></div>

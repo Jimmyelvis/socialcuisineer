@@ -205,7 +205,8 @@ if (isset($_POST['x'])){
 	 	                <span style="font-size:14px;">
 	 	                    Crop / resize your uploaded profile image. <br />
 	 	                    Once you are happy with your profile image then please click save.
-
+                            <br /><br />
+                            <i>Drag the image to move it • Drag corners to resize</i>
 	 	                </span>
 	 	           </p>
 	 	        </div>

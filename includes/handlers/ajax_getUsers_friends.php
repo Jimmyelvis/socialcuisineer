@@ -29,7 +29,7 @@ $limit = $data['limit'] ?? 5; // Default limit to 5 if not provided
 
 try {
     $user = new User($con, $userLoggedIn);
-    $results = $user->getFriendArray($page, $startAt);
+    $results = $user->getFriendArray($page, $startAt, $limit, $profileUsername);
 
     echo json_encode($results);
 } catch (Exception $e) {

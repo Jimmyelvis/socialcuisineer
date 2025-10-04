@@ -18,7 +18,7 @@ if (!$data) {
 
 // $limit = 7; //Number of messages to load
 
-if (!isset($data['userLoggedIn'])) {
+if (!isset($data['user'])) {
     echo json_encode([
         'status' => 'error',
         'message' => 'User not provided'
@@ -26,11 +26,23 @@ if (!isset($data['userLoggedIn'])) {
     exit;
 }
 
-$userLoggedIn = $data['userLoggedIn'];
+// if(isset($data['userFrom'])) {
+//     $user_from = $data['userFrom'];
+  
+// }
+
+$userLoggedIn = $data['user'];
 
 try {
     $friendReqUser = new User($con, $userLoggedIn);
-    $results = $friendReqUser->getFriendsRequests();
+
+    if(isset($data['userFrom'])) {
+        $user_from = $data['userFrom'];
+       $results = $friendReqUser->getSingleFriendRequestFromUser($user_from);
+    } else{
+        $results = $friendReqUser->getFriendsRequests();
+    }
+
     
     
     echo json_encode($results);

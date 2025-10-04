@@ -63,39 +63,13 @@ document
     }
   });
 
-$(document).ready(function () {
-  $(".button_holder").on("click", function () {
-    document.search_form.submit();
-  });
-});
-
-/*
-  When you click away from the elements below
-  the results will get removed
-*/
-// $(document).click(function(e){
-
-//   if(e.target.class != "searchResultsbox" && e.target.id != "searchBox") {
-
-//     $('.searchBox').val("");
-//     $(".searchResultsbox").html("");
-//     $('.search_results_footer').html("");
-//     $('.search_results_footer').toggleClass("search_results_footer_empty");
-//     $('.search_results_footer').toggleClass("search_results_footer");
-//   }
-
-//   if(e.target.className != "dropdown_data_window") {
-
-//     $(".dropdown_data_window").html("");
-//     $(".dropdown_data_window").css({"padding" : "0px", "height" : "0px"});
-//   }
-
-//   if ($('.searchBox').val("")) {
-//     $(".searchResultsbox").css({"padding" : "0px"});
-
-//   }
-
+// $(document).ready(function () {
+//   $(".button_holder").on("click", function () {
+//     document.search_form.submit();
+//   });
 // });
+
+
 
 async function updateLike(post_id, value) {
   try {
@@ -162,9 +136,6 @@ async function getUsers(value, user) {
   }
 }
 
-/*
-  TODO: Follow example from function getDropdownData(user, type) in my previous 2021 version,
-*/
 
 async function getDropdownData(user, type) {
   let pageName;
@@ -198,7 +169,7 @@ async function getDropdownData(user, type) {
           ".friendsRequestsDesktop .content .entries .simplebar-content"
         );
 
-        const friendsReqsHTML = data.data;
+        const friendsReqsHTML = data.requests;
 
         if (friendsReqsHTML && friendsReqsHTML.length > 0) {
           friendsReqsHTML.forEach((req) => {
@@ -207,7 +178,9 @@ async function getDropdownData(user, type) {
             const html = `
             <div class="entry">
               <img src="${req.user_pic}">
-              <h4 class="heading-4">${req.user_from_fullname}</h4>
+              <a href="${req.user_from}">
+                <h4 class="heading-4">${req.user_from_fullname}</h4>
+              </a>
             </div>
             `;
 
@@ -249,56 +222,6 @@ async function getDropdownData(user, type) {
       }
     }
 
-    // if (data.status === "success") {
-    //   const dropdownElement = document.querySelector(".dropdown_data_window");
-    //   if (dropdownElement) {
-    //     // Clear previous content
-    //     dropdownElement.innerHTML = "";
-    //     dropdownElement.style.padding = "0px";
-    //     dropdownElement.style.height = "280px";
-
-    //     // Check if there are notifications
-    //     if (data.data && data.data.has_notifications) {
-    //       // Render each notification
-    //       const notifications = data.data.notifications;
-
-    //       notifications.forEach(notification => {
-    //         // Create notification HTML
-    //         const notificationElement = document.createElement("a");
-    //         notificationElement.className = "entry";
-    //         notificationElement.href = notification.link;
-
-    //         // Style for new notifications
-    //         const bgColor = notification.is_new ? "#DDEDFF" : "";
-
-    //         /*html*/
-    //         notificationElement.innerHTML = `
-    //           <div class="resultDisplay resultDisplayNotification" style="background-color: ${bgColor}">
-    //             <div class="notificationsProfilePic">
-    //               <img src="${notification.profile_pic}">
-    //             </div>
-    //             <h4 class="heading-4">${notification.time_message}</h4>
-    //             <h3 class="heading-3">${notification.message} :</h3>
-    //             <h3 class="heading-3 postHeader">${notification.heading}</h3>
-    //           </div>
-    //         `;
-
-    //         dropdownElement.appendChild(notificationElement);
-    //       });
-
-    //       // Add pagination if needed
-    //       if (data.data.pagination.has_more) {
-    //         const nextPage = data.data.pagination.next_page;
-    //         dropdownElement.innerHTML += `<input type='hidden' class='nextPageDropdownData' value='${nextPage}'><input type='hidden' class='noMoreDropdownData' value='false'>`;
-    //       } else {
-    //         dropdownElement.innerHTML += `<input type='hidden' class='noMoreDropdownData' value='true'><p style='text-align: center; width: 100%;'>No more notifications to load!</p>`;
-    //       }
-    //     } else {
-    //       // No notifications
-    //       dropdownElement.innerHTML = "<p style='text-align: center; padding: 10px;'>You have no notifications!</p>";
-    //     }
-    //   }
-    // }
   } catch (error) {
     console.error("Error:", error);
   }
@@ -442,7 +365,7 @@ async function getLiveSearchUsers(value, user) {
       if (totalResults > 0) {
         /*html*/
         searchResultsFooter.innerHTML = `
-          <a class='heading-3' href='allResults.php?q=${value}'>
+          <a class='heading-3' href='${allResults}.php?q=${value}'>
             See All ${totalResults} Results 
           </a>
         `;
@@ -464,60 +387,7 @@ async function getLiveSearchUsers(value, user) {
   }
 }
 
-// async function getLiveSearchUsersMobile(value, user) {
 
-//   /*
-//       Post ajax call  when we access the ( includes/handlers/ajax_search.php ) page
-//       we will use the parameters {query:value, userLoggedIn: user}
-//       whatever is returned will be used in (data)
-//       q == the query string we are passing
-//   */
-
-//      if (searchOptionSelected == "Users") {
-//        var option = "includes/handlers/ajax_search_mobile.php";
-//        allResults = "searchallusers";
-//      } else {
-//        var option = "includes/handlers/ajax_search_recipes_mobile.php";
-//        allResults = "searchallposts";
-//      }
-
-//   try {
-//     const response = await fetch(option, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         query: value,
-//         userLoggedIn: user
-//       })
-//     });
-
-//     const data = await response.json();
-
-//     if (data.status === 'success') {
-//       if($(".search_results_footer_empty")[0]) {
-//         $(".search_results_footer_empty").toggleClass("search_results_footer");
-//         $(".search_results_footer_empty").toggleClass("search_results_footer_empty");
-//       }
-
-//       $('.searchResultsbox').html(data.data.html);
-//       $('.search_results_footer').html(" <a class='heading-3' href='" + allResults + ".php?q=" + value + "'>See All Results</a>");
-//       $('.searchResultsbox').css({"paddingBottom": "20%"})
-//     } else {
-//       $('.search_results_footer').html("");
-//       $('.search_results_footer').toggleClass("search_results_footer_empty");
-//       $('.search_results_footer').toggleClass("search_results_footer");
-//       $('.searchResultsbox').html("");
-//       $('.searchResultsbox').css({"padding": "0px"})
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-
-// Enable Hot Module Replacement
-// Enable Hot Module Replacement
 if (typeof module !== 'undefined' && module.hot) {
   module.hot.accept();
 }

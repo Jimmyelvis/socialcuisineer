@@ -13,17 +13,13 @@ class ProfilePage {
     this.inProgress = false;
     this.profileHeaderNav = document.getElementById("profileHeaderNav");
     this.tabContent = document.querySelector(".tabContent");
+    this.processFriendRequest();
+
 
     this.nextPageValue = null;
     this.morePosts = true;
     this.moreFriends = true;
     this.activeTab = "timeline";
-    // this.startAt = 5;
-
-    /**
-     * Add an event listener for the window object to detect
-     * a scroll event
-     *  */
 
     document.addEventListener("scroll", () => {
       this.scrollView();
@@ -65,7 +61,7 @@ class ProfilePage {
         userLoggedIn,
         profileUsername,
         page,
-        startAt: 5,
+        startAt: 10,
         limit: 10,
       }),
     })
@@ -251,6 +247,7 @@ class ProfilePage {
     const aboutTab = document.getElementById("aboutTab");
     const friendsTab = document.getElementById("friendsTab");
     const friendsRequestsTab = document.getElementById("friendsRequestsTab");
+    const friendsRespondTab = document.getElementById("friendsRespondTab");
 
     timelineTab.addEventListener("click", () => {
       // this.hydrateTimeline()
@@ -272,12 +269,32 @@ class ProfilePage {
       console.log("Active tab is: " + this.activeTab);
     });
 
-    friendsRequestsTab.addEventListener("click", () => {
-      this.getFriendRequests();
-      this.activeTab = "friendsRequests";
+    /*
+      This tab is only visible to the profile owner, So if we are on not on the logged in user's profile, the element will be null
+    */
+    if (friendsRequestsTab) {
+      friendsRequestsTab.addEventListener("click", () => {
+        this.getFriendRequests();
+        this.activeTab = "friendsRequests";
+  
+        console.log("Active tab is: " + this.activeTab);
+      });
+    }
 
-      console.log("Active tab is: " + this.activeTab);
-    });
+
+    /*
+      This tab will only be visible if a logged in user is viewing another user's profile that has sent them a friend request
+    */
+
+    if (friendsRespondTab){
+
+      friendsRespondTab.addEventListener("click", () => {
+        this.getFriendRequestsFromUser(profileUsername);
+        this.activeTab = "friendsRespond";
+  
+        console.log("Active tab is: " + this.activeTab);
+      });
+    }
 
     console.log("Active tab is: " + this.activeTab);
   }
@@ -292,8 +309,41 @@ class ProfilePage {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userLoggedIn,
+        user:userLoggedIn,
         profileUsername,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          const requestsDiv = document.querySelector("#friendRequestsContainer");
+
+          console.log("Fetched friend requests:", data);
+
+          // Clear loading state
+          requestsDiv.innerHTML = "";
+
+          // Populate friend requests
+          data.requests.forEach((friend) => {
+            const entry = createFriendReqEntry(friend);
+            requestsDiv.appendChild(entry);
+          });
+        } else {
+          console.error("Error fetching friend requests:", data.message);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  getFriendRequestsFromUser(userFrom) {
+    fetch("includes/handlers/ajax_load_friendReqs.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userFrom: userFrom,
+        user:userLoggedIn,
       }),
     })
       .then((response) => response.json())
@@ -324,18 +374,13 @@ class ProfilePage {
       ".tabfriend-requests .response "
     );
 
+
     friendRequestsContainer.addEventListener("click", function (e) {
 
-      console.log('====================================');
-      console.log("e.target:", e.target);
-      console.log('====================================');
+  
 
       if (e.target.classList.contains("acceptButton") || e.target.classList.contains("ignoreButton")) {
         e.preventDefault();
-
-        console.log('====================================');
-        console.log("clicked man");
-        console.log('====================================');
 
         let userRequestDiv = e.target.closest(".entry");
         let uname = e.target.attributes["name"].value;
@@ -388,6 +433,8 @@ class ProfilePage {
         }
     });
   }
+
+
 
   
 }

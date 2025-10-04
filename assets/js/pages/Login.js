@@ -44,6 +44,8 @@ class Login {
     const signupErrors = document.querySelector(".signupErrors");
     const signupErrorsSide = document.querySelector(".signupErrorsSide");
     const signInresponse = document.querySelector(".signInresponse");
+    const signUpresponse = document.querySelector(".signInresponse");
+    const loginBox = this.loginBox;
 
     signUpSubmit.addEventListener("click", function (e) {
       e.preventDefault();
@@ -78,6 +80,7 @@ class Login {
       );
       bodyFormData.append("register_button", "register_button");
 
+      // change from axios to fetch
       axios({
         method: "post",
         url: "includes/form_handlers/register_handler.php",
@@ -86,7 +89,15 @@ class Login {
         },
         data: bodyFormData,
       })
-        .then((res) => showSignIn(res.data))
+        .then((res) => {
+
+          console.log("res.data", res.data);
+          
+          console.log('====================================');
+          console.log("signInresponse", signInresponse);
+          console.log('====================================');
+          showSignIn(res.data)}
+        )
         .catch((err) => console.error(err));
 
       function showSignIn(res) {
@@ -109,8 +120,12 @@ class Login {
            * TODO: Clear form on successful submition, which means I will have to paste back in all the session form values that I removed.
            */
 
+          console.log('====================================');
+          console.log("Successful signup, response:", res);
+          console.log('====================================');
+
           loginBox.classList.remove("right-panel-active");
-          signInresponse.innerHTML = res;
+          signUpresponse.innerHTML = res;
         }
       }
     });

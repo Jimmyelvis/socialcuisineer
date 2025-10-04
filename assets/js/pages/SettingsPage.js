@@ -66,6 +66,12 @@ class SettingPage {
         // aspectRatio: 1,
         viewMode: 3,
         preview: croppedAvatarPreview,
+        dragMode: 'move',     // Allow moving the image
+        movable: true,        // Enable image movement
+        guides: true,         // Show cropping guides
+        zoomable: true,       // Allow zooming the image
+        zoomOnWheel: true,    // Enable zoom on mouse wheel
+        wheelZoomRatio: 0.1,  // Adjust zoom speed
       });
 
       avatarCrop.addEventListener("click", function () {
@@ -243,6 +249,12 @@ class SettingPage {
         // aspectRatio: 1,
         viewMode: 3,
         preview: croppedProfileHeaderPreview,
+        dragMode: 'move',     // Allow moving the image
+        movable: true,        // Enable image movement
+        guides: true,         // Show cropping guides
+        zoomable: true,       // Allow zooming the image
+        zoomOnWheel: true,    // Enable zoom on mouse wheel
+        wheelZoomRatio: 0.1,  // Adjust zoom speed
       });
 
       profileHeaderCrop.addEventListener("click", function (e) {

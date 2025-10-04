@@ -110,11 +110,69 @@ class User
         }
     }
 
+    public function getSingleFriendRequestFromUser($user_from)
+    {
+        $username = $this->user['username'];
+        $theReqs = [];
+        $response = [];
+        $query = mysqli_query($this->con, "SELECT * FROM friend_requests WHERE user_to='$username' AND user_from='$user_from' LIMIT 1");
+
+        if (mysqli_num_rows($query) == 0) {
+            $list = [
+                'status' => 'success',
+                'message' => 'You have no friend requests at this time!'
+            ];
+        } else {
+
+            while ($row = mysqli_fetch_array($query)) {
+                $user_from = $row['user_from'];
+
+                $user_from_fullname = $this->getFullnameForReqs($user_from);
+
+                if (!in_array($user_from, $theReqs)) {
+                    array_push($theReqs, $user_from);
+                }
+            }
+
+            foreach ($theReqs as $req) {
+
+                $user_pic = $this->getProfilePicForReqs($req);
+                $user_from_fullname = $this->getFullnameForReqs($req);
+                $user_from = $req;  
+                $list[] = [
+                    'user_from' => $user_from,
+                    'user_from_fullname' => $user_from_fullname,
+                    'user_pic' => $user_pic,
+                    'mutual_friends' => $this->getMutualFriends($req),
+                    'mutual_friends_list' => $this->ListMutalFriends($req)
+                ];
+            }
+        }
+        $response = [
+            'status' => 'success',
+            'requests' => $list
+        ];
+        return $response;
+    }   
+
+  
+
     public function processFriendRequest($user_from, $action)
     {
         $user_to = $this->user['username'];
 
         $response = [];
+  
+
+        // check to see if they are already friends
+        $user_obj = new User($this->con, $user_to);
+        if ($user_obj->isFriend($user_from)) {
+            return [
+                'status' => 'error',
+                'message' => 'You are already friends with ' . $user_from
+            ];
+        }
+
 
         if ($action === 'accept') {
             // Add each other as friends
@@ -193,7 +251,7 @@ class User
         return $row['profile_pic'];
     }
 
-    public function getFriendArray($page = 1, $startAt = 0, $limit = 5)
+    public function getFriendArray($page = 1, $startAt = 0, $limit, $profileUsername)
     {
         $username = $this->user['username'];
 
@@ -202,7 +260,7 @@ class User
             $query = mysqli_query($this->con, "
                 SELECT friend_array
                 FROM users
-                WHERE username='$username'
+                WHERE username='$profileUsername'
             ");
 
 
@@ -216,6 +274,18 @@ class User
             // Split the friend_array string into an array
             $friend_array = explode(",", trim($friend_array_string, ","));
 
+            if (empty($friend_array) || (count($friend_array) < $limit )) {
+                return [
+                    'status' => 'success',
+                    'data' => [
+                        'friend_array' => [],
+                        'has_more' => false,
+                        'next_page' => null,
+                        'friends_total' => 0
+                    ]
+                ];
+            }
+
             $nextStartAt = $startAt * ($page - 1);
             // Paginate the array using array_slice
             $friends = array_slice($friend_array, $nextStartAt, $limit);
@@ -227,7 +297,9 @@ class User
                 $friend_objects[] = [
                     'username' => $friend,
                     'name' => $entry->getFirstAndLastName(),
-                    'profile_pic' => $entry->getProfilePic()
+                    'profile_pic' => $entry->getProfilePic(),
+                    'mutual_friends' => $this->getMutualFriends($friend),
+                    'mutual_friends_list' => $this->ListMutalFriends($friend)
                 ];
             }
 
@@ -236,7 +308,7 @@ class User
                 'status' => 'success',
                 'data' => [
                     'friend_array' => $friend_objects,
-                    'has_more' => ($startAt + 5 < $friend_count),
+                    'has_more' => ($startAt + $limit < $friend_count),
                     'next_page' => $page + 1,
                     'friends_total' => $friend_count
                 ]
@@ -258,6 +330,11 @@ class User
         if (isset($this->user['friend_array'])) {
             $friend_array_string = $this->user['friend_array']; // Get friend array string from table
             $friend_array_string = trim($friend_array_string, ","); // Remove first and last comma
+
+            if (empty($friend_array_string)) {
+                return []; // Return an empty array if the string is empty after trimming
+            } 
+
             return explode(",", $friend_array_string); // Split to array at each comma
         } else {
             return []; // Return an empty array if 'friend_array' key does not exist
@@ -384,4 +461,26 @@ class User
         }
         return $mutualFriends;
     }
-}   
+
+    public function getNumberOfPosts() {
+
+
+        $username = $this->user['username'];
+        $query = mysqli_query($this->con, "SELECT COUNT(*) as post_count FROM posts WHERE added_by='$username' AND deleted='no'");
+
+        // count the number of posts and return that number an integer
+        $row = mysqli_fetch_array($query);
+        return (int)$row['post_count'];
+    }
+
+    public function getNumberOfLikes() {
+        $username = $this->user['username'];
+
+        // look in the posts table for all posts added by this user and sum up the likes column
+        $query = mysqli_query($this->con, "SELECT SUM(likes) as total_likes FROM posts WHERE added_by='$username' AND deleted='no'");
+        $row = mysqli_fetch_array($query);
+        return (int)$row['total_likes'];    
+      
+    }
+
+}
